@@ -1,0 +1,30 @@
+.root-pane {
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+}
+ 
+.pair-row-hover {
+    -fx-background-color: #EBF8F5;
+    -fx-border-color: #1ABC9C;
+}
+ 
+.item-label-left {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+}
+ 
+.item-label-right {
+    -fx-font-size: 13px;
+    -fx-text-fill: #7F8C8D;
+}
+
+.item-label-clickable {
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.process-item-hover {
+    -fx-background-color: #EBF8F5;
+    -fx-border-color: #1ABC9C;
+}

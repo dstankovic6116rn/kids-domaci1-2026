@@ -16,7 +16,7 @@
       "name": "App",
       "request": "launch",
       "mainClass": "org.example/org.example.App",
-      "projectName": "hellofx",
+      "projectName": "productivitybuddy",
       "vmArgs": "-Dprism.order=sw -Dprism.text=t2k -Dfile.encoding=UTF-8"
     }
   ]
