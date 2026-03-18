@@ -1,0 +1,23 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "org.example/org.example.App",
+      "projectName": "productivitybuddy"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "org.example/org.example.App",
+      "projectName": "hellofx",
+      "vmArgs": "-Dprism.order=sw -Dprism.text=t2k -Dfile.encoding=UTF-8"
+    }
+  ]
+}
