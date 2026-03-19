@@ -21,6 +21,11 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>6.4.10</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
