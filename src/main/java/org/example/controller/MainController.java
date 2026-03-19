@@ -10,7 +10,7 @@ public class MainController {
 
   public MainController(MainView mainView) {
     DataService dataService = new DataService();
-    this.processListController = new ProcessListController(mainView.getProcessListView(), dataService);
+    this.processListController = new ProcessListController(mainView.getProcessListView(), dataService, mainView);
     this.toolbarController = new ToolbarController(mainView.getToolbarView());
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);
 

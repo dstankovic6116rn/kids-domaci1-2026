@@ -9,6 +9,8 @@ public class MainView {
 
   private final StackPane root;
   private final BorderPane mainPage;
+  private final StackPane rightPane;
+
   private final ToolbarView toolbarView;
   private final ProcessListView processListView;
   private final PieView pieView;
@@ -18,8 +20,9 @@ public class MainView {
     toolbarView = new ToolbarView();
     processListView = new ProcessListView();
     pieView = new PieView();
+    rightPane = new StackPane(pieView.getRoot());
 
-    SplitPane splitPane = new SplitPane(processListView.getRoot(), pieView.getRoot());
+    SplitPane splitPane = new SplitPane(processListView.getRoot(), rightPane);
     splitPane.setOrientation(Orientation.HORIZONTAL);
     splitPane.setDividerPositions(0.5);
 
@@ -47,6 +50,24 @@ public class MainView {
     root.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
     mainPage.setVisible(true);
     mainPage.setManaged(true);
+  }
+
+  public void showProcessDetails(ProcessDetailsView processDetailsView) {
+    rightPane.getChildren().removeIf(node -> node instanceof ProcessDetailsView);
+    rightPane.getChildren().add(processDetailsView);
+
+    pieView.getRoot().setVisible(false);
+    pieView.getRoot().setManaged(false);
+
+    processDetailsView.setVisible(true);
+    processDetailsView.setManaged(true);
+  }
+
+  public void showPieView() {
+    rightPane.getChildren().removeIf(node -> node instanceof ProcessDetailsView);
+
+    pieView.getRoot().setVisible(true);
+    pieView.getRoot().setManaged(true);
   }
 
   public ToolbarView getToolbarView() {
