@@ -30,10 +30,9 @@ public class DataService {
   public PieChartData loadChartData() {
     PieChartData model = new PieChartData("Overview");
     model.setSlices(FXCollections.observableArrayList(
-        new PieChart.Data("Category A", 35),
-        new PieChart.Data("Category B", 25),
-        new PieChart.Data("Category C", 20),
-        new PieChart.Data("Category D", 20)));
+        new PieChart.Data("Work", 35),
+        new PieChart.Data("Fun", 25),
+        new PieChart.Data("Other", 20)));
     return model;
   }
 

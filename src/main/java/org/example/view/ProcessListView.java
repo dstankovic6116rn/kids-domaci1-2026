@@ -22,7 +22,6 @@ public class ProcessListView {
   private final ScrollPane root;
   private final VBox processListContainer;
 
-  // Callbacks (set by ListController)
   private Consumer<ProcessItem> onLabelClicked = item -> {
   };
   private BiConsumer<ProcessItem, String> onCategoryChanged = (item, newCategory) -> {
@@ -51,7 +50,7 @@ public class ProcessListView {
     processNameLabel.setOnMouseExited(e -> processNameLabel.getStyleClass().remove("process-item-hover"));
 
     processNameLabel.setOnMouseClicked(e -> {
-      e.consume(); // Prevent event from propagating to category label
+      e.consume(); // Prevent event from propagating to process name label
       onLabelClicked.accept(item);
     });
 
@@ -61,7 +60,7 @@ public class ProcessListView {
     processCategoryLabel.setOnMouseExited(e -> processCategoryLabel.getStyleClass().remove("process-item-hover"));
 
     processCategoryLabel.setOnMouseClicked(e -> {
-      e.consume(); // Prevent event from propagating to process name label
+      e.consume();
       onCategoryChanged.accept(item, processCategoryLabel.getText());
     });
 
