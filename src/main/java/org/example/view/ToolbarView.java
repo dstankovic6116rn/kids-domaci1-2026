@@ -18,7 +18,6 @@ public class ToolbarView {
     loadButton = new Button("Load");
     loadButton.getStyleClass().add("toolbar-button");
     shutdownButton = new Button("Shutdown");
-
     shutdownButton.getStyleClass().add("toolbar-button");
 
     root = new HBox(saveButton, loadButton, shutdownButton);

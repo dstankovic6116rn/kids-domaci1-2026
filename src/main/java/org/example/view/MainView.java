@@ -1,5 +1,7 @@
 package org.example.view;
 
+import javafx.geometry.Orientation;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 
 public class MainView {
@@ -7,6 +9,7 @@ public class MainView {
   private final BorderPane root;
   private final ToolbarView toolbarView;
   private final ProcessListView processListView;
+  private final PieView pieView;
 
   public MainView() {
     root = new BorderPane();
@@ -16,7 +19,12 @@ public class MainView {
     root.setTop(toolbarView.getRoot());
 
     processListView = new ProcessListView();
-    root.setCenter(processListView.getRoot());
+    pieView = new PieView();
+
+    SplitPane splitPane = new SplitPane(processListView.getRoot(), pieView.getRoot());
+    splitPane.setOrientation(Orientation.HORIZONTAL);
+    splitPane.setDividerPositions(0.5);
+    root.setCenter(splitPane);
 
   }
 
@@ -26,6 +34,10 @@ public class MainView {
 
   public ProcessListView getProcessListView() {
     return processListView;
+  }
+
+  public PieView getPieView() {
+    return pieView;
   }
 
   public BorderPane getRoot() {
