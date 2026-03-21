@@ -1,39 +1,65 @@
 package org.example.services;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.example.model.PieChartData;
+import org.example.model.ProcessData;
 import org.example.model.ProcessItem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
-public class DataService {
-	private final List<String> options = List.of("Work", "Fun", "Other");
+/**
+ * Centralni koordinator podataka izmedju ProcessScanService, ProcessStore i
+ * kontrolera, kao i izvodjenje podataka za PieChart
+ */
 
-	public ObservableList<ProcessItem> loadItemPairs() {
-		// Each ItemPair takes: label, initial value, list of 3 possible values.
-		return FXCollections.observableArrayList(
-				new ProcessItem("VS Code", "Work",
-						options),
-				new ProcessItem("Chrome", "Fun",
-						options),
-				new ProcessItem("Pages", "Other",
-						options),
-				new ProcessItem("YouTube", "Fun",
-						options),
-				new ProcessItem("Mail", "Work",
-						options));
+public class DataService {
+	private final ProcessScanService processScanService = new ProcessScanService();
+	private final ProcessData processData = new ProcessData();
+
+	/**
+	 * Skenira procese sa fork/join pool
+	 * Merge-uje rezultat u ProcessData
+	 * Vraca osvezenu listu procesa
+	 * 
+	 * Ne sme se pozvati iz FX Thread-a
+	 */
+	public List<ProcessItem> scanAndUpdate() {
+		List<ProcessItem> scannedProcesses = processScanService.scan();
+		processData.merge(scannedProcesses);
+		return processData.getAll();
 	}
 
-	public PieChartData loadChartData() {
-		PieChartData model = new PieChartData("Overview");
-		model.setSlices(FXCollections.observableArrayList(
-				new PieChart.Data("Work", 35),
-				new PieChart.Data("Fun", 25),
-				new PieChart.Data("Other", 20)));
-		return model;
+	/**
+	 * Vraca trenutne in-memory procese
+	 */
+	public List<ProcessItem> getCurrentProcceses() {
+		return processData.getAll();
+	}
+
+	public void setProcessCategory(String name, String category) {
+		ProcessItem pi = processData.getByName(name);
+		if (pi != null) {
+			pi.setCategory(category);
+		}
+	}
+
+	public ObservableList<PieChart.Data> buildProcessCategoryPieData() {
+		Map<String, Long> counts = processData.getAll().stream()
+				.collect(Collectors.groupingBy(
+						ProcessItem::getCategory,
+						Collectors.counting()));
+
+		ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
+		counts.forEach((category, count) -> slices.add(new PieChart.Data(category, count)));
+		return slices;
+	}
+
+	public void shutdown() {
+		processScanService.shutdown();
 	}
 
 }

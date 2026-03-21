@@ -8,8 +8,7 @@ public class MainController {
   private final ToolbarController toolbarController;
   private final PieController pieController;
 
-  public MainController(MainView mainView) {
-    DataService dataService = new DataService();
+  public MainController(MainView mainView, DataService dataService) {
     this.processListController = new ProcessListController(mainView.getProcessListView(), dataService, mainView);
     this.toolbarController = new ToolbarController(mainView.getToolbarView());
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);

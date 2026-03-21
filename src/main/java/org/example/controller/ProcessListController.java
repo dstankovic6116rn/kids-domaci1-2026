@@ -1,11 +1,15 @@
 package org.example.controller;
 
+import java.util.List;
+
 import org.example.model.ProcessItem;
 import org.example.services.DataService;
 import org.example.view.MainView;
 import org.example.view.ProcessDetailsView;
 import org.example.view.ProcessListView;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ProcessListController {
@@ -20,30 +24,40 @@ public class ProcessListController {
     this.processListView = processListView;
     this.dataService = dataService;
     this.mainView = mainView;
+    this.processItems = FXCollections.observableArrayList();
 
     processListView.setOnLabelClicked(this::onLabelClicked);
     processListView.setOnCategoryChanged(this::onCategoryChanged);
-    loadProcessItems();
+    triggerScan();
+  }
+
+  private void triggerScan() {
+    Thread scanner = new Thread(() -> {
+      List<ProcessItem> result = dataService.scanAndUpdate();
+      Platform.runLater(() -> {
+        processItems.setAll(result);
+        processListView.setProcessItems(processItems);
+      });
+    });
+
+    scanner.setDaemon(true);
+    scanner.setName("Process Scanner Thread");
+    scanner.start();
   }
 
   private void onLabelClicked(ProcessItem item) {
-    System.out.println("Label clicked: " + item.getProcessName());
+    System.out.println("Label clicked: " + item.getOriginalName());
     ProcessDetailsView processDetailsView = new ProcessDetailsView(item);
     processDetailsView.setOnBackRequested(mainView::showPieView);
 
     new ProcessDetailsController(processDetailsView, item);
-    // TODO show Process Details view
     mainView.showProcessDetails(processDetailsView);
   }
 
-  private void onCategoryChanged(ProcessItem item, String newValue) {
-    System.out.println("Value changed: " + item.getCategory() + " → " + newValue);
-    // TODO: persist the change, notify other controllers if needed
-  }
+  private void onCategoryChanged(ProcessItem item, String category) {
+    System.out.println("Value changed for:" + item.getOriginalName() + " " + item.getCategory() + " → " + category);
+    dataService.setProcessCategory(item.getOriginalName(), category);
 
-  private void loadProcessItems() {
-    processItems = dataService.loadItemPairs();
-    processListView.setProcessItems(processItems);
   }
 
   public ObservableList<ProcessItem> getProcessItems() {

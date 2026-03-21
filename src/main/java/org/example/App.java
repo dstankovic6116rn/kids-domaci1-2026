@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.controller.MainController;
+import org.example.services.DataService;
 import org.example.view.MainView;
 
 import javafx.application.Application;
@@ -9,10 +10,14 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+    private DataService dataService;
+
     @Override
-    public void start(Stage stage) {
+    public void start(@SuppressWarnings("exports") Stage stage) {
+        dataService = new DataService();
+
         MainView mainView = new MainView();
-        new MainController(mainView);
+        new MainController(mainView, dataService);
 
         Scene scene = new Scene(mainView.getRoot(), 1000, 800);
         scene.getStylesheets()
@@ -21,6 +26,17 @@ public class App extends Application {
         stage.setTitle("Productivity Buddy");
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * Gasi tredove Fork/join pool-a u JVM nakon gasenja prozora aplikacije
+     * dataService - processScanService - forkJoinPool
+     */
+    @Override
+    public void stop() {
+        if (dataService != null) {
+            dataService.shutdown();
+        }
     }
 
     public static void main(String[] args) {
