@@ -12,6 +12,11 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Upravlja listom procesa
+ * Obavestava PieController da osvezi prikaz preko onChartRefreshNeeded
+ * 
+ */
 public class ProcessListController {
 
   private final ProcessListView processListView;
@@ -19,6 +24,8 @@ public class ProcessListController {
   private final MainView mainView;
 
   ObservableList<ProcessItem> processItems;
+  private Runnable onChartRefreshNeeded = () -> {
+  };
 
   public ProcessListController(ProcessListView processListView, DataService dataService, MainView mainView) {
     this.processListView = processListView;
@@ -28,15 +35,18 @@ public class ProcessListController {
 
     processListView.setOnLabelClicked(this::onLabelClicked);
     processListView.setOnCategoryChanged(this::onCategoryChanged);
+
     triggerScan();
   }
 
   private void triggerScan() {
     Thread scanner = new Thread(() -> {
       List<ProcessItem> result = dataService.scanAndUpdate();
+
       Platform.runLater(() -> {
         processItems.setAll(result);
         processListView.setProcessItems(processItems);
+        onChartRefreshNeeded.run(); // PieChart je bio prazan na pocetku, sada se osvezava
       });
     });
 
@@ -55,9 +65,14 @@ public class ProcessListController {
   }
 
   private void onCategoryChanged(ProcessItem item, String category) {
-    System.out.println("Value changed for:" + item.getOriginalName() + " " + item.getCategory() + " → " + category);
     dataService.setProcessCategory(item.getOriginalName(), category);
+    System.out.println("Value changed for:" + item.getOriginalName() + " " + item.getCategory() + " → " + category);
 
+    onChartRefreshNeeded.run();
+  }
+
+  public void setOnChartRefreshNeeded(Runnable handler) {
+    this.onChartRefreshNeeded = handler;
   }
 
   public ObservableList<ProcessItem> getProcessItems() {

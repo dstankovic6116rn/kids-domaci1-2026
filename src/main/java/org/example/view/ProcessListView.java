@@ -44,7 +44,7 @@ public class ProcessListView {
 
   private HBox createProcessItem(ProcessItem item) {
 
-    Label processNameLabel = new Label(item.getProcessName());
+    Label processNameLabel = new Label(item.getDisplayName());
     processNameLabel.getStyleClass().addAll("item-label-left", "item-label-clickable");
     processNameLabel.setOnMouseEntered(e -> processNameLabel.getStyleClass().add("process-item-hover"));
     processNameLabel.setOnMouseExited(e -> processNameLabel.getStyleClass().remove("process-item-hover"));
@@ -58,11 +58,6 @@ public class ProcessListView {
     processCategoryLabel.getStyleClass().addAll("item-label-right", "item-label-clickable");
     processCategoryLabel.setOnMouseEntered(e -> processCategoryLabel.getStyleClass().add("process-item-hover"));
     processCategoryLabel.setOnMouseExited(e -> processCategoryLabel.getStyleClass().remove("process-item-hover"));
-
-    processCategoryLabel.setOnMouseClicked(e -> {
-      e.consume();
-      onCategoryChanged.accept(item, processCategoryLabel.getText());
-    });
 
     ContextMenu categoryMenu = buildCategoriesMenu(item, processCategoryLabel);
     processCategoryLabel.setOnMouseClicked(e -> {
@@ -84,7 +79,7 @@ public class ProcessListView {
   private ContextMenu buildCategoriesMenu(ProcessItem item, Label categoryLabel) {
     ContextMenu menu = new ContextMenu();
 
-    for (String option : item.getCategoryOptions()) {
+    for (String option : ProcessItem.CATEGORY_OPTIONS) {
       MenuItem menuItem = new MenuItem(option);
       menuItem.setOnAction(e -> {
         item.setCategory(option); // update model

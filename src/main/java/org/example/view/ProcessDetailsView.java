@@ -38,11 +38,11 @@ public class ProcessDetailsView extends VBox {
     topBar.setPadding(new Insets(10, 16, 10, 16));
 
     // ── Content ──────────────────────────────────────────────────
-    Label nameLabel = new Label(processItem.getProcessName());
+    Label nameLabel = new Label(processItem.getDisplayName());
     nameLabel.getStyleClass().add("process-detail-name");
 
     Label placeholderText = new Label(
-        "Additional information about \"" + processItem.getProcessName() + "\" will appear here.");
+        "Additional information about \"" + processItem.getDisplayName() + "\" will appear here.");
     placeholderText.getStyleClass().add("process-detail-placeholder");
     placeholderText.setWrapText(true);
 

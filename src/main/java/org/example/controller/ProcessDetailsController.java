@@ -19,18 +19,18 @@ public class ProcessDetailsController {
   }
 
   private void onKillProcess() {
-    System.out.println("Kill process: " + processItem.getProcessName());
+    System.out.println("Kill process: " + processItem.getDisplayName());
   }
 
   private void onChangeProccessName() {
-    System.out.println("Change process name: " + processItem.getProcessName());
+    System.out.println("Change process name: " + processItem.getDisplayName());
   }
 
   private void onFreezeTracking() {
-    System.out.println("Freeze tracking: " + processItem.getProcessName());
+    System.out.println("Freeze tracking: " + processItem.getDisplayName());
   }
 
   private void onChangeProcessCategory() {
-    System.out.println("Change process category: " + processItem.getProcessName());
+    System.out.println("Change process category: " + processItem.getDisplayName());
   }
 }

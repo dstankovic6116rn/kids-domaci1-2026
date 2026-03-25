@@ -2,6 +2,7 @@ package org.example.services;
 
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 import org.example.model.ProcessItem;
 import org.example.workers.ScanWorker;
@@ -36,7 +37,7 @@ public class ProcessScanService {
   public List<ProcessItem> scan() {
 
     List<OSProcess> rawProcesses = os.getProcesses();
-    List<OSProcess> active = rawProcesses.stream().filter(p -> isActiveProcess(p)).toList();
+    List<OSProcess> active = rawProcesses.stream().filter(p -> isActiveProcess(p)).collect(Collectors.toList());
 
     /**
      * invoke() submit-uje task i blokira pozivajuci thread dok se ne zavrsi i vraca

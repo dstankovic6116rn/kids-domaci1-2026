@@ -49,12 +49,14 @@ public class DataService {
 
 	public ObservableList<PieChart.Data> buildProcessCategoryPieData() {
 		Map<String, Long> counts = processData.getAll().stream()
+				.filter(p -> !p.getCategory().equals(ProcessItem.DEFAULT_CATEGORY))
 				.collect(Collectors.groupingBy(
 						ProcessItem::getCategory,
 						Collectors.counting()));
 
 		ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
 		counts.forEach((category, count) -> slices.add(new PieChart.Data(category, count)));
+		System.out.println("buildProcessCategoryPieData" + slices);
 		return slices;
 	}
 
