@@ -64,4 +64,8 @@ public class DataService {
 		processScanService.shutdown();
 	}
 
+	public List<ProcessItem> getProcessesByCategoryName(String catName) {
+		return processData.getAll().stream().filter(p -> p.getCategory().equals(catName)).collect(Collectors.toList());
+	}
+
 }

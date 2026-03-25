@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.services.DataService;
-import org.example.view.CategoryDetailsView;
 import org.example.view.MainView;
 import org.example.view.PieView;
 
@@ -32,12 +31,6 @@ public class PieController {
   }
 
   private void onDetailsRequested(String category) {
-    new CategoryDetailsControler(category);
-
-    CategoryDetailsView detailsView = new CategoryDetailsView(category);
-    detailsView.setOnBackRequested(mainView::showMain);
-
-    mainView.showCategoryDetails(detailsView);
-
+    new CategoryDetailsControler(mainView, dataService, category);
   }
 }

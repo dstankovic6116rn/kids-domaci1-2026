@@ -1,16 +1,25 @@
 package org.example.controller;
 
+import java.util.List;
+
+import org.example.model.ProcessItem;
+import org.example.services.DataService;
+import org.example.view.CategoryDetailsView;
+import org.example.view.MainView;
+
+/**
+ * Dohvata sve procese koji pripadaju datoj kategoriji iz DataService-a i
+ * prosledjuje CategoryDetailsView
+ */
 public class CategoryDetailsControler {
 
-  private final String categoryName;
+  private final CategoryDetailsView categoryDetailsView;
 
-  public CategoryDetailsControler(String categoryName) {
-    this.categoryName = categoryName;
-    // TODO: load data for this category from a service
-    System.out.println("DetailController created for: " + categoryName);
-  }
+  public CategoryDetailsControler(MainView mainView, DataService dataService, String categoryName) {
 
-  public String getCategoryName() {
-    return categoryName;
+    List<ProcessItem> processes = dataService.getProcessesByCategoryName(categoryName);
+    categoryDetailsView = new CategoryDetailsView(categoryName, processes);
+    categoryDetailsView.setOnBackRequested(mainView::showMain);
+    mainView.showCategoryDetails(categoryDetailsView);
   }
 }
