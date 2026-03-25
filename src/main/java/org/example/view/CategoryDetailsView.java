@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.example.model.ProcessItem;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -14,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -34,7 +36,7 @@ public class CategoryDetailsView extends VBox {
     backBtn.getStyleClass().add("back-btn");
     backBtn.setOnAction(e -> onBackRequested.run());
 
-    Label title = new Label(categoryName);
+    Label title = new Label(categoryName + " Category");
     title.getStyleClass().add("category-detail-title");
 
     Region headerSpacer = new Region();
@@ -67,12 +69,12 @@ public class CategoryDetailsView extends VBox {
 
     // Process name column
     TableColumn<ProcessItem, String> nameCol = new TableColumn<>("Process");
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("displayName"));
+    nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDisplayName()));
     nameCol.getStyleClass().add("table-col-name");
 
     // CPU usage column
     TableColumn<ProcessItem, Double> cpuCol = new TableColumn<>("CPU %");
-    cpuCol.setCellValueFactory(new PropertyValueFactory<>("cpuUsage"));
+    cpuCol.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getCpuUsage()).asObject());
     cpuCol.setCellFactory(col -> new TableCell<>() {
       @Override
       protected void updateItem(Double value, boolean empty) {
@@ -83,7 +85,8 @@ public class CategoryDetailsView extends VBox {
 
     // RAM usage column
     TableColumn<ProcessItem, Double> ramCol = new TableColumn<>("RAM (MB)");
-    ramCol.setCellValueFactory(new PropertyValueFactory<>("ramUsageMb"));
+    ramCol.setCellValueFactory(
+        data -> new SimpleDoubleProperty(data.getValue().getRamUsageMb()).asObject());
     ramCol.setCellFactory(col -> new TableCell<>() {
       @Override
       protected void updateItem(Double value, boolean empty) {
@@ -94,7 +97,8 @@ public class CategoryDetailsView extends VBox {
 
     // Uptime column
     TableColumn<ProcessItem, Long> uptimeCol = new TableColumn<>("Uptime");
-    uptimeCol.setCellValueFactory(new PropertyValueFactory<>("uptimeSeconds"));
+    uptimeCol.setCellValueFactory(
+        data -> new SimpleLongProperty(data.getValue().getUptimeSeconds()).asObject());
     uptimeCol.setCellFactory(col -> new TableCell<>() {
       @Override
       protected void updateItem(Long value, boolean empty) {
