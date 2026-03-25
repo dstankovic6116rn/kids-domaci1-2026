@@ -56,7 +56,7 @@ public class DataService {
 
 		ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
 		counts.forEach((category, count) -> slices.add(new PieChart.Data(category, count)));
-		System.out.println("buildProcessCategoryPieData" + slices);
+
 		return slices;
 	}
 
