@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.example.model.ProcessData;
 import org.example.model.ProcessItem;
+import org.example.model.ProcessRanking;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +77,36 @@ public class DataService {
 				.filter(p -> p.getCategory().equals(category))
 				.mapToLong(ProcessItem::getUptimeSeconds)
 				.sum();
+	}
+
+	public ProcessRanking getRankingForProcess(String originalName) {
+		List<ProcessItem> allProcessItems = processData.getAll();
+
+		List<ProcessItem> ramProcessItems = allProcessItems.stream()
+				.sorted((a, b) -> Double.compare(a.getRamUsageMb(), b.getRamUsageMb())).collect(Collectors.toList());
+		List<ProcessItem> cpuProcessItems = allProcessItems.stream()
+				.sorted((a, b) -> Double.compare(a.getCpuUsage(), b.getCpuUsage())).collect(Collectors.toList());
+
+		int ramRank = 0;
+		int cpuRank = 0;
+
+		// TODO: explain this
+		for (int i = 0; i < ramProcessItems.size(); i++) {
+			if (ramProcessItems.get(i).getOriginalName().equals(originalName)) {
+				ramRank = i + 1;
+				break;
+			}
+		}
+
+		for (int i = 0; i < cpuProcessItems.size(); i++) {
+			if (cpuProcessItems.get(i).getOriginalName().equals(originalName)) {
+				cpuRank = i + 1;
+				break;
+			}
+		}
+
+		return new ProcessRanking(ramRank, cpuRank);
+
 	}
 
 }

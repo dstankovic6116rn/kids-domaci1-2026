@@ -1,12 +1,17 @@
 package org.example.view;
 
 import org.example.model.ProcessItem;
+import org.example.model.ProcessRanking;
+import org.example.utils.TimeFormatter;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ProcessDetailsView extends VBox {
@@ -23,12 +28,12 @@ public class ProcessDetailsView extends VBox {
   private Runnable onBackRequested = () -> {
   };
 
-  public ProcessDetailsView(ProcessItem processItem) {
+  public ProcessDetailsView(ProcessItem processItem, ProcessRanking ranking) {
     getStyleClass().add("item-detail-root");
     setMaxWidth(Double.MAX_VALUE);
     setMaxHeight(Double.MAX_VALUE);
 
-    Button backBtn = new Button("← Back");
+    Button backBtn = new Button("Back");
     backBtn.getStyleClass().add("back-btn");
     backBtn.setOnAction(e -> onBackRequested.run());
 
@@ -41,10 +46,16 @@ public class ProcessDetailsView extends VBox {
     Label nameLabel = new Label(processItem.getDisplayName());
     nameLabel.getStyleClass().add("process-detail-name");
 
-    Label placeholderText = new Label(
-        "Additional information about \"" + processItem.getDisplayName() + "\" will appear here.");
-    placeholderText.getStyleClass().add("process-detail-placeholder");
-    placeholderText.setWrapText(true);
+    Label uptimeLabel = new Label(
+        "Total time — " + TimeFormatter.formatTime(processItem.getUptimeSeconds()));
+
+    GridPane metricsGrid = buildMetricsGrid(processItem, ranking);
+
+    // Label placeholderText = new Label(
+    // "Additional information about \"" + processItem.getDisplayName() + "\" will
+    // appear here.");
+    // placeholderText.getStyleClass().add("process-detail-placeholder");
+    // placeholderText.setWrapText(true);
 
     Button killBtn = new Button("Kill Process");
     Button changeNameBtn = new Button("Change Process Name");
@@ -65,12 +76,48 @@ public class ProcessDetailsView extends VBox {
     buttonGroup.setAlignment(Pos.CENTER);
     buttonGroup.getStyleClass().add("process-detail-btn-group");
 
-    VBox content = new VBox(16, nameLabel, placeholderText, buttonGroup);
-    content.getStyleClass().add("process-detail-content");
+    VBox content = new VBox(12, nameLabel, uptimeLabel, metricsGrid, buttonGroup);
     content.setPadding(new Insets(24));
 
-    getChildren().addAll(topBar, content);
+    VBox page = new VBox(topBar, content);
+    page.setMaxWidth(Double.MAX_VALUE);
+    page.setMaxHeight(Double.MAX_VALUE);
 
+    getChildren().add(page);
+
+  }
+
+  private GridPane buildMetricsGrid(ProcessItem processItem, ProcessRanking processRanking) {
+    GridPane grid = new GridPane();
+    grid.setHgap(0);
+    grid.setVgap(0);
+
+    ColumnConstraints metricCol = new ColumnConstraints();
+    metricCol.setHgrow(Priority.ALWAYS);
+
+    ColumnConstraints rankCol = new ColumnConstraints();
+    rankCol.setHgrow(Priority.ALWAYS);
+
+    grid.getColumnConstraints().addAll(metricCol, rankCol);
+
+    Label ramMetric = new Label(
+        String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
+
+    Label ramRank = new Label(
+        ProcessRanking.toOrdinalRank(processRanking.getRamRank()) + " on RAM usage");
+
+    Label cpuMetric = new Label(
+        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
+
+    Label cpuRank = new Label(
+        ProcessRanking.toOrdinalRank(processRanking.getCpuRank()) + " on CPU usage");
+
+    grid.add(ramMetric, 0, 0);
+    grid.add(ramRank, 1, 0);
+    grid.add(cpuMetric, 0, 1);
+    grid.add(cpuRank, 1, 1);
+
+    return grid;
   }
 
   public void setOnKillProcess(Runnable handler) {

@@ -3,6 +3,7 @@ package org.example.controller;
 import java.util.List;
 
 import org.example.model.ProcessItem;
+import org.example.model.ProcessRanking;
 import org.example.services.DataService;
 import org.example.view.MainView;
 import org.example.view.ProcessDetailsView;
@@ -56,8 +57,9 @@ public class ProcessListController {
   }
 
   private void onLabelClicked(ProcessItem item) {
-    System.out.println("Label clicked: " + item.getOriginalName());
-    ProcessDetailsView processDetailsView = new ProcessDetailsView(item);
+    ProcessRanking ranking = dataService.getRankingForProcess(item.getOriginalName());
+    ProcessDetailsView processDetailsView = new ProcessDetailsView(item, ranking);
+
     processDetailsView.setOnBackRequested(mainView::showPieView);
 
     new ProcessDetailsController(processDetailsView, item);
