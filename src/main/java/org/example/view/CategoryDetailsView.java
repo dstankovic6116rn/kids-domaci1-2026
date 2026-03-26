@@ -22,7 +22,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class CategoryDetailsView extends VBox {
@@ -67,7 +66,7 @@ public class CategoryDetailsView extends VBox {
   private TableView<ProcessItem> buildTable(List<ProcessItem> processes) {
     TableView<ProcessItem> table = new TableView<>();
     table.getStyleClass().add("category-details-table");
-    table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     table.setPlaceholder(new Label("No processes in this category."));
 
     // Process name column

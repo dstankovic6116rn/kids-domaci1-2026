@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
+// TODO: Ne koristi se izbrisi
 public class PieChartData {
 
   private String title;
@@ -18,17 +19,16 @@ public class PieChartData {
     return slices;
   }
 
-  /** Replaces all slices at once. */
+  // Zamenjuje sve slice-ove
   public void setSlices(ObservableList<PieChart.Data> newSlices) {
     slices.setAll(newSlices);
   }
 
-  /** Adds a single slice. */
+  // Dodaje jedan slice
   public void addSlice(String name, double value) {
     slices.add(new PieChart.Data(name, value));
   }
 
-  /** Removes all slices. */
   public void clearSlices() {
     slices.clear();
   }

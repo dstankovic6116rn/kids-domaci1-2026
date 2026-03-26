@@ -13,13 +13,20 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
 /**
- * Centralni koordinator podataka izmedju ProcessScanService, ProcessStore i
+ * Centralni koordinator podataka izmedju
+ * ProcessScanService, ProcessStore, Executor Service i
  * kontrolera, kao i izvodjenje podataka za PieChart
  */
 
 public class DataService {
 	private final ProcessScanService processScanService = new ProcessScanService();
 	private final ProcessData processData = new ProcessData();
+	private final ExecutorService executorService = new ExecutorService(this);
+
+	public void start(Runnable onScanComplete) {
+		executorService.setOnScanComplete(onScanComplete);
+		executorService.start();
+	}
 
 	/**
 	 * Skenira procese sa fork/join pool
@@ -28,13 +35,10 @@ public class DataService {
 	 * 
 	 * Ne sme se pozvati iz FX Thread-a
 	 */
-	public List<ProcessItem> scanAndUpdate() {
+	public void scanAndUpdate() {
 		List<ProcessItem> scannedProcesses = processScanService.scan();
-		for (ProcessItem item : scannedProcesses) {
-			System.out.println("scanned process uptime before merge" + item.getUptimeSeconds());
-		}
+
 		processData.merge(scannedProcesses);
-		return processData.getAll();
 	}
 
 	/**
@@ -62,10 +66,6 @@ public class DataService {
 		counts.forEach((category, count) -> slices.add(new PieChart.Data(category, count)));
 
 		return slices;
-	}
-
-	public void shutdown() {
-		processScanService.shutdown();
 	}
 
 	public List<ProcessItem> getProcessesByCategoryName(String catName) {
@@ -107,6 +107,11 @@ public class DataService {
 
 		return new ProcessRanking(ramRank, cpuRank);
 
+	}
+
+	public void shutdown() {
+		executorService.shutdown();
+		processScanService.shutdown();
 	}
 
 }

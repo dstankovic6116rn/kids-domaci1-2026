@@ -17,6 +17,8 @@ public class MainController {
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);
 
     processListController.setOnChartRefreshNeeded(pieController::loadPieChartData);
+
+    dataService.start(processListController::onScanComplete);
   }
 
   public ProcessListController getProcessListController() {

@@ -52,7 +52,6 @@ public class ProcessData {
 
       if (storedProcess == null) {
         incoming.setUptimeSeconds(uptime);
-        System.out.println("incoming process data set in merge: " + incoming.getUptimeSeconds());
         processDataStore.put(key, incoming);
       } else {
         storedProcess.setPid(incoming.getPid());
@@ -60,7 +59,6 @@ public class ProcessData {
         storedProcess.setCpuUsage(incoming.getCpuUsage());
         storedProcess.setRamUsageMb(incoming.getRamUsageMb());
         storedProcess.setUptimeSeconds(uptime);
-        System.out.println("stored process data set in merge" + storedProcess.getUptimeSeconds());
       }
 
     }

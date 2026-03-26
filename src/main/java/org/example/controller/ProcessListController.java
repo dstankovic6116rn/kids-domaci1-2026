@@ -1,23 +1,21 @@
 package org.example.controller;
 
 import java.util.List;
-
 import org.example.model.ProcessItem;
 import org.example.model.ProcessRanking;
 import org.example.services.DataService;
 import org.example.view.MainView;
 import org.example.view.ProcessDetailsView;
 import org.example.view.ProcessListView;
-
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
  * Upravlja listom procesa
- * Obavestava PieController da osvezi prikaz preko onChartRefreshNeeded
- * 
+ * Expose-uje onScanComplete koji se poziva na FX Thread-u iz Executor Service-a
+ * preko Platform.runLater nakon svakog skeniranja
  */
+
 public class ProcessListController {
 
   private final ProcessListView processListView;
@@ -37,23 +35,13 @@ public class ProcessListController {
     processListView.setOnLabelClicked(this::onLabelClicked);
     processListView.setOnCategoryChanged(this::onCategoryChanged);
 
-    triggerScan();
   }
 
-  private void triggerScan() {
-    Thread scanner = new Thread(() -> {
-      List<ProcessItem> result = dataService.scanAndUpdate();
-
-      Platform.runLater(() -> {
-        processItems.setAll(result);
-        processListView.setProcessItems(processItems);
-        onChartRefreshNeeded.run(); // PieChart je bio prazan na pocetku, sada se osvezava
-      });
-    });
-
-    scanner.setDaemon(true);
-    scanner.setName("Process Scanner Thread");
-    scanner.start();
+  public void onScanComplete() {
+    List<ProcessItem> result = dataService.getCurrentProcceses();
+    processItems.setAll(result);
+    processListView.setProcessItems(processItems);
+    onChartRefreshNeeded.run();
   }
 
   private void onLabelClicked(ProcessItem item) {
