@@ -1,8 +1,11 @@
 package org.example.view;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.example.model.ProcessItem;
+import org.example.utils.TimeFormatter;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -39,10 +42,10 @@ public class CategoryDetailsView extends VBox {
     Label title = new Label(categoryName + " Category");
     title.getStyleClass().add("category-detail-title");
 
-    Region headerSpacer = new Region();
-    HBox.setHgrow(headerSpacer, Priority.ALWAYS);
+    // Region headerSpacer = new Region();
+    // HBox.setHgrow(headerSpacer, Priority.ALWAYS);
 
-    HBox topBar = new HBox(backBtn, title, headerSpacer);
+    HBox topBar = new HBox(24, backBtn, title);
     topBar.setAlignment(Pos.CENTER_LEFT);
     topBar.setPadding(new Insets(10, 16, 10, 16));
 
@@ -51,7 +54,7 @@ public class CategoryDetailsView extends VBox {
     HBox.setHgrow(table, Priority.ALWAYS);
 
     // Pie Chart
-    PieChart uptimeChart = buildUptimeChart(processItems);
+    VBox uptimeChart = buildRightPanel(categoryName, processItems);
     HBox.setHgrow(uptimeChart, Priority.ALWAYS);
 
     HBox body = new HBox(16, table, uptimeChart);
@@ -103,7 +106,7 @@ public class CategoryDetailsView extends VBox {
       @Override
       protected void updateItem(Long value, boolean empty) {
         super.updateItem(value, empty);
-        setText(empty || value == null ? null : formatUptime(value));
+        setText(empty || value == null ? null : TimeFormatter.formatTime(value));
       }
     });
 
@@ -113,13 +116,39 @@ public class CategoryDetailsView extends VBox {
     return table;
   }
 
-  private PieChart buildUptimeChart(List<ProcessItem> processes) {
-    ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
+  private VBox buildRightPanel(String categoryName, List<ProcessItem> processes) {
+
+    List<ProcessItem> top10 = processes.stream()
+        .sorted(Comparator.comparingLong(
+            ProcessItem::getUptimeSeconds).reversed())
+        .limit(10)
+        .collect(Collectors.toList());
+
+    PieChart uptimeChart = buildUptimeChart(top10);
+    VBox.setVgrow(uptimeChart, Priority.ALWAYS);
 
     long totalUptime = processes.stream()
         .mapToLong(
             ProcessItem::getUptimeSeconds)
         .sum();
+
+    Label totalLabel = new Label(
+        categoryName + " Total time — " + TimeFormatter.formatTime(totalUptime));
+    totalLabel.getStyleClass().add("category-total-uptime");
+
+    VBox panel = new VBox(8, uptimeChart, totalLabel);
+    panel.setAlignment(Pos.TOP_CENTER);
+
+    return panel;
+  }
+
+  private PieChart buildUptimeChart(List<ProcessItem> processes) {
+    long totalUptime = processes.stream()
+        .mapToLong(
+            ProcessItem::getUptimeSeconds)
+        .sum();
+
+    ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
 
     for (ProcessItem p : processes) {
       // If all processes have zero uptime, give each an equal slice
@@ -128,24 +157,11 @@ public class CategoryDetailsView extends VBox {
     }
 
     PieChart chart = new PieChart(slices);
-    chart.setTitle("Uptime Distribution");
+    chart.setTitle("Top 10 processes by time spent");
     chart.setLegendVisible(true);
     chart.getStyleClass().add("main-pie-chart");
 
     return chart;
-  }
-
-  private String formatUptime(long totalSeconds) {
-    long hours = totalSeconds / 3600;
-    long minutes = (totalSeconds % 3600) / 60;
-    long seconds = totalSeconds % 60;
-
-    if (hours > 0)
-      return String.format("%dh %dm %ds", hours, minutes, seconds);
-    else if (minutes > 0)
-      return String.format("%dm %ds", minutes, seconds);
-    else
-      return String.format("%ds", seconds);
   }
 
   public void setOnBackRequested(Runnable handler) {

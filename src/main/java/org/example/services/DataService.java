@@ -29,6 +29,9 @@ public class DataService {
 	 */
 	public List<ProcessItem> scanAndUpdate() {
 		List<ProcessItem> scannedProcesses = processScanService.scan();
+		for (ProcessItem item : scannedProcesses) {
+			System.out.println("scanned process uptime before merge" + item.getUptimeSeconds());
+		}
 		processData.merge(scannedProcesses);
 		return processData.getAll();
 	}
@@ -66,6 +69,13 @@ public class DataService {
 
 	public List<ProcessItem> getProcessesByCategoryName(String catName) {
 		return processData.getAll().stream().filter(p -> p.getCategory().equals(catName)).collect(Collectors.toList());
+	}
+
+	public long getCategoryUptimeSeconds(String category) {
+		return processData.getAll().stream()
+				.filter(p -> p.getCategory().equals(category))
+				.mapToLong(ProcessItem::getUptimeSeconds)
+				.sum();
 	}
 
 }

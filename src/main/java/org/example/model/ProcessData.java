@@ -21,22 +21,23 @@ public class ProcessData {
 
   private final ConcurrentHashMap<String, ProcessItem> processDataStore = new ConcurrentHashMap<>();
   private final ConcurrentHashMap<String, Long> uptimeStore = new ConcurrentHashMap<>();
-  private long lastMergeTime = System.currentTimeMillis();
+  private long lastMergeTimeMs = System.currentTimeMillis();
 
   /**
    * Merge-uje procese iz novog skeniranja u data store
    * 
    * Pravila merge-a:
    * 1. Ako originalName ne postoji, upisi novi proces
-   * 2. Ako pid postoji i startTime je isti, azuriraj vrednosti
-   * 3. Ako pid postoji i startTime je razliciti, to je recikliran pid,
+   * 2. Ako pid postoji azuriraj vrednosti ram i cpu iz poslednjeg skeniranja i
+   * akumuliraj uptime vreme prethodnog procesa i procesa iz novog skeniranja
    * 
    * @param scannedProcesses sveza lista skeniranih procesa
    */
   public void merge(List<ProcessItem> scannedProcesses) {
     long now = System.currentTimeMillis();
-    long elapsedTime = now - lastMergeTime / 1000L;
-    lastMergeTime = now;
+    long elapsedTime = (now - lastMergeTimeMs) / 1000L;
+    System.out.println("elsapsed Time" + elapsedTime);
+    lastMergeTimeMs = now;
 
     Set<String> scannedKeys = new HashSet<>(scannedProcesses.size());
 
@@ -45,19 +46,21 @@ public class ProcessData {
       scannedKeys.add(key);
 
       // merge() ConcurrentHashMap.merge atomically inserts or accumulates
-      long uptime = uptimeStore.merge(incoming.getOriginalName(), elapsedTime, Long::sum);
+      long uptime = uptimeStore.merge(key, elapsedTime, Long::sum);
 
-      ProcessItem storedProcess = processDataStore.get(incoming.getOriginalName());
+      ProcessItem storedProcess = processDataStore.get(key);
 
       if (storedProcess == null) {
         incoming.setUptimeSeconds(uptime);
-        processDataStore.put(incoming.getOriginalName(), incoming);
+        System.out.println("incoming process data set in merge: " + incoming.getUptimeSeconds());
+        processDataStore.put(key, incoming);
       } else {
         storedProcess.setPid(incoming.getPid());
         storedProcess.setStartTime(incoming.getStartTime());
         storedProcess.setCpuUsage(incoming.getCpuUsage());
         storedProcess.setRamUsageMb(incoming.getRamUsageMb());
         storedProcess.setUptimeSeconds(uptime);
+        System.out.println("stored process data set in merge" + storedProcess.getUptimeSeconds());
       }
 
     }

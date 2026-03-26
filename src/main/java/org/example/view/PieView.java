@@ -1,6 +1,9 @@
 package org.example.view;
 
+import java.util.Map;
 import java.util.function.Consumer;
+
+import org.example.utils.TimeFormatter;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -39,27 +42,26 @@ public class PieView {
 
   }
 
-  public void bindPieData(String title, ObservableList<PieChart.Data> slices) {
+  public void bindPieData(String title, ObservableList<PieChart.Data> slices, Map<String, Long> categoryUptimes) {
     pieChart.setTitle(title);
     pieChart.setData(slices);
-    buildDetailsRows(slices);
+    buildDetailsRows(slices, categoryUptimes);
   };
 
-  private void buildDetailsRows(ObservableList<PieChart.Data> slices) {
+  private void buildDetailsRows(ObservableList<PieChart.Data> slices, Map<String, Long> categoryUptimes) {
     detailsBox.getChildren().clear();
 
     for (PieChart.Data slice : slices) {
-      detailsBox.getChildren().add(buildDetailsRow(slice));
+      long uptime = categoryUptimes.getOrDefault(slice.getName(), 0L);
+      detailsBox.getChildren().add(buildDetailsRow(slice, uptime));
     }
   }
 
-  private HBox buildDetailsRow(PieChart.Data slice) {
+  private HBox buildDetailsRow(PieChart.Data slice, Long uptimeSeconds) {
     Label nameLabel = new Label(slice.getName());
     nameLabel.getStyleClass().add("data-heading");
 
-    Label valueLabel = new Label();
-    valueLabel.textProperty().bind(
-        slice.pieValueProperty().asString("%.0f"));
+    Label valueLabel = new Label(TimeFormatter.formatTime(uptimeSeconds));
     valueLabel.getStyleClass().add("data-value");
 
     Button detailsBtn = new Button("Details");

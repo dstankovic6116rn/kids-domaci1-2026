@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.example.services.DataService;
 import org.example.view.MainView;
 import org.example.view.PieView;
@@ -27,7 +30,15 @@ public class PieController {
    */
   public void loadPieChartData() {
     ObservableList<PieChart.Data> slices = dataService.buildProcessCategoryPieData();
-    pieView.bindPieData("Category Overview", slices);
+
+    // Build uptime map for each category slice
+    Map<String, Long> categoryUptimes = new HashMap<>();
+    for (PieChart.Data slice : slices) {
+      categoryUptimes.put(
+          slice.getName(),
+          dataService.getCategoryUptimeSeconds(slice.getName()));
+    }
+    pieView.bindPieData("Category Overview", slices, categoryUptimes);
   }
 
   private void onDetailsRequested(String category) {
