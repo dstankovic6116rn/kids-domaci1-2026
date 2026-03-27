@@ -36,7 +36,6 @@ public class ProcessData {
   public void merge(List<ProcessItem> scannedProcesses) {
     long now = System.currentTimeMillis();
     long elapsedTime = (now - lastMergeTimeMs) / 1000L;
-    System.out.println("elsapsed Time" + elapsedTime);
     lastMergeTimeMs = now;
 
     Set<String> scannedKeys = new HashSet<>(scannedProcesses.size());

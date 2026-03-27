@@ -1,7 +1,9 @@
 package org.example.view;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.example.model.ProcessItem;
 
@@ -17,6 +19,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * setItems() rebuild-uje listu samo ako je lista procesa promenjena od
+ * poslednjeg build-a
+ * Ako nista nije promenjeno DOM se ne azurira
+ */
+
 public class ProcessListView {
 
   private final ScrollPane root;
@@ -27,6 +35,14 @@ public class ProcessListView {
   private BiConsumer<ProcessItem, String> onCategoryChanged = (item, newCategory) -> {
   };
 
+  private ContextMenu activeMenu = null;
+
+  // Deferred update — held while a menu is open, applied on menu close
+  private ObservableList<ProcessItem> pendingProcesses = null;
+
+  // Names from the last successful rebuild — used for change detection
+  private List<String> lastBuiltNames = List.of();
+
   public ProcessListView() {
     processListContainer = new VBox(4);
     processListContainer.setPadding(new Insets(8));
@@ -35,15 +51,46 @@ public class ProcessListView {
     root.setFitToWidth(true);
   }
 
-  public void setProcessItems(ObservableList<ProcessItem> items) {
+  /**
+   * Ako je meni otvoren, update liste se odlaze dok se ne zatvori da ne bi doslo
+   * do prekida
+   * 
+   * pendingProcesses cuva ObservableList referencu iz ProcessListController-a
+   * ProcessListController drzi istu referencu i poziva setAll() nad njom nakon
+   * svakog skeniranja tako da je pendingProcesses lista uvek azurna ukljucujuci
+   * promene kategorija dok je meni otvoren jer se te promene upisuju direktno u
+   * ProcessItem objekat u processDataStore
+   * 
+   */
+
+  public void setItems(ObservableList<ProcessItem> processes) {
+    if (activeMenu != null && activeMenu.isShowing()) {
+      pendingProcesses = processes;
+      return;
+    }
+    rebuildIfChanged(processes);
+  }
+
+  private void rebuildIfChanged(ObservableList<ProcessItem> processes) {
+    pendingProcesses = null;
+
+    List<String> incomingNames = processes.stream()
+        .map(
+            ProcessItem::getOriginalName)
+        .collect(Collectors.toList());
+
+    if (incomingNames.equals(lastBuiltNames)) {
+      return; // nothing changed — leave the list untouched
+    }
+
+    lastBuiltNames = incomingNames;
     processListContainer.getChildren().clear();
-    for (ProcessItem item : items) {
-      processListContainer.getChildren().add(createProcessItem(item));
+    for (ProcessItem p : processes) {
+      processListContainer.getChildren().add(createProcessItem(p));
     }
   }
 
   private HBox createProcessItem(ProcessItem item) {
-
     Label processNameLabel = new Label(item.getDisplayName());
     processNameLabel.getStyleClass().addAll("item-label-left", "item-label-clickable");
     processNameLabel.setOnMouseEntered(e -> processNameLabel.getStyleClass().add("process-item-hover"));
@@ -62,7 +109,21 @@ public class ProcessListView {
     ContextMenu categoryMenu = buildCategoriesMenu(item, processCategoryLabel);
     processCategoryLabel.setOnMouseClicked(e -> {
       e.consume();
+      // Close the previously open menu before opening this one
+      if (activeMenu != null && activeMenu.isShowing()) {
+        activeMenu.hide();
+      }
+      activeMenu = categoryMenu;
       categoryMenu.show(processCategoryLabel, e.getScreenX(), e.getScreenY());
+    });
+
+    categoryMenu.setOnHidden(e -> {
+      if (activeMenu == categoryMenu) {
+        activeMenu = null;
+      }
+      if (pendingProcesses != null) {
+        rebuildIfChanged(pendingProcesses);
+      }
     });
 
     Region spacer = new Region();

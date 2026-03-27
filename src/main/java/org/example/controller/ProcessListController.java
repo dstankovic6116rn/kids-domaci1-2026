@@ -40,7 +40,7 @@ public class ProcessListController {
   public void onScanComplete() {
     List<ProcessItem> result = dataService.getCurrentProcceses();
     processItems.setAll(result);
-    processListView.setProcessItems(processItems);
+    processListView.setItems(processItems);
     onChartRefreshNeeded.run();
   }
 
