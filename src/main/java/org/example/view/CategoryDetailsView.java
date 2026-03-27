@@ -26,11 +26,18 @@ import javafx.scene.layout.VBox;
 
 public class CategoryDetailsView extends VBox {
 
+  private final String categoryName;
+
   private Runnable onBackRequested = () -> {
   };
 
+  private final ObservableList<ProcessItem> tableItems = FXCollections.observableArrayList();
+  private final ObservableList<PieChart.Data> pieSlices = FXCollections.observableArrayList();
+  private final Label totalLabel;
+
   public CategoryDetailsView(String categoryName, List<ProcessItem> processItems) {
-    getStyleClass().add("category-detail-root");
+    this.categoryName = categoryName;
+
     setMaxWidth(Double.MAX_VALUE);
     setMaxHeight(Double.MAX_VALUE);
 
@@ -39,10 +46,6 @@ public class CategoryDetailsView extends VBox {
     backBtn.setOnAction(e -> onBackRequested.run());
 
     Label title = new Label(categoryName + " Category");
-    title.getStyleClass().add("category-detail-title");
-
-    // Region headerSpacer = new Region();
-    // HBox.setHgrow(headerSpacer, Priority.ALWAYS);
 
     HBox topBar = new HBox(24, backBtn, title);
     topBar.setAlignment(Pos.CENTER_LEFT);
@@ -52,27 +55,40 @@ public class CategoryDetailsView extends VBox {
     TableView<ProcessItem> table = buildTable(processItems);
     HBox.setHgrow(table, Priority.ALWAYS);
 
-    // Pie Chart
-    VBox uptimeChart = buildRightPanel(categoryName, processItems);
-    HBox.setHgrow(uptimeChart, Priority.ALWAYS);
+    Label chartTitleLabel = new Label("Top 10 processes by time spent");
+    chartTitleLabel.getStyleClass().add("category-chart-section-title");
 
-    HBox body = new HBox(16, table, uptimeChart);
+    // Pie chart
+    PieChart uptimeChart = new PieChart(pieSlices);
+    uptimeChart.setLegendVisible(true);
+    uptimeChart.getStyleClass().add("main-pie-chart");
+    VBox.setVgrow(uptimeChart, Priority.ALWAYS);
+
+    // Total uptime label
+    totalLabel = new Label();
+
+    VBox rightPanel = new VBox(8, chartTitleLabel, uptimeChart, totalLabel);
+    rightPanel.setAlignment(Pos.TOP_LEFT);
+    HBox.setHgrow(rightPanel, Priority.ALWAYS);
+
+    HBox body = new HBox(16, table, rightPanel);
     body.setPadding(new Insets(16));
     VBox.setVgrow(body, Priority.ALWAYS);
 
     getChildren().addAll(topBar, body);
+
+    updateData(processItems);
   }
 
   private TableView<ProcessItem> buildTable(List<ProcessItem> processes) {
     TableView<ProcessItem> table = new TableView<>();
-    table.getStyleClass().add("category-details-table");
+
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     table.setPlaceholder(new Label("No processes in this category."));
 
     // Process name column
     TableColumn<ProcessItem, String> nameCol = new TableColumn<>("Process");
     nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDisplayName()));
-    nameCol.getStyleClass().add("table-col-name");
 
     // CPU usage column
     TableColumn<ProcessItem, Double> cpuCol = new TableColumn<>("CPU %");
@@ -110,61 +126,45 @@ public class CategoryDetailsView extends VBox {
     });
 
     table.getColumns().addAll(nameCol, cpuCol, ramCol, uptimeCol);
-    table.setItems(FXCollections.observableArrayList(processes));
+    // table.setItems(FXCollections.observableArrayList(processes));
 
     return table;
   }
 
-  private VBox buildRightPanel(String categoryName, List<ProcessItem> processes) {
+  public void updateData(List<ProcessItem> processes) {
+    tableItems.setAll(processes);
 
+    // Recompute top 10 by uptime
     List<ProcessItem> top10 = processes.stream()
         .sorted(Comparator.comparingLong(
             ProcessItem::getUptimeSeconds).reversed())
         .limit(10)
         .collect(Collectors.toList());
 
-    PieChart uptimeChart = buildUptimeChart(top10);
-    VBox.setVgrow(uptimeChart, Priority.ALWAYS);
+    long top10Total = top10.stream().mapToLong(ProcessItem::getUptimeSeconds).sum();
 
+    pieSlices.setAll(
+        top10.stream()
+            .map(p -> new PieChart.Data(
+                p.getDisplayName(),
+                top10Total > 0 ? p.getUptimeSeconds() : 1.0))
+            .collect(Collectors.toList()));
+
+    // Update total label
     long totalUptime = processes.stream()
         .mapToLong(
             ProcessItem::getUptimeSeconds)
         .sum();
 
-    Label totalLabel = new Label(
-        categoryName + " Total time — " + TimeFormatter.formatTime(totalUptime));
-    totalLabel.getStyleClass().add("category-total-uptime");
-
-    VBox panel = new VBox(8, uptimeChart, totalLabel);
-    panel.setAlignment(Pos.TOP_CENTER);
-
-    return panel;
-  }
-
-  private PieChart buildUptimeChart(List<ProcessItem> processes) {
-    long totalUptime = processes.stream()
-        .mapToLong(
-            ProcessItem::getUptimeSeconds)
-        .sum();
-
-    ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
-
-    for (ProcessItem p : processes) {
-      // If all processes have zero uptime, give each an equal slice
-      double value = totalUptime > 0 ? p.getUptimeSeconds() : 1.0;
-      slices.add(new PieChart.Data(p.getDisplayName(), value));
-    }
-
-    PieChart chart = new PieChart(slices);
-    chart.setTitle("Top 10 processes by time spent");
-    chart.setLegendVisible(true);
-    chart.getStyleClass().add("main-pie-chart");
-
-    return chart;
+    totalLabel.setText(categoryName + " Total time — " + TimeFormatter.formatTime(totalUptime));
   }
 
   public void setOnBackRequested(Runnable handler) {
     this.onBackRequested = handler;
+  }
+
+  public String getCategoryName() {
+    return categoryName;
   }
 
 }

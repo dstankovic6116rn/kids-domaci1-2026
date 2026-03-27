@@ -28,6 +28,14 @@ public class ProcessDetailsView extends VBox {
   private Runnable onBackRequested = () -> {
   };
 
+  // Read by AnalyticsService to look up fresh data
+  private final String processName;
+  private final Label uptimeLabel = new Label();
+  private final Label ramMetricLabel = new Label();
+  private final Label ramRankLabel = new Label();
+  private final Label cpuMetricLabel = new Label();
+  private final Label cpuRankLabel = new Label();
+
   public ProcessDetailsView(ProcessItem processItem, ProcessRanking ranking) {
     getStyleClass().add("item-detail-root");
     setMaxWidth(Double.MAX_VALUE);
@@ -42,26 +50,35 @@ public class ProcessDetailsView extends VBox {
     topBar.setAlignment(Pos.CENTER_LEFT);
     topBar.setPadding(new Insets(10, 16, 10, 16));
 
-    // ── Content ──────────────────────────────────────────────────
+    this.processName = processItem.getOriginalName();
+
+    // Content
     Label nameLabel = new Label(processItem.getDisplayName());
     nameLabel.getStyleClass().add("process-detail-name");
 
     Label uptimeLabel = new Label(
         "Total time — " + TimeFormatter.formatTime(processItem.getUptimeSeconds()));
 
-    GridPane metricsGrid = buildMetricsGrid(processItem, ranking);
+    Label ramMetric = new Label(
+        String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
 
-    // Label placeholderText = new Label(
-    // "Additional information about \"" + processItem.getDisplayName() + "\" will
-    // appear here.");
-    // placeholderText.getStyleClass().add("process-detail-placeholder");
-    // placeholderText.setWrapText(true);
+    Label ramRank = new Label(
+        ProcessRanking.toOrdinalRank(ranking.getRamRank()) + " on RAM usage");
+
+    Label cpuMetric = new Label(
+        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
+
+    Label cpuRank = new Label(
+        ProcessRanking.toOrdinalRank(ranking.getCpuRank()) + " on CPU usage");
+
+    GridPane metricsGrid = buildMetricsGrid();
 
     Button killBtn = new Button("Kill Process");
     Button changeNameBtn = new Button("Change Process Name");
     Button freezeTrackingBtn = new Button("Freeze Tracking");
     Button changeCategoryBtn = new Button("Change Process Category");
 
+    // Action buttons
     for (Button btn : new Button[] { killBtn, changeNameBtn, freezeTrackingBtn, changeCategoryBtn }) {
       btn.getStyleClass().add("item-detail-btn");
       btn.setMaxWidth(Double.MAX_VALUE);
@@ -87,7 +104,7 @@ public class ProcessDetailsView extends VBox {
 
   }
 
-  private GridPane buildMetricsGrid(ProcessItem processItem, ProcessRanking processRanking) {
+  private GridPane buildMetricsGrid() {
     GridPane grid = new GridPane();
     grid.setHgap(0);
     grid.setVgap(0);
@@ -100,24 +117,28 @@ public class ProcessDetailsView extends VBox {
 
     grid.getColumnConstraints().addAll(metricCol, rankCol);
 
-    Label ramMetric = new Label(
-        String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
-
-    Label ramRank = new Label(
-        ProcessRanking.toOrdinalRank(processRanking.getRamRank()) + " on RAM usage");
-
-    Label cpuMetric = new Label(
-        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
-
-    Label cpuRank = new Label(
-        ProcessRanking.toOrdinalRank(processRanking.getCpuRank()) + " on CPU usage");
-
-    grid.add(ramMetric, 0, 0);
-    grid.add(ramRank, 1, 0);
-    grid.add(cpuMetric, 0, 1);
-    grid.add(cpuRank, 1, 1);
+    grid.add(ramMetricLabel, 0, 0);
+    grid.add(ramRankLabel, 1, 0);
+    grid.add(cpuMetricLabel, 0, 1);
+    grid.add(cpuRankLabel, 1, 1);
 
     return grid;
+  }
+
+  public void updateMetrics(ProcessItem processItem, ProcessRanking processRanking) {
+    uptimeLabel.setText("Total time — " + TimeFormatter.formatTime(processItem.getUptimeSeconds()));
+    ramMetricLabel.setText(
+        String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
+    ramRankLabel.setText(
+        ProcessRanking.toOrdinalRank(processRanking.getRamRank()) + " on RAM usage");
+    cpuMetricLabel.setText(
+        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
+    cpuRankLabel.setText(
+        ProcessRanking.toOrdinalRank(processRanking.getCpuRank()) + " on CPU usage");
+  }
+
+  public String getProcessName() {
+    return processName;
   }
 
   public void setOnKillProcess(Runnable handler) {

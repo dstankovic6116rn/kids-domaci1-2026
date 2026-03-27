@@ -1,5 +1,7 @@
 package org.example.view;
 
+import org.example.services.AnalyticsService;
+
 import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
@@ -15,11 +17,14 @@ public class MainView {
   private final ProcessListView processListView;
   private final PieView pieView;
 
+  private AnalyticsService analyticsService;
+
   public MainView() {
 
     toolbarView = new ToolbarView();
     processListView = new ProcessListView();
     pieView = new PieView();
+
     rightPane = new StackPane(pieView.getRoot());
 
     SplitPane splitPane = new SplitPane(processListView.getRoot(), rightPane);
@@ -35,6 +40,10 @@ public class MainView {
     root.getStyleClass().add("root-pane");
   }
 
+  public void setAnalyticsService(AnalyticsService analyticsService) {
+    this.analyticsService = analyticsService;
+  }
+
   public void showCategoryDetails(CategoryDetailsView categoryDetailsView) {
     root.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
     root.getChildren().add(categoryDetailsView);
@@ -44,12 +53,20 @@ public class MainView {
 
     categoryDetailsView.setVisible(true);
     categoryDetailsView.setManaged(true);
+
+    if (analyticsService != null) {
+      analyticsService.setActiveCategoryDetail(categoryDetailsView);
+    }
   }
 
   public void showMain() {
     root.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
     mainPage.setVisible(true);
     mainPage.setManaged(true);
+
+    if (analyticsService != null) {
+      analyticsService.clearActiveCategoryDetail();
+    }
   }
 
   public void showProcessDetails(ProcessDetailsView processDetailsView) {
@@ -61,6 +78,10 @@ public class MainView {
 
     processDetailsView.setVisible(true);
     processDetailsView.setManaged(true);
+
+    if (analyticsService != null) {
+      analyticsService.clearActiveCategoryDetail();
+    }
   }
 
   public void showPieView() {
@@ -68,6 +89,10 @@ public class MainView {
 
     pieView.getRoot().setVisible(true);
     pieView.getRoot().setManaged(true);
+
+    if (analyticsService != null) {
+      analyticsService.clearActiveCategoryDetail();
+    }
   }
 
   public ToolbarView getToolbarView() {

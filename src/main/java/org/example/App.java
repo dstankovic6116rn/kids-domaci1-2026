@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private DataService dataService;
+    private MainController mainController;
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) {
@@ -34,6 +35,9 @@ public class App extends Application {
      */
     @Override
     public void stop() {
+        if (mainController != null) {
+            mainController.getAnalyticsService().shutdown();
+        }
         if (dataService != null) {
             dataService.shutdown();
         }
