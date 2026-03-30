@@ -80,7 +80,7 @@ public class MainView {
     processDetailsView.setManaged(true);
 
     if (analyticsService != null) {
-      analyticsService.clearActiveCategoryDetail();
+      analyticsService.setActiveProcessDetails(processDetailsView);
     }
   }
 
@@ -91,7 +91,7 @@ public class MainView {
     pieView.getRoot().setManaged(true);
 
     if (analyticsService != null) {
-      analyticsService.clearActiveCategoryDetail();
+      analyticsService.clearActiveProcessDetails();
     }
   }
 

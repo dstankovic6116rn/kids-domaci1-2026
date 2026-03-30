@@ -117,11 +117,11 @@ public class AnalyticsService {
     return view.getProcessName();
   }
 
-  public void setActiveItemDetail(ProcessDetailsView view) {
+  public void setActiveProcessDetails(ProcessDetailsView view) {
     activeProcessDetails.set(view);
   }
 
-  public void clearActiveItemDetail() {
+  public void clearActiveProcessDetails() {
     activeProcessDetails.set(null);
   }
 
