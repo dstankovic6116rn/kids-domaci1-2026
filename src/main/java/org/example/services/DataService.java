@@ -55,6 +55,17 @@ public class DataService {
 		}
 	}
 
+	public long getLiveUptime(String originalName) {
+		return processData.getLiveUptime(originalName);
+	}
+
+	public long getCategoryUptimeSeconds(String category) {
+		return processData.getAll().stream()
+				.filter(p -> p.getCategory().equals(category))
+				.mapToLong(ProcessItem::getUptimeSeconds)
+				.sum();
+	}
+
 	public ObservableList<PieChart.Data> buildProcessCategoryPieData() {
 		Map<String, Long> counts = processData.getAll().stream()
 				.filter(p -> !p.getCategory().equals(ProcessItem.DEFAULT_CATEGORY))
@@ -70,13 +81,6 @@ public class DataService {
 
 	public List<ProcessItem> getProcessesByCategoryName(String catName) {
 		return processData.getAll().stream().filter(p -> p.getCategory().equals(catName)).collect(Collectors.toList());
-	}
-
-	public long getCategoryUptimeSeconds(String category) {
-		return processData.getAll().stream()
-				.filter(p -> p.getCategory().equals(category))
-				.mapToLong(ProcessItem::getUptimeSeconds)
-				.sum();
 	}
 
 	public ProcessRanking getRankingForProcess(String originalName) {

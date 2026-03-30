@@ -81,7 +81,7 @@ public class CategoryDetailsView extends VBox {
   }
 
   private TableView<ProcessItem> buildTable(List<ProcessItem> processes) {
-    TableView<ProcessItem> table = new TableView<>();
+    TableView<ProcessItem> table = new TableView<>(tableItems);
 
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     table.setPlaceholder(new Label("No processes in this category."));

@@ -23,8 +23,6 @@ public class ProcessListController {
   private final MainView mainView;
 
   ObservableList<ProcessItem> processItems;
-  private Runnable onChartRefreshNeeded = () -> {
-  };
 
   public ProcessListController(ProcessListView processListView, DataService dataService, MainView mainView) {
     this.processListView = processListView;
@@ -37,16 +35,23 @@ public class ProcessListController {
 
   }
 
+  /**
+   * Refreshuje listu procesa sa najnovijim podacima iz DataService-a nakon svakog
+   * skeniranja.
+   * Upate chart-a i metrika se hendluje iz AnalyticsService-a koji osluskuje
+   * promene u DataService-u i obavestava FX Thread da osvezi prikaz pozivom
+   * Platform.runLater(() -> processListController.onScanComplete())
+   */
   public void onScanComplete() {
     List<ProcessItem> result = dataService.getCurrentProcceses();
     processItems.setAll(result);
     processListView.setItems(processItems);
-    onChartRefreshNeeded.run();
   }
 
   private void onLabelClicked(ProcessItem item) {
     ProcessRanking ranking = dataService.getRankingForProcess(item.getOriginalName());
-    ProcessDetailsView processDetailsView = new ProcessDetailsView(item, ranking);
+    long liveUptime = dataService.getLiveUptime(item.getOriginalName());
+    ProcessDetailsView processDetailsView = new ProcessDetailsView(item, ranking, liveUptime);
 
     processDetailsView.setOnBackRequested(mainView::showPieView);
 
@@ -57,12 +62,6 @@ public class ProcessListController {
   private void onCategoryChanged(ProcessItem item, String category) {
     dataService.setProcessCategory(item.getOriginalName(), category);
     System.out.println("Value changed for:" + item.getOriginalName() + " " + item.getCategory() + " → " + category);
-
-    onChartRefreshNeeded.run();
-  }
-
-  public void setOnChartRefreshNeeded(Runnable handler) {
-    this.onChartRefreshNeeded = handler;
   }
 
   public ObservableList<ProcessItem> getProcessItems() {

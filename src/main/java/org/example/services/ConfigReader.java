@@ -23,7 +23,7 @@ public class ConfigReader {
 
   public AppConfig readConfig() {
     Properties properties = new Properties();
-    File configFile = new File("app.properties");
+    File configFile = new File("config.properties");
 
     try (InputStream is = new FileInputStream(configFile)) {
       properties.load(is);
@@ -35,7 +35,7 @@ public class ConfigReader {
 
     String raw = properties.getProperty(KEY_SCAN_INTERVAL, "").trim();
     if (raw.isEmpty()) {
-      System.err.println("[ConfigReader] Missing key '" + KEY_SCAN_INTERVAL);
+      System.err.println("[ConfigReader] Missing key " + KEY_SCAN_INTERVAL);
     }
 
     long scanInterval;

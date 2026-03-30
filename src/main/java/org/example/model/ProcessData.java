@@ -21,7 +21,7 @@ public class ProcessData {
 
   private final ConcurrentHashMap<String, ProcessItem> processDataStore = new ConcurrentHashMap<>();
   private final ConcurrentHashMap<String, Long> uptimeStore = new ConcurrentHashMap<>();
-  private long lastMergeTimeMs = System.currentTimeMillis();
+  private volatile long lastMergeTimeMs = System.currentTimeMillis();
 
   /**
    * Merge-uje procese iz novog skeniranja u data store
@@ -64,6 +64,18 @@ public class ProcessData {
 
     // Izbaci procese koji vise ne postoje
     processDataStore.keySet().removeIf(k -> !scannedKeys.contains(k));
+  }
+
+  public long getLiveUptime(String originalName) {
+    long banked = uptimeStore.getOrDefault(originalName, 0L);
+    long elapsed = (System.currentTimeMillis() - lastMergeTimeMs) / 1000L;
+    long raw = banked + elapsed;
+    return raw;
+  }
+
+  /** Returns a snapshot of the full uptime bank for persistence. */
+  public ConcurrentHashMap<String, Long> getUptimeStore() {
+    return uptimeStore;
   }
 
   public List<ProcessItem> getAll() {

@@ -3,7 +3,6 @@ package org.example.services;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -45,8 +44,6 @@ public class AnalyticsService {
     return t;
   });
 
-  private ScheduledFuture<?> pendingRuns;
-
   private final long analyticsIntervalMs;
 
   public AnalyticsService(DataService dataService, PieController pieController) {
@@ -55,25 +52,19 @@ public class AnalyticsService {
     this.analyticsIntervalMs = DEFAULT_ANALYTICS_INTERVAL_MS;
   }
 
+  /**
+   * Pokrece periodicku analitiku koja se osvezava na svim aktivnim prikazima.
+   */
   public void start() {
-    scheduleRun(analyticsIntervalMs);
-  }
-
-  private void scheduleRun(long delay) {
-    pendingRuns = scheduler.scheduleWithFixedDelay(this::run, delay, analyticsIntervalMs, TimeUnit.MILLISECONDS);
+    scheduler.scheduleWithFixedDelay(this::run, analyticsIntervalMs, analyticsIntervalMs, TimeUnit.MILLISECONDS);
   }
 
   /**
-   * nudgeRun() poziva ExecutorService nakon sto se svaki scan procesa zavrsi
-   * Otkazuje pending run i pokrece jedan odmah, zatim restartuje regularan
-   * interval
+   * Koristi se za "nudge" AnalyticsService da izvrsi analitiku odmah, npr nakon
+   * sto ProcessScanService zavrsi skeniranje i ima sveze podatke.
    */
   public void nudgeRun() {
-    if (pendingRuns != null) {
-      pendingRuns.cancel(false);
-    }
     scheduler.submit(this::run);
-    scheduleRun(analyticsIntervalMs);
   }
 
   public void shutdown() {
@@ -89,14 +80,19 @@ public class AnalyticsService {
 
       // Update Process Details View
       if (processDetailsView != null) {
-        String processName = getProcessName(processDetailsView);
+        String processName = processDetailsView.getProcessName();
         if (processName != null) {
           ProcessItem processItem = dataService.getCurrentProcceses().stream()
               .filter(p -> p.getOriginalName().equals(processName)).findFirst().orElse(null);
+
           if (processItem != null) {
             ProcessRanking ranking = dataService.getRankingForProcess(processName);
 
-            Platform.runLater(() -> processDetailsView.updateMetrics(processItem, ranking));
+            Platform.runLater(() -> {
+              long liveUptime = dataService.getLiveUptime(processName);
+              processDetailsView.updateMetrics(processItem, ranking, liveUptime);
+
+            });
           }
         }
       }
@@ -111,10 +107,6 @@ public class AnalyticsService {
     } catch (Exception e) {
       System.err.println("[AnalyticsService] failed: " + e.getMessage());
     }
-  }
-
-  private String getProcessName(ProcessDetailsView view) {
-    return view.getProcessName();
   }
 
   public void setActiveProcessDetails(ProcessDetailsView view) {

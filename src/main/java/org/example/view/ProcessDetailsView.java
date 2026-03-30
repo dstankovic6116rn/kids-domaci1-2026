@@ -14,6 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * Konstruktor delegira popunjavanje svih metrika pozivom
+ * updateMetrics() sa najnovijim ProcessItem i
+ * ProcessRanking podacima.
+ * Ovo osigurava da su prikazane metrike uvek sveze i tacne, bez potrebe za
+ * ponovnim kreiranjem celog ProcessDetailsView-a.
+ */
 public class ProcessDetailsView extends VBox {
 
   private Runnable onKillProcess = () -> {
@@ -36,7 +43,9 @@ public class ProcessDetailsView extends VBox {
   private final Label cpuMetricLabel = new Label();
   private final Label cpuRankLabel = new Label();
 
-  public ProcessDetailsView(ProcessItem processItem, ProcessRanking ranking) {
+  public ProcessDetailsView(ProcessItem processItem, ProcessRanking ranking, long liveUptime) {
+    this.processName = processItem.getOriginalName();
+
     getStyleClass().add("item-detail-root");
     setMaxWidth(Double.MAX_VALUE);
     setMaxHeight(Double.MAX_VALUE);
@@ -50,28 +59,11 @@ public class ProcessDetailsView extends VBox {
     topBar.setAlignment(Pos.CENTER_LEFT);
     topBar.setPadding(new Insets(10, 16, 10, 16));
 
-    this.processName = processItem.getOriginalName();
-
     // Content
     Label nameLabel = new Label(processItem.getDisplayName());
     nameLabel.getStyleClass().add("process-detail-name");
 
-    Label uptimeLabel = new Label(
-        "Total time — " + TimeFormatter.formatTime(processItem.getUptimeSeconds()));
-
-    Label ramMetric = new Label(
-        String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
-
-    Label ramRank = new Label(
-        ProcessRanking.toOrdinalRank(ranking.getRamRank()) + " on RAM usage");
-
-    Label cpuMetric = new Label(
-        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
-
-    Label cpuRank = new Label(
-        ProcessRanking.toOrdinalRank(ranking.getCpuRank()) + " on CPU usage");
-
-    GridPane metricsGrid = buildMetricsGrid();
+    updateMetrics(processItem, ranking, liveUptime);
 
     Button killBtn = new Button("Kill Process");
     Button changeNameBtn = new Button("Change Process Name");
@@ -93,7 +85,7 @@ public class ProcessDetailsView extends VBox {
     buttonGroup.setAlignment(Pos.CENTER);
     buttonGroup.getStyleClass().add("process-detail-btn-group");
 
-    VBox content = new VBox(12, nameLabel, uptimeLabel, metricsGrid, buttonGroup);
+    VBox content = new VBox(12, nameLabel, uptimeLabel, buildMetricsGrid(), buttonGroup);
     content.setPadding(new Insets(24));
 
     VBox page = new VBox(topBar, content);
@@ -125,8 +117,8 @@ public class ProcessDetailsView extends VBox {
     return grid;
   }
 
-  public void updateMetrics(ProcessItem processItem, ProcessRanking processRanking) {
-    uptimeLabel.setText("Total time — " + TimeFormatter.formatTime(processItem.getUptimeSeconds()));
+  public void updateMetrics(ProcessItem processItem, ProcessRanking processRanking, long liveUptime) {
+    uptimeLabel.setText("Total time — " + TimeFormatter.formatTime(liveUptime));
     ramMetricLabel.setText(
         String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
     ramRankLabel.setText(
