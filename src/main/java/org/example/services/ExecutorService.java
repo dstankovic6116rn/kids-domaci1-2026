@@ -1,13 +1,16 @@
 package org.example.services;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import org.example.model.AppConfig;
+import org.example.model.ProcessItem;
 
 import javafx.application.Platform;
 
@@ -20,6 +23,7 @@ import javafx.application.Platform;
  * 3. Zakazuje periodicna skeniranja sa fiksnim delay-om. Koristi se fixed delay
  * umesto fixed rate zbog slucaja da se zapoceti sken ne zavrsi u roku od tri
  * sekunde. U tom slucaju sledeci ceka a ne pokrece se preko prethodnog.
+ * 4. Pokrece cuvanje in-memory procesa u zadati fajl
  * 
  */
 
@@ -33,6 +37,7 @@ public class ExecutorService {
 
   private final ConfigReader configReader = new ConfigReader();
   private final DataService dataService;
+  private final JsonWritter jsonWritter = new JsonWritter();
 
   private ScheduledFuture<?> scanJob;
 
@@ -40,16 +45,16 @@ public class ExecutorService {
   private Runnable onScanComplete = () -> {
   };
 
+  private volatile AppConfig config;
+
   public ExecutorService(DataService dataService) {
     this.dataService = dataService;
   }
 
   public void start() {
     executor.submit(() -> {
-
-      AppConfig config = configReader.readConfig();
+      config = configReader.readConfig();
       scheduleScan(config.getScanIntervalMS());
-
     });
   }
 
@@ -81,10 +86,32 @@ public class ExecutorService {
     }
   }
 
+  public void submitSave(List<ProcessItem> processes, Consumer<Boolean> onComplete) {
+    executor.submit(() -> {
+      if (config == null) {
+        System.err.println("[FileExecutorService] Save skipped — config not yet loaded.");
+        Platform.runLater(() -> onComplete.accept(false));
+        return;
+      }
+      try {
+        jsonWritter.write(processes, config.getMappingFile());
+        Platform.runLater(() -> onComplete.accept(true));
+      } catch (Exception e) {
+        System.err.println("[FileExecutorService] Save failed: " + e.getMessage());
+        e.printStackTrace();
+        Platform.runLater(() -> onComplete.accept(false));
+      }
+    });
+
+  }
+
   public void setOnScanComplete(Runnable handler) {
     this.onScanComplete = handler;
   }
 
+  /**
+   * Genericni job za submit
+   */
   public <T> Future<T> submitJob(Callable<T> job) {
     return executor.submit(job);
   }

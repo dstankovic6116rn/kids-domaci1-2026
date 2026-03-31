@@ -12,6 +12,7 @@ public class ProcessItem {
 
   private volatile String aliasName;
   private volatile String category;
+  private volatile boolean trackingFrozen;
 
   private volatile double cpuUsage;
   private volatile double ramUsageMb;
@@ -87,6 +88,14 @@ public class ProcessItem {
 
   public String getDisplayName() {
     return (aliasName != null && !aliasName.isBlank()) ? aliasName : originalName;
+  }
+
+  public boolean isTrackingFrozen() {
+    return trackingFrozen;
+  }
+
+  public void setTrackingFrozen(boolean v) {
+    this.trackingFrozen = v;
   }
 
 }

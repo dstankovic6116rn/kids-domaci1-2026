@@ -7,13 +7,19 @@ package org.example.model;
 public class AppConfig {
 
   private final long scanIntervalMS;
+  private final String mappingFile;
 
-  public AppConfig(long scanIntervalMS) {
+  public AppConfig(long scanIntervalMS, String mappingFile) {
     this.scanIntervalMS = scanIntervalMS;
+    this.mappingFile = mappingFile;
   }
 
   public long getScanIntervalMS() {
     return scanIntervalMS;
+  }
+
+  public String getMappingFile() {
+    return mappingFile;
   }
 
 }

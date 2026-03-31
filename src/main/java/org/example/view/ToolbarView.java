@@ -1,8 +1,11 @@
 package org.example.view;
 
+import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 public class ToolbarView {
 
@@ -12,6 +15,9 @@ public class ToolbarView {
   private final Button loadButton;
   private final Button shutdownButton;
 
+  // Prikazuje feedback save akcije
+  private final Label statusLabel = new Label();
+
   public ToolbarView() {
     saveButton = new Button("Save");
     saveButton.getStyleClass().add("toolbar-button");
@@ -20,7 +26,7 @@ public class ToolbarView {
     shutdownButton = new Button("Shutdown");
     shutdownButton.getStyleClass().add("toolbar-button");
 
-    root = new HBox(saveButton, loadButton, shutdownButton);
+    root = new HBox(saveButton, loadButton, shutdownButton, statusLabel);
     root.getStyleClass().add("toolbar");
     root.setAlignment(Pos.CENTER_LEFT);
 
@@ -36,6 +42,21 @@ public class ToolbarView {
 
   public void setOnShutdown(Runnable action) {
     shutdownButton.setOnAction(e -> action.run());
+  }
+
+  public void showSaveStatus(boolean success) {
+    statusLabel.setText(success ? "Saved" : "Save failed");
+    statusLabel.getStyleClass().removeAll("status-success", "status-error");
+    statusLabel.getStyleClass().add(success ? "status-success" : "status-error");
+
+    // PauseTransition runs entirely on the FX thread — no background thread needed.
+    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+    pause.setOnFinished(e -> statusLabel.setText(""));
+    pause.play();
+  }
+
+  public void setSaveLabel(String text) {
+    saveButton.setText(text);
   }
 
   public HBox getRoot() {

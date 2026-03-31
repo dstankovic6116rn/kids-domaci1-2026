@@ -132,7 +132,6 @@ public class CategoryDetailsView extends VBox {
     });
 
     table.getColumns().addAll(nameCol, cpuCol, ramCol, uptimeCol);
-    // table.setItems(FXCollections.observableArrayList(processes));
 
     return table;
   }

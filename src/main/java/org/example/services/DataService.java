@@ -2,6 +2,7 @@ package org.example.services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.example.model.ProcessData;
@@ -132,6 +133,11 @@ public class DataService {
 
 		return new ProcessRanking(ramRank, cpuRank);
 
+	}
+
+	public void saveProcesses(Consumer<Boolean> onComplete) {
+		List<ProcessItem> snapshot = processData.getAll();
+		executorService.submitSave(snapshot, onComplete);
 	}
 
 	public void shutdown() {

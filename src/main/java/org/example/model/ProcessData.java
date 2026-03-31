@@ -56,6 +56,7 @@ public class ProcessData {
             : uptimeStore.merge(key, elapsedTime, Long::sum);
 
         incoming.setUptimeSeconds(uptime);
+        incoming.setTrackingFrozen(frozenProcesses.contains(key));
         processDataStore.put(key, incoming);
 
       } else if (frozenProcesses.contains(key)) {
@@ -91,10 +92,17 @@ public class ProcessData {
 
   public void freezeUptime(String originalName) {
     frozenProcesses.add(originalName);
+    ProcessItem process = processDataStore.get(originalName);
+    if (process != null)
+      process.setTrackingFrozen(true);
+
   }
 
   public void unfreezeUptime(String originalName) {
     frozenProcesses.remove(originalName);
+    ProcessItem process = processDataStore.get(originalName);
+    if (process != null)
+      process.setTrackingFrozen(false);
   }
 
   public boolean isFrozen(String originalName) {

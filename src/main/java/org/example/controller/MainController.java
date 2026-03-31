@@ -15,7 +15,7 @@ public class MainController {
 
   public MainController(MainView mainView, DataService dataService) {
     this.processListController = new ProcessListController(mainView.getProcessListView(), dataService, mainView);
-    this.toolbarController = new ToolbarController(mainView.getToolbarView());
+    this.toolbarController = new ToolbarController(mainView.getToolbarView(), dataService);
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);
     this.analyticsService = new AnalyticsService(dataService, pieController);
 
