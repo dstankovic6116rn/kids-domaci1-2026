@@ -9,9 +9,10 @@ import javafx.scene.layout.StackPane;
 
 public class MainView {
 
-  private final StackPane root;
-  private final BorderPane mainPage;
+  private final BorderPane root;
+  private final StackPane mainPage;
   private final StackPane rightPane;
+  private final SplitPane splitPane;
 
   private final ToolbarView toolbarView;
   private final ProcessListView processListView;
@@ -27,17 +28,17 @@ public class MainView {
 
     rightPane = new StackPane(pieView.getRoot());
 
-    SplitPane splitPane = new SplitPane(processListView.getRoot(), rightPane);
+    splitPane = new SplitPane(processListView.getRoot(), rightPane);
     splitPane.setOrientation(Orientation.HORIZONTAL);
     splitPane.setDividerPositions(0.5);
 
-    mainPage = new BorderPane();
-    mainPage.getStyleClass().add("root-pane");
-    mainPage.setTop(toolbarView.getRoot());
-    mainPage.setCenter(splitPane);
+    // mainPage holds the main split view and swaps in CategoryDetailsView
+    mainPage = new StackPane(splitPane);
 
-    root = new StackPane(mainPage);
+    root = new BorderPane();
     root.getStyleClass().add("root-pane");
+    root.setTop(toolbarView.getRoot());
+    root.setCenter(mainPage);
   }
 
   public void setAnalyticsService(AnalyticsService analyticsService) {
@@ -45,14 +46,11 @@ public class MainView {
   }
 
   public void showCategoryDetails(CategoryDetailsView categoryDetailsView) {
-    root.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
-    root.getChildren().add(categoryDetailsView);
+    mainPage.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
+    mainPage.getChildren().add(categoryDetailsView);
 
-    mainPage.setVisible(false);
-    mainPage.setManaged(false);
-
-    categoryDetailsView.setVisible(true);
-    categoryDetailsView.setManaged(true);
+    splitPane.setVisible(false);
+    splitPane.setManaged(false);
 
     if (analyticsService != null) {
       analyticsService.setActiveCategoryDetail(categoryDetailsView);
@@ -60,9 +58,9 @@ public class MainView {
   }
 
   public void showMain() {
-    root.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
-    mainPage.setVisible(true);
-    mainPage.setManaged(true);
+    mainPage.getChildren().removeIf(node -> node instanceof CategoryDetailsView);
+    splitPane.setVisible(true);
+    splitPane.setManaged(true);
 
     if (analyticsService != null) {
       analyticsService.clearActiveCategoryDetail();
@@ -107,7 +105,7 @@ public class MainView {
     return pieView;
   }
 
-  public StackPane getRoot() {
+  public BorderPane getRoot() {
     return root;
   }
 

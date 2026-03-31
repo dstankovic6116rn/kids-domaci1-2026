@@ -86,6 +86,12 @@ public class CategoryDetailsView extends VBox {
     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     table.setPlaceholder(new Label("No processes in this category."));
 
+    table.sceneProperty().addListener((obs, oldScene, newScene) -> {
+      if (newScene != null) {
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+      }
+    });
+
     // Process name column
     TableColumn<ProcessItem, String> nameCol = new TableColumn<>("Process");
     nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDisplayName()));
