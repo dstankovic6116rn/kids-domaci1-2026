@@ -24,7 +24,8 @@ import javafx.application.Platform;
  * umesto fixed rate zbog slucaja da se zapoceti sken ne zavrsi u roku od tri
  * sekunde. U tom slucaju sledeci ceka a ne pokrece se preko prethodnog.
  * 4. Pokrece cuvanje in-memory procesa u zadati fajl
- * 
+ * 5. Na startu ucitava istorijske podatke iz fajla i puni
+ * ProcessData.historicData koji se koristi za merge-ovanje sa novim skenovima
  */
 
 public class ExecutorService {
@@ -38,6 +39,7 @@ public class ExecutorService {
   private final ConfigReader configReader = new ConfigReader();
   private final DataService dataService;
   private final JsonWritter jsonWritter = new JsonWritter();
+  private final JsonReader jsonReader = new JsonReader();
 
   private ScheduledFuture<?> scanJob;
 
@@ -54,6 +56,15 @@ public class ExecutorService {
   public void start() {
     executor.submit(() -> {
       config = configReader.readConfig();
+
+      try {
+        List<ProcessItem> historic = jsonReader.read(config.getMappingFile());
+        dataService.loadHistory(historic);
+      } catch (Exception e) {
+        System.err.println("[FileExecutorService] History load failed: "
+            + e.getMessage());
+        e.printStackTrace();
+      }
       scheduleScan(config.getScanIntervalMS());
     });
   }

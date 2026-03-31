@@ -91,7 +91,6 @@ public class AnalyticsService {
             Platform.runLater(() -> {
               long liveUptime = dataService.getLiveUptime(processName);
               processDetailsView.updateMetrics(processItem, ranking, liveUptime);
-
             });
           }
         }
@@ -106,6 +105,7 @@ public class AnalyticsService {
       }
     } catch (Exception e) {
       System.err.println("[AnalyticsService] failed: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 

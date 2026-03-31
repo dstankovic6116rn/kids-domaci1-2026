@@ -23,7 +23,25 @@ public class ProcessData {
   private final ConcurrentHashMap<String, Long> uptimeStore = new ConcurrentHashMap<>();
   private volatile long lastMergeTimeMs = System.currentTimeMillis();
 
+  // ConcurrentHashMap.newKeySet() — thread-safe, lock-free reads/writes.
   private final Set<String> frozenProcesses = ConcurrentHashMap.newKeySet();
+
+  // Popunjava se iz JSON-a na startu aplikacije
+  private final ConcurrentHashMap<String, ProcessItem> historicData = new ConcurrentHashMap<>();
+
+  public void loadFromHistory(List<ProcessItem> records) {
+    for (ProcessItem item : records) {
+      String name = item.getOriginalName();
+      uptimeStore.put(name, item.getUptimeSeconds());
+
+      if (item.isTrackingFrozen())
+        frozenProcesses.add(name);
+
+      historicData.put(name, item);
+    }
+    System.out.println("[ProcessStore] Loaded " + records.size()
+        + " historic records into bank.");
+  }
 
   /**
    * Merge-uje procese iz novog skeniranja u data store
@@ -57,6 +75,13 @@ public class ProcessData {
 
         incoming.setUptimeSeconds(uptime);
         incoming.setTrackingFrozen(frozenProcesses.contains(key));
+
+        ProcessItem historicPI = historicData.get(key);
+        if (historicPI != null) {
+          incoming.setAliasName(historicPI.getAliasName());
+          incoming.setCategory(historicPI.getCategory());
+        }
+
         processDataStore.put(key, incoming);
 
       } else if (frozenProcesses.contains(key)) {
@@ -65,6 +90,7 @@ public class ProcessData {
         storedProcess.setStartTime(incoming.getStartTime());
         storedProcess.setCpuUsage(incoming.getCpuUsage());
         storedProcess.setRamUsageMb(incoming.getRamUsageMb());
+        storedProcess.setTrackingFrozen(true);
       } else {
         // Azuriraj sve
         long uptime = uptimeStore.merge(key, elapsedTime, Long::sum);
@@ -73,6 +99,7 @@ public class ProcessData {
         storedProcess.setCpuUsage(incoming.getCpuUsage());
         storedProcess.setRamUsageMb(incoming.getRamUsageMb());
         storedProcess.setUptimeSeconds(uptime);
+        storedProcess.setTrackingFrozen(false);
       }
     }
 

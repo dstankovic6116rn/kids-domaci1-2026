@@ -42,6 +42,10 @@ public class DataService {
 		processData.merge(scannedProcesses);
 	}
 
+	public void loadHistory(List<ProcessItem> records) {
+		processData.loadFromHistory(records);
+	}
+
 	/**
 	 * Vraca trenutne in-memory procese
 	 */
