@@ -23,6 +23,8 @@ public class ProcessData {
   private final ConcurrentHashMap<String, Long> uptimeStore = new ConcurrentHashMap<>();
   private volatile long lastMergeTimeMs = System.currentTimeMillis();
 
+  private final Set<String> frozenProcesses = ConcurrentHashMap.newKeySet();
+
   /**
    * Merge-uje procese iz novog skeniranja u data store
    * 
@@ -44,22 +46,33 @@ public class ProcessData {
       String key = incoming.getOriginalName();
       scannedKeys.add(key);
 
-      // merge() ConcurrentHashMap.merge atomically inserts or accumulates
-      long uptime = uptimeStore.merge(key, elapsedTime, Long::sum);
-
       ProcessItem storedProcess = processDataStore.get(key);
 
       if (storedProcess == null) {
+        // Nov ili ponovno pokrenut proces, proverava da li je prethodno ostao u freeze,
+        // ako jeste upisi poslednju vrednost u processDataStore
+        long uptime = frozenProcesses.contains(key)
+            ? uptimeStore.getOrDefault(key, 0L)
+            : uptimeStore.merge(key, elapsedTime, Long::sum);
+
         incoming.setUptimeSeconds(uptime);
         processDataStore.put(key, incoming);
+
+      } else if (frozenProcesses.contains(key)) {
+        // Postojeci proces u novom scan-u, zanemari uptime azuriranje
+        storedProcess.setPid(incoming.getPid());
+        storedProcess.setStartTime(incoming.getStartTime());
+        storedProcess.setCpuUsage(incoming.getCpuUsage());
+        storedProcess.setRamUsageMb(incoming.getRamUsageMb());
       } else {
+        // Azuriraj sve
+        long uptime = uptimeStore.merge(key, elapsedTime, Long::sum);
         storedProcess.setPid(incoming.getPid());
         storedProcess.setStartTime(incoming.getStartTime());
         storedProcess.setCpuUsage(incoming.getCpuUsage());
         storedProcess.setRamUsageMb(incoming.getRamUsageMb());
         storedProcess.setUptimeSeconds(uptime);
       }
-
     }
 
     // Izbaci procese koji vise ne postoje
@@ -68,12 +81,27 @@ public class ProcessData {
 
   public long getLiveUptime(String originalName) {
     long banked = uptimeStore.getOrDefault(originalName, 0L);
+    if (frozenProcesses.contains(originalName)) {
+      return banked; // frozen — don't add elapsed
+    }
     long elapsed = (System.currentTimeMillis() - lastMergeTimeMs) / 1000L;
     long raw = banked + elapsed;
     return raw;
   }
 
-  /** Returns a snapshot of the full uptime bank for persistence. */
+  public void freezeUptime(String originalName) {
+    frozenProcesses.add(originalName);
+  }
+
+  public void unfreezeUptime(String originalName) {
+    frozenProcesses.remove(originalName);
+  }
+
+  public boolean isFrozen(String originalName) {
+    return frozenProcesses.contains(originalName);
+  }
+
+  /** Vraca snapshot cele uptime banke. */
   public ConcurrentHashMap<String, Long> getUptimeStore() {
     return uptimeStore;
   }
@@ -88,5 +116,9 @@ public class ProcessData {
 
   public int getSize() {
     return processDataStore.size();
+  }
+
+  public void remove(String originalName) {
+    processDataStore.remove(originalName);
   }
 }

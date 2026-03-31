@@ -35,8 +35,11 @@ public class ProcessDetailsView extends VBox {
   private Runnable onBackRequested = () -> {
   };
 
-  // Read by AnalyticsService to look up fresh data
   private final String processName;
+  private final Label nameLabel = new Label();
+  private final Button freezeTrackingBtn = new Button();
+
+  // Read by AnalyticsService to look up fresh data
   private final Label uptimeLabel = new Label();
   private final Label ramMetricLabel = new Label();
   private final Label ramRankLabel = new Label();
@@ -60,19 +63,19 @@ public class ProcessDetailsView extends VBox {
     topBar.setPadding(new Insets(10, 16, 10, 16));
 
     // Content
-    Label nameLabel = new Label(processItem.getDisplayName());
+    nameLabel.setText(processItem.getDisplayName());
     nameLabel.getStyleClass().add("process-detail-name");
 
     updateMetrics(processItem, ranking, liveUptime);
 
     Button killBtn = new Button("Kill Process");
     Button changeNameBtn = new Button("Change Process Name");
-    Button freezeTrackingBtn = new Button("Freeze Tracking");
+    freezeTrackingBtn.setText("Freeze Tracking");
     Button changeCategoryBtn = new Button("Change Process Category");
 
     // Action buttons
-    for (Button btn : new Button[] { killBtn, changeNameBtn, freezeTrackingBtn, changeCategoryBtn }) {
-      btn.getStyleClass().add("item-detail-btn");
+    for (Button btn : new Button[] { killBtn, changeNameBtn, freezeTrackingBtn,
+        changeCategoryBtn }) {
       btn.setMaxWidth(Double.MAX_VALUE);
     }
 
@@ -117,6 +120,13 @@ public class ProcessDetailsView extends VBox {
     return grid;
   }
 
+  /**
+   * Update live metrika koristi analytics service
+   * 
+   * @param processItem
+   * @param processRanking
+   * @param liveUptime
+   */
   public void updateMetrics(ProcessItem processItem, ProcessRanking processRanking, long liveUptime) {
     uptimeLabel.setText("Total time — " + TimeFormatter.formatTime(liveUptime));
     ramMetricLabel.setText(
@@ -127,6 +137,23 @@ public class ProcessDetailsView extends VBox {
         String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
     cpuRankLabel.setText(
         ProcessRanking.toOrdinalRank(processRanking.getCpuRank()) + " on CPU usage");
+  }
+
+  public void showDialog(ProcessDialog dialog) {
+    getChildren().removeIf(node -> node instanceof ProcessDialog);
+    getChildren().add(dialog);
+  }
+
+  public void hideDialog() {
+    getChildren().removeIf(node -> node instanceof ProcessDialog);
+  }
+
+  public void updateNameLabel(String newName) {
+    nameLabel.setText(newName);
+  }
+
+  public void updateFreezeLabel(boolean isFrozen) {
+    freezeTrackingBtn.setText(isFrozen ? "Unfreeze Tracking" : "Freeze Tracking");
   }
 
   public String getProcessName() {

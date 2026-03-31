@@ -153,6 +153,10 @@ public class ProcessListView {
     return menu;
   }
 
+  public void forceNextRebuild() {
+    lastBuiltNames = List.of();
+  }
+
   public void setOnLabelClicked(Consumer<ProcessItem> handler) {
     this.onLabelClicked = handler;
   }

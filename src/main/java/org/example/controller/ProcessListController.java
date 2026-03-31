@@ -55,13 +55,19 @@ public class ProcessListController {
 
     processDetailsView.setOnBackRequested(mainView::showPieView);
 
-    new ProcessDetailsController(processDetailsView, item);
+    new ProcessDetailsController(processDetailsView, item, dataService, mainView, this::refreshList);
     mainView.showProcessDetails(processDetailsView);
   }
 
   private void onCategoryChanged(ProcessItem item, String category) {
     dataService.setProcessCategory(item.getOriginalName(), category);
     System.out.println("Value changed for:" + item.getOriginalName() + " " + item.getCategory() + " → " + category);
+  }
+
+  public void refreshList() {
+    processListView.forceNextRebuild();
+    processItems.setAll(dataService.getCurrentProcceses());
+    processListView.setItems(processItems);
   }
 
   public ObservableList<ProcessItem> getProcessItems() {

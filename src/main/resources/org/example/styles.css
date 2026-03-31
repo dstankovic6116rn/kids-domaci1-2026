@@ -49,4 +49,172 @@
     -fx-font-weight: bold;
     -fx-text-fill: #2C3E50;
 }
+/* ── Kill process dialog ─────────────────────────────────────── */
+.dialog-backdrop {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+ 
+.dialog-card {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 16, 0, 0, 4);
+}
+ 
+.dialog-header {
+    -fx-border-color: transparent transparent #E2E8F0 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+ 
+.dialog-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+ 
+.dialog-close-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7F8C8D;
+    -fx-border-color: transparent;
+    -fx-padding: 2 6 2 6;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+ 
+.dialog-close-btn:hover {
+    -fx-text-fill: #E74C3C;
+}
+ 
+.dialog-instance-list {
+    -fx-min-height: 60;
+}
+ 
+.instance-row {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 6;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+ 
+.instance-pid {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+ 
+.instance-metrics {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7F8C8D;
+}
+ 
+.kill-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E74C3C;
+    -fx-border-color: #E74C3C;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+ 
+.kill-btn:hover {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+}
+ 
+.dialog-empty-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #7F8C8D;
+    -fx-padding: 8 0 8 0;
+}
+ 
+.dialog-footer {
+    -fx-border-color: #E2E8F0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+ 
+.dialog-cancel-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7F8C8D;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 4 14 4 14;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+ 
+.dialog-cancel-btn:hover {
+    -fx-border-color: #7F8C8D;
+    -fx-text-fill: #2C3E50;
+}
+ 
+/* Kill Process button in detail view */
+.kill-process-btn {
+    -fx-text-fill: #E74C3C;
+    -fx-border-color: #E74C3C;
+}
+ 
+.kill-process-btn:hover {
+    -fx-background-color: #FDEDEC;
+    -fx-border-color: #E74C3C;
+    -fx-text-fill: #E74C3C;
+}
 
+/* ── ProcessDialog shared ────────────────────────────────────── */
+.dialog-body {
+    -fx-min-width: 320;
+}
+ 
+.dialog-body-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C3E50;
+}
+ 
+.dialog-confirm-btn {
+    -fx-background-color: #2C3E50;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 4 14 4 14;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+ 
+.dialog-confirm-btn:hover {
+    -fx-background-color: #1ABC9C;
+}
+ 
+.dialog-error-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #E74C3C;
+}
+ 
+/* ── Text input dialog ───────────────────────────────────────── */
+.dialog-text-input {
+    -fx-font-size: 13px;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 6 10 6 10;
+}
+ 
+.dialog-text-input:focused {
+    -fx-border-color: #1ABC9C;
+}
+ 
+/* ── Category picker dialog ──────────────────────────────────── */
+.dialog-category-list {
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 13px;
+}
+ 
+.dialog-category-list .list-cell:selected {
+    -fx-background-color: #EBF8F5;
+    -fx-text-fill: #1ABC9C;
+}

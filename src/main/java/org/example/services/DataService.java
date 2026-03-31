@@ -55,6 +55,27 @@ public class DataService {
 		}
 	}
 
+	/**
+	 * Odmah ukloni proces iz store-a nakon kill signala, bez cekanja na sledeci
+	 * scan.
+	 */
+	public void removeProcess(String originalName) {
+		processData.remove(originalName);
+	}
+
+	// Freeze kontrole
+	public void freezeUptime(String originalName) {
+		processData.freezeUptime(originalName);
+	}
+
+	public void unfreezeUptime(String originalName) {
+		processData.unfreezeUptime(originalName);
+	}
+
+	public boolean isFrozen(String originalName) {
+		return processData.isFrozen(originalName);
+	}
+
 	public long getLiveUptime(String originalName) {
 		return processData.getLiveUptime(originalName);
 	}
