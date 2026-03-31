@@ -59,6 +59,13 @@ public class ToolbarView {
     saveButton.setText(text);
   }
 
+  /** Disable sve button-e dok traje shutdown sekvenca */
+  public void setDisabled(boolean disabled) {
+    saveButton.setDisable(disabled);
+    loadButton.setDisable(disabled);
+    shutdownButton.setDisable(disabled);
+  }
+
   public HBox getRoot() {
     return root;
   }

@@ -109,4 +109,8 @@ public class MainView {
     return root;
   }
 
+  public StackPane getMainPage() {
+    return mainPage;
+  }
+
 }

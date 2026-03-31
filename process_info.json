@@ -5,2590 +5,2590 @@
       "aliasName": "SafariNotificationAgent",
       "category": "Other",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "secd",
       "aliasName": "secd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "replicatord",
       "aliasName": "replicatord",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AppSSOAgent",
       "aliasName": "AppSSOAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.Safari.SafeBrowsing.Service",
       "aliasName": "com.apple.Safari.SafeBrowsing.Service",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mapssyncd",
       "aliasName": "mapssyncd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "spotlightknowledged",
       "aliasName": "spotlightknowledged",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "LoginUserService",
       "aliasName": "LoginUserService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "diagnosticextensionsd",
       "aliasName": "diagnosticextensionsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ServiceExtension",
       "aliasName": "ServiceExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mediaanalysisd-access",
       "aliasName": "mediaanalysisd-access",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "java",
       "aliasName": "java",
       "category": "Work",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "Code Helper (GPU)",
       "aliasName": "Code Helper (GPU)",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "milod",
       "aliasName": "milod",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "InteractiveLegacyProfilesSubscriber",
       "aliasName": "InteractiveLegacyProfilesSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ThemeWidgetControlViewService",
       "aliasName": "ThemeWidgetControlViewService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "figma_agent",
       "aliasName": "figma_agent",
       "category": "Fun",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "useractivityd",
       "aliasName": "useractivityd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AudioComponentRegistrar",
       "aliasName": "AudioComponentRegistrar",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "LinkedNotesUIService",
       "aliasName": "LinkedNotesUIService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.geod",
       "aliasName": "com.apple.geod",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ScreenSharingSubscriber",
       "aliasName": "ScreenSharingSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "recentsd",
       "aliasName": "recentsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "IOUIAgent",
       "aliasName": "IOUIAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "universalaccessd",
       "aliasName": "universalaccessd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "fontd",
       "aliasName": "fontd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "accountsd",
       "aliasName": "accountsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "chrome_crashpad_handler",
       "aliasName": "chrome_crashpad_handler",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "passd",
       "aliasName": "passd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Code",
       "aliasName": "Code",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.CloudPhotosConfiguration",
       "aliasName": "com.apple.CloudPhotosConfiguration",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WiFiAgent",
       "aliasName": "WiFiAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "colorsync.useragent",
       "aliasName": "colorsync.useragent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "fudHelperAgent",
       "aliasName": "fudHelperAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "IMTransferAgent",
       "aliasName": "IMTransferAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafariConfigurationSubscriber",
       "aliasName": "SafariConfigurationSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "facetimemessagestored",
       "aliasName": "facetimemessagestored",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "cdpd",
       "aliasName": "cdpd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mediaremoteagent",
       "aliasName": "mediaremoteagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "icloudmailagent",
       "aliasName": "icloudmailagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ContextService",
       "aliasName": "ContextService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "sirittsd",
       "aliasName": "sirittsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AuthenticationServicesAgent",
       "aliasName": "AuthenticationServicesAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "managedappdistributionagent",
       "aliasName": "managedappdistributionagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "secinitd",
       "aliasName": "secinitd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "lockdownmoded",
       "aliasName": "lockdownmoded",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.BKAgentService",
       "aliasName": "com.apple.BKAgentService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "searchpartyuseragent",
       "aliasName": "searchpartyuseragent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "zsh",
       "aliasName": "zsh",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "AdobeIPCBroker",
       "aliasName": "AdobeIPCBroker",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CoreThreadCommissionerServiced",
       "aliasName": "CoreThreadCommissionerServiced",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "assessmentagent",
       "aliasName": "assessmentagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "axassetsd",
       "aliasName": "axassetsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "universalAccessAuthWarn",
       "aliasName": "universalAccessAuthWarn",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "managedcorespotlightd",
       "aliasName": "managedcorespotlightd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "VTEncoderXPCService",
       "aliasName": "VTEncoderXPCService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "RemoteManagementAgent",
       "aliasName": "RemoteManagementAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "metrickitd",
       "aliasName": "metrickitd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Code Helper (Renderer)",
       "aliasName": "Code Helper (Renderer)",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "replayd",
       "aliasName": "replayd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SimulatorTrampoline",
       "aliasName": "SimulatorTrampoline",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "triald",
       "aliasName": "triald",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafariLinkExtension",
       "aliasName": "SafariLinkExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "frauddefensed",
       "aliasName": "frauddefensed",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "UniversalControl",
       "aliasName": "UniversalControl",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "weatherd",
       "aliasName": "weatherd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "imklaunchagent",
       "aliasName": "imklaunchagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CredentialProviderExtensionHelper",
       "aliasName": "CredentialProviderExtensionHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "BackgroundTaskManagementAgent",
       "aliasName": "BackgroundTaskManagementAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ShortcutsViewService",
       "aliasName": "ShortcutsViewService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "gamecontrolleragentd",
       "aliasName": "gamecontrolleragentd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "naturallanguaged",
       "aliasName": "naturallanguaged",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WallpaperAerialsExtension",
       "aliasName": "WallpaperAerialsExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "deleted",
       "aliasName": "deleted",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Dock",
       "aliasName": "Dock",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "fileproviderd",
       "aliasName": "fileproviderd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "routined",
       "aliasName": "routined",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SystemUIServer",
       "aliasName": "SystemUIServer",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.audio.SandboxHelper",
       "aliasName": "com.apple.audio.SandboxHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 2100
+      "totalTimeSeconds": 3612
     },
     {
       "originalName": "FPCKService",
       "aliasName": "FPCKService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "TrialArchivingService",
       "aliasName": "TrialArchivingService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "rapportd",
       "aliasName": "rapportd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "nbagent",
       "aliasName": "nbagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "followupd",
       "aliasName": "followupd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "keyboardservicesd",
       "aliasName": "keyboardservicesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Safari",
       "aliasName": "Safari",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "homed",
       "aliasName": "homed",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Adobe Context Menu Extension",
       "aliasName": "Adobe Context Menu Extension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "betaenrollmentagent",
       "aliasName": "betaenrollmentagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ndoagent",
       "aliasName": "ndoagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "caphost",
       "aliasName": "caphost",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "amsaccountsd",
       "aliasName": "amsaccountsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "containermanagerd",
       "aliasName": "containermanagerd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "BTLEServerAgent",
       "aliasName": "BTLEServerAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "seserviced",
       "aliasName": "seserviced",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Google Chrome",
       "aliasName": "Google Chrome",
-      "category": "No Category",
+      "category": "Work",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MobileDeviceUpdater",
       "aliasName": "MobileDeviceUpdater",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "bird",
       "aliasName": "bird",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ZoomClips",
       "aliasName": "ZoomClips",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mediaanalysisd",
       "aliasName": "mediaanalysisd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.WebKit.GPU",
       "aliasName": "com.apple.WebKit.GPU",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "ModelCatalogAgent",
       "aliasName": "ModelCatalogAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "networkserviceproxy",
       "aliasName": "networkserviceproxy",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.SafariPlatformSupport.Helper",
       "aliasName": "com.apple.SafariPlatformSupport.Helper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 450
+      "totalTimeSeconds": 774
     },
     {
       "originalName": "CloudTelemetryService",
       "aliasName": "CloudTelemetryService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 600
+      "totalTimeSeconds": 1032
     },
     {
       "originalName": "ManagementTestSubscriber",
       "aliasName": "ManagementTestSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "iCloudNotificationAgent",
       "aliasName": "iCloudNotificationAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AccessibilityUIServer",
       "aliasName": "AccessibilityUIServer",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "sharingd",
       "aliasName": "sharingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.accessibility.mediaaccessibilityd",
       "aliasName": "com.apple.accessibility.mediaaccessibilityd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WardaSynthesizer",
       "aliasName": "WardaSynthesizer",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "QuickLookUIService",
       "aliasName": "QuickLookUIService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "intelligenceplatformd",
       "aliasName": "intelligenceplatformd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "bluetoothuserd",
       "aliasName": "bluetoothuserd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "backgroundassets.user",
       "aliasName": "backgroundassets.user",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "financed",
       "aliasName": "financed",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "assistantd",
       "aliasName": "assistantd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "cfprefsd",
       "aliasName": "cfprefsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "tipsd",
       "aliasName": "tipsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "media-indexer",
       "aliasName": "media-indexer",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.dock.extra",
       "aliasName": "com.apple.dock.extra",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.ColorSyncXPCAgent",
       "aliasName": "com.apple.ColorSyncXPCAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "extensionkitservice",
       "aliasName": "extensionkitservice",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 750
+      "totalTimeSeconds": 1290
     },
     {
       "originalName": "MessagesBlastDoorService",
       "aliasName": "MessagesBlastDoorService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 450
+      "totalTimeSeconds": 774
     },
     {
       "originalName": "pbs",
       "aliasName": "pbs",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "pboard",
       "aliasName": "pboard",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "TextInputSwitcher",
       "aliasName": "TextInputSwitcher",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "EscrowSecurityAlert",
       "aliasName": "EscrowSecurityAlert",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "usernoted",
       "aliasName": "usernoted",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ScopedBookmarkAgent",
       "aliasName": "ScopedBookmarkAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "commerce",
       "aliasName": "commerce",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "DPSubmissionService",
       "aliasName": "DPSubmissionService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "itunescloudd",
       "aliasName": "itunescloudd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SoftwareUpdateNotificationManager",
       "aliasName": "SoftwareUpdateNotificationManager",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WindowManager",
       "aliasName": "WindowManager",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.iCloudHelper",
       "aliasName": "com.apple.iCloudHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 39
     },
     {
       "originalName": "calaccessd",
       "aliasName": "calaccessd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "peopled",
       "aliasName": "peopled",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ContainerMetadataExtractor",
       "aliasName": "ContainerMetadataExtractor",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "UsageTrackingAgent",
       "aliasName": "UsageTrackingAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "findmydevice-user-agent",
       "aliasName": "findmydevice-user-agent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafariBookmarksSyncAgent",
       "aliasName": "SafariBookmarksSyncAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MENotificationAgent",
       "aliasName": "MENotificationAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "dataaccessd",
       "aliasName": "dataaccessd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "chronod",
       "aliasName": "chronod",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PowerChime",
       "aliasName": "PowerChime",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AMPArtworkAgent",
       "aliasName": "AMPArtworkAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SiriAUSP",
       "aliasName": "SiriAUSP",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "syncdefaultsd",
       "aliasName": "syncdefaultsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "askpermissiond",
       "aliasName": "askpermissiond",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "contentlinkingd",
       "aliasName": "contentlinkingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "parsecd",
       "aliasName": "parsecd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "voicebankingd",
       "aliasName": "voicebankingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.quicklook.ThumbnailsAgent",
       "aliasName": "com.apple.quicklook.ThumbnailsAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "UserEventAgent",
       "aliasName": "UserEventAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Code Helper",
       "aliasName": "Code Helper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 600
+      "totalTimeSeconds": 1032
     },
     {
       "originalName": "IntelligencePlatformComputeService",
       "aliasName": "IntelligencePlatformComputeService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "nsurlsessiond",
       "aliasName": "nsurlsessiond",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "storekitagent",
       "aliasName": "storekitagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CarbonComponentScannerXPC",
       "aliasName": "CarbonComponentScannerXPC",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Keychain Circle Notification",
       "aliasName": "Keychain Circle Notification",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CMFSyncAgent",
       "aliasName": "CMFSyncAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "DisplayControls",
       "aliasName": "DisplayControls",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.appkit.xpc.openAndSavePanelService",
       "aliasName": "com.apple.appkit.xpc.openAndSavePanelService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "coreauthd",
       "aliasName": "coreauthd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "dmd",
       "aliasName": "dmd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "liveactivitiesd",
       "aliasName": "liveactivitiesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "filevaultd",
       "aliasName": "filevaultd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "coreautha",
       "aliasName": "coreautha",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CursorUIViewService",
       "aliasName": "CursorUIViewService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "proactiveeventtrackerd",
       "aliasName": "proactiveeventtrackerd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CoreServicesUIAgent",
       "aliasName": "CoreServicesUIAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafeEjectGPUAgent",
       "aliasName": "SafeEjectGPUAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "homeeventsd",
       "aliasName": "homeeventsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.Safari.History",
       "aliasName": "com.apple.Safari.History",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "swtransparencyd",
       "aliasName": "swtransparencyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "remotepairingd",
       "aliasName": "remotepairingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.Safari.SandboxBroker",
       "aliasName": "com.apple.Safari.SandboxBroker",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "contactsd",
       "aliasName": "contactsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "KonaSynthesizer",
       "aliasName": "KonaSynthesizer",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafeEjectGPUService",
       "aliasName": "SafeEjectGPUService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "homeenergyd",
       "aliasName": "homeenergyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.WebKit.WebContent",
       "aliasName": "com.apple.WebKit.WebContent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 900
+      "totalTimeSeconds": 1548
     },
     {
       "originalName": "CoreLocationAgent",
       "aliasName": "CoreLocationAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "cloudphotod",
       "aliasName": "cloudphotod",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ScreenTimeAgent",
       "aliasName": "ScreenTimeAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WeatherWidget",
       "aliasName": "WeatherWidget",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "geoanalyticsd",
       "aliasName": "geoanalyticsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Managed Background Assets Helper Service",
       "aliasName": "Managed Background Assets Helper Service",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ACCFinderSync",
       "aliasName": "ACCFinderSync",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "TrustedPeersHelper",
       "aliasName": "TrustedPeersHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Google Chrome Helper (Renderer)",
       "aliasName": "Google Chrome Helper (Renderer)",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 1974
+      "totalTimeSeconds": 3336
     },
     {
       "originalName": "donotdisturbd",
       "aliasName": "donotdisturbd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "intelligencecontextd",
       "aliasName": "intelligencecontextd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "csnameddatad",
       "aliasName": "csnameddatad",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CategoriesService",
       "aliasName": "CategoriesService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "tccd",
       "aliasName": "tccd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "translationd",
       "aliasName": "translationd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AUCrashHandlerService",
       "aliasName": "AUCrashHandlerService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Finder",
       "aliasName": "Finder",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Core Sync",
       "aliasName": "Core Sync",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.CloudDocs.iCloudDriveFileProvider",
       "aliasName": "com.apple.CloudDocs.iCloudDriveFileProvider",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "icdd",
       "aliasName": "icdd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "proactived",
       "aliasName": "proactived",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AquaAppearanceHelper",
       "aliasName": "AquaAppearanceHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PasscodeSettingsSubscriber",
       "aliasName": "PasscodeSettingsSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PlugInLibraryService",
       "aliasName": "PlugInLibraryService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 600
+      "totalTimeSeconds": 1032
     },
     {
       "originalName": "Creative Cloud Helper",
       "aliasName": "Creative Cloud Helper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "appleaccountd",
       "aliasName": "appleaccountd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Code Helper (Plugin)",
       "aliasName": "Code Helper (Plugin)",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 570
+      "totalTimeSeconds": 1002
     },
     {
       "originalName": "SetStoreUpdateService",
       "aliasName": "SetStoreUpdateService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SidecarRelay",
       "aliasName": "SidecarRelay",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Google Chrome Helper",
       "aliasName": "Google Chrome Helper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 750
+      "totalTimeSeconds": 1290
     },
     {
       "originalName": "IDSBlastDoorService",
       "aliasName": "IDSBlastDoorService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Adobe Crash Processor",
       "aliasName": "Adobe Crash Processor",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mlhostd",
       "aliasName": "mlhostd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "analyticsagent",
       "aliasName": "analyticsagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "APFSUserAgent",
       "aliasName": "APFSUserAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "localspeechrecognition",
       "aliasName": "localspeechrecognition",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 600
+      "totalTimeSeconds": 1032
     },
     {
       "originalName": "usernotificationsd",
       "aliasName": "usernotificationsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.WebKit.Networking",
       "aliasName": "com.apple.WebKit.Networking",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "com.apple.StreamingUnzipService",
       "aliasName": "com.apple.StreamingUnzipService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MTLCompilerService",
       "aliasName": "MTLCompilerService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 600
+      "totalTimeSeconds": 1032
     },
     {
       "originalName": "jetpackassetd",
       "aliasName": "jetpackassetd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "amsondevicestoraged",
       "aliasName": "amsondevicestoraged",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CommCenter",
       "aliasName": "CommCenter",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WallpaperDynamicExtension",
       "aliasName": "WallpaperDynamicExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "log",
       "aliasName": "log",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "LegacyProfilesSubscriber",
       "aliasName": "LegacyProfilesSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "IMDPersistenceAgent",
       "aliasName": "IMDPersistenceAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "audioaccessoryd",
       "aliasName": "audioaccessoryd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SpeechSynthesisServerXPC",
       "aliasName": "SpeechSynthesisServerXPC",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ctkahp",
       "aliasName": "ctkahp",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "familycircled",
       "aliasName": "familycircled",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "identityservicesd",
       "aliasName": "identityservicesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WiFiCloudAssetsXPCService",
       "aliasName": "WiFiCloudAssetsXPCService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AirPlayUIAgent",
       "aliasName": "AirPlayUIAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "webinspectord",
       "aliasName": "webinspectord",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AppleSpell",
       "aliasName": "AppleSpell",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.sbd",
       "aliasName": "com.apple.sbd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "sharedfilelistd",
       "aliasName": "sharedfilelistd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "feedbackd",
       "aliasName": "feedbackd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "intelligentroutingd",
       "aliasName": "intelligentroutingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AMPLibraryAgent",
       "aliasName": "AMPLibraryAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SafariLaunchAgent",
       "aliasName": "SafariLaunchAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "sociallayerd",
       "aliasName": "sociallayerd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MauiAUSP",
       "aliasName": "MauiAUSP",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mobiletimerd",
       "aliasName": "mobiletimerd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "OneDrive Sync Service",
       "aliasName": "OneDrive Sync Service",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "siriknowledged",
       "aliasName": "siriknowledged",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "neagent",
       "aliasName": "neagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "avconferenced",
       "aliasName": "avconferenced",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "XProtect",
       "aliasName": "XProtect",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "assistant_cdmd",
       "aliasName": "assistant_cdmd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "trustd",
       "aliasName": "trustd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WallpaperAgent",
       "aliasName": "WallpaperAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CallHistoryPluginHelper",
       "aliasName": "CallHistoryPluginHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "iconservicesagent",
       "aliasName": "iconservicesagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ViewBridgeAuxiliary",
       "aliasName": "ViewBridgeAuxiliary",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "postersyncd",
       "aliasName": "postersyncd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mdworker_shared",
       "aliasName": "mdworker_shared",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 489
+      "totalTimeSeconds": 864
     },
     {
       "originalName": "TextInputMenuAgent",
       "aliasName": "TextInputMenuAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "UIKitSystem",
       "aliasName": "UIKitSystem",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "webprivacyd",
       "aliasName": "webprivacyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CloudKeychainProxy",
       "aliasName": "CloudKeychainProxy",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "callintelligenced",
       "aliasName": "callintelligenced",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "contactsdonationagent",
       "aliasName": "contactsdonationagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ciphermld",
       "aliasName": "ciphermld",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AMPDeviceDiscoveryAgent",
       "aliasName": "AMPDeviceDiscoveryAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "transparencyd",
       "aliasName": "transparencyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ManagedAppsSubscriber",
       "aliasName": "ManagedAppsSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "akd",
       "aliasName": "akd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "distnoted",
       "aliasName": "distnoted",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MTLAssetUpgraderD",
       "aliasName": "MTLAssetUpgraderD",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "corespotlightd",
       "aliasName": "corespotlightd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "localizationswitcherd",
       "aliasName": "localizationswitcherd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "devicecheckd",
       "aliasName": "devicecheckd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "textunderstandingd",
       "aliasName": "textunderstandingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ManagedSettingsAgent",
       "aliasName": "ManagedSettingsAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.CoreSimulator.CoreSimulatorService",
       "aliasName": "com.apple.CoreSimulator.CoreSimulatorService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "talagentd",
       "aliasName": "talagentd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ASConfigurationSubscriber",
       "aliasName": "ASConfigurationSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "linkd",
       "aliasName": "linkd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "photolibraryd",
       "aliasName": "photolibraryd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "adprivacyd",
       "aliasName": "adprivacyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SiriSuggestionsBookkeepingService",
       "aliasName": "SiriSuggestionsBookkeepingService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "progressd",
       "aliasName": "progressd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "imagent",
       "aliasName": "imagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Creative Cloud Content Manager.node",
       "aliasName": "Creative Cloud Content Manager.node",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ReportCrash",
       "aliasName": "ReportCrash",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "duetexpertd",
       "aliasName": "duetexpertd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "StocksWidget",
       "aliasName": "StocksWidget",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "suggestd",
       "aliasName": "suggestd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "siriinferenced",
       "aliasName": "siriinferenced",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "maild",
       "aliasName": "maild",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "corespeechd",
       "aliasName": "corespeechd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "StatusKitAgent",
       "aliasName": "StatusKitAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "knowledge-agent",
       "aliasName": "knowledge-agent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ctkd",
       "aliasName": "ctkd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "WeatherMenu",
       "aliasName": "WeatherMenu",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Spotlight",
       "aliasName": "Spotlight",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "promotedcontentd",
       "aliasName": "promotedcontentd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "diagnostics_agent",
       "aliasName": "diagnostics_agent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "loginwindow",
       "aliasName": "loginwindow",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "webpushd",
       "aliasName": "webpushd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "BiomeAgent",
       "aliasName": "BiomeAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ImageIOXPCService",
       "aliasName": "ImageIOXPCService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "amsengagementd",
       "aliasName": "amsengagementd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "EmojiFunctionRowIM_Extension",
       "aliasName": "EmojiFunctionRowIM_Extension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ManagedSettingsSubscriber",
       "aliasName": "ManagedSettingsSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "lsd",
       "aliasName": "lsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "siriactionsd",
       "aliasName": "siriactionsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ssh-agent",
       "aliasName": "ssh-agent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ControlStrip",
       "aliasName": "ControlStrip",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "StocksKitService",
       "aliasName": "StocksKitService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ContextStoreAgent",
       "aliasName": "ContextStoreAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ControlCenter",
       "aliasName": "ControlCenter",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "privatecloudcomputed",
       "aliasName": "privatecloudcomputed",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "IMAutomaticHistoryDeletionAgent",
       "aliasName": "IMAutomaticHistoryDeletionAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "inputanalyticsd",
       "aliasName": "inputanalyticsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "businessservicesd",
       "aliasName": "businessservicesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mdwrite",
       "aliasName": "mdwrite",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mlruntimed",
       "aliasName": "mlruntimed",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.Safari.SearchHelper",
       "aliasName": "com.apple.Safari.SearchHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CalendarIntentsExtension",
       "aliasName": "CalendarIntentsExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "pkd",
       "aliasName": "pkd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "photoanalysisd",
       "aliasName": "photoanalysisd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "appstoreagent",
       "aliasName": "appstoreagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AccountSubscriber",
       "aliasName": "AccountSubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "FeatureAccessAgent",
       "aliasName": "FeatureAccessAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "findmylocateagent",
       "aliasName": "findmylocateagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "geodMachServiceBridge",
       "aliasName": "geodMachServiceBridge",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "generativeexperiencesd",
       "aliasName": "generativeexperiencesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "Adobe Desktop Service",
       "aliasName": "Adobe Desktop Service",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "appplaceholdersyncd",
       "aliasName": "appplaceholdersyncd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PAH_Extension",
       "aliasName": "PAH_Extension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.hiservices-xpcservice",
       "aliasName": "com.apple.hiservices-xpcservice",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "cloudd",
       "aliasName": "cloudd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "MessagesActionExtension",
       "aliasName": "MessagesActionExtension",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.FaceTime.FTConversationService",
       "aliasName": "com.apple.FaceTime.FTConversationService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "shazamd",
       "aliasName": "shazamd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "dprivacyd",
       "aliasName": "dprivacyd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AppPredictionIntentsHelperService",
       "aliasName": "AppPredictionIntentsHelperService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "heard",
       "aliasName": "heard",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ContinuityCaptureAgent",
       "aliasName": "ContinuityCaptureAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "SecuritySubscriber",
       "aliasName": "SecuritySubscriber",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mdworker",
       "aliasName": "mdworker",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "VTDecoderXPCService",
       "aliasName": "VTDecoderXPCService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 450
+      "totalTimeSeconds": 774
     },
     {
       "originalName": "NotificationCenter",
       "aliasName": "NotificationCenter",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "fontworker",
       "aliasName": "fontworker",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "zoom.us",
       "aliasName": "zoom.us",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "reversetemplated",
       "aliasName": "reversetemplated",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "avatarsd",
       "aliasName": "avatarsd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "nsattributedstringagent",
       "aliasName": "nsattributedstringagent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 300
+      "totalTimeSeconds": 516
     },
     {
       "originalName": "MacinTalkAUSP",
       "aliasName": "MacinTalkAUSP",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "swcd",
       "aliasName": "swcd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "com.apple.tonelibraryd",
       "aliasName": "com.apple.tonelibraryd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mbuseragent",
       "aliasName": "mbuseragent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "intents_helper",
       "aliasName": "intents_helper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "mdbulkimport",
       "aliasName": "mdbulkimport",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "spindump_agent",
       "aliasName": "spindump_agent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "callservicesd",
       "aliasName": "callservicesd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PodcastContentService",
       "aliasName": "PodcastContentService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "ProtectedCloudKeySyncing",
       "aliasName": "ProtectedCloudKeySyncing",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "CallHistorySyncHelper",
       "aliasName": "CallHistorySyncHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "AssetCacheLocatorService",
       "aliasName": "AssetCacheLocatorService",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "communicationtrustd",
       "aliasName": "communicationtrustd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "PasswordBreachAgent",
       "aliasName": "PasswordBreachAgent",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "DockHelper",
       "aliasName": "DockHelper",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     },
     {
       "originalName": "keychainsharingmessagingd",
       "aliasName": "keychainsharingmessagingd",
       "category": "No Category",
       "isTrackingFreezed": false,
-      "totalTimeSeconds": 150
+      "totalTimeSeconds": 258
     }
   ]
 }

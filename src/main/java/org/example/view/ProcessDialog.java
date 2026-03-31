@@ -30,6 +30,8 @@ public class ProcessDialog extends StackPane {
     setAlignment(Pos.CENTER);
     setMaxWidth(Double.MAX_VALUE);
     setMaxHeight(Double.MAX_VALUE);
+    // Ensure the backdrop doesn't stretch the dialog's preferred height
+    setPickOnBounds(true);
     setOnMouseClicked(e -> onDismiss.run());
   }
 
@@ -188,6 +190,8 @@ public class ProcessDialog extends StackPane {
     VBox card = new VBox(header, body, footer);
     card.getStyleClass().add("dialog-card");
     card.setMaxWidth(380);
+    card.setMaxHeight(BASELINE_OFFSET_SAME_AS_HEIGHT);
+    StackPane.setAlignment(card, Pos.CENTER);
     card.setOnMouseClicked(e -> e.consume()); // prevent backdrop dismiss
 
     getChildren().add(card);
