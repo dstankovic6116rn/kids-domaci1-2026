@@ -29,6 +29,15 @@ public class ProcessData {
   // Popunjava se iz JSON-a na startu aplikacije
   private final ConcurrentHashMap<String, ProcessItem> historicData = new ConcurrentHashMap<>();
 
+  /**
+   * Ucitava istorijske podatke iz JSON-a u historicData mapu i uptimeStore, kao i
+   * set frozenProcesses
+   * Ove informacije ce se koristiti za merge-ovanje sa novim skenovima i za
+   * odrzavanje kontinuiteta u pracenju procesa prilikom ponovnog pokretanja
+   * aplikacije.
+   * 
+   * @param records
+   */
   public void loadFromHistory(List<ProcessItem> records) {
     for (ProcessItem item : records) {
       String name = item.getOriginalName();
