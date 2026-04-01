@@ -19,7 +19,7 @@ public class MainController {
 
     this.processListController = new ProcessListController(mainView.getProcessListView(), dataService, mainView);
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);
-    this.analyticsService = new AnalyticsService(dataService, pieController);
+    this.analyticsService = new AnalyticsService(dataService, pieController, dataService.getExecutorService());
 
     this.toolbarController = new ToolbarController(mainView.getToolbarView(), dataService, mainView.getMainPage(),
         onShutdown);
@@ -28,7 +28,6 @@ public class MainController {
 
     dataService.start(() -> {
       processListController.onScanComplete();
-      analyticsService.nudgeRun();
     });
 
     analyticsService.start();

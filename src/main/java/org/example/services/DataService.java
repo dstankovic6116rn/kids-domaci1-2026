@@ -15,7 +15,7 @@ import javafx.scene.chart.PieChart;
 
 /**
  * Centralni koordinator podataka izmedju
- * ProcessScanService, ProcessStore, Executor Service i
+ * ProcessScanService, ProcessStore, Executor Service, AnalyticsService i
  * kontrolera, kao i izvodjenje podataka za PieChart
  */
 
@@ -34,7 +34,7 @@ public class DataService {
 	 * Merge-uje rezultat u ProcessData
 	 * Vraca osvezenu listu procesa
 	 * 
-	 * Ne sme se pozvati iz FX Thread-a
+	 * FileExecutor poziva
 	 */
 	public void scanAndUpdate() {
 		List<ProcessItem> scannedProcesses = processScanService.scan();
@@ -42,6 +42,11 @@ public class DataService {
 		processData.merge(scannedProcesses);
 	}
 
+	/**
+	 * FileExecutor poziva loadHistory pre prvog skeniranja procesa
+	 * 
+	 * @param records
+	 */
 	public void loadHistory(List<ProcessItem> records) {
 		processData.loadFromHistory(records);
 	}
@@ -139,9 +144,18 @@ public class DataService {
 
 	}
 
+	/**
+	 * Submit-uje Save job FileExecutor-u
+	 * 
+	 * @param onComplete
+	 */
 	public void saveProcesses(Consumer<Boolean> onComplete) {
 		List<ProcessItem> snapshot = processData.getAll();
 		executorService.submitSave(snapshot, onComplete);
+	}
+
+	public ExecutorService getExecutorService() {
+		return executorService;
 	}
 
 	public void shutdown() {

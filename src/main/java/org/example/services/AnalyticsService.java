@@ -1,12 +1,19 @@
 package org.example.services;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.example.controller.PieController;
+import org.example.model.AppConfig;
 import org.example.model.ProcessItem;
 import org.example.model.ProcessRanking;
 import org.example.view.CategoryDetailsView;
@@ -31,8 +38,11 @@ import javafx.application.Platform;
 
 public class AnalyticsService {
   private static final long DEFAULT_ANALYTICS_INTERVAL_MS = 2000L;
+  private static final long DEFAULT_FIXED_RUN = 1000L;
+
   private final DataService dataService;
   private final PieController pieController;
+  private final ExecutorService executorService;
 
   // Null kada view nije prikazan
   private final AtomicReference<ProcessDetailsView> activeProcessDetails = new AtomicReference<>(null);
@@ -44,27 +54,25 @@ public class AnalyticsService {
     return t;
   });
 
-  private final long analyticsIntervalMs;
+  // Fixed-time snapshot tracking — reset each day
+  // Stores "HH:mm:ss" strings of times already fired today
+  private final Set<String> firedToday = new HashSet<>();
+  private int lastDay = -1;
 
-  public AnalyticsService(DataService dataService, PieController pieController) {
+  public AnalyticsService(DataService dataService, PieController pieController, ExecutorService executorService) {
     this.dataService = dataService;
     this.pieController = pieController;
-    this.analyticsIntervalMs = DEFAULT_ANALYTICS_INTERVAL_MS;
+    this.executorService = executorService;
   }
 
   /**
-   * Pokrece periodicku analitiku koja se osvezava na svim aktivnim prikazima.
+   * Pokrece periodicku analitiku u intervalu od 1s kako bi se poklopilo vreme sa
+   * intervalom za snapshot.
    */
   public void start() {
-    scheduler.scheduleWithFixedDelay(this::run, analyticsIntervalMs, analyticsIntervalMs, TimeUnit.MILLISECONDS);
-  }
-
-  /**
-   * Koristi se za "nudge" AnalyticsService da izvrsi analitiku odmah, npr nakon
-   * sto ProcessScanService zavrsi skeniranje i ima sveze podatke.
-   */
-  public void nudgeRun() {
-    scheduler.submit(this::run);
+    scheduler.scheduleWithFixedDelay(this::run, DEFAULT_ANALYTICS_INTERVAL_MS,
+        DEFAULT_FIXED_RUN,
+        TimeUnit.MILLISECONDS);
   }
 
   public void shutdown() {
@@ -73,39 +81,77 @@ public class AnalyticsService {
 
   private void run() {
     try {
-      final ProcessDetailsView processDetailsView = activeProcessDetails.get();
-      final CategoryDetailsView categoryDetailsView = activeCategoryDetails.get();
-
-      Platform.runLater(pieController::loadPieChartData);
-
-      // Update Process Details View
-      if (processDetailsView != null) {
-        String processName = processDetailsView.getProcessName();
-        if (processName != null) {
-          ProcessItem processItem = dataService.getCurrentProcceses().stream()
-              .filter(p -> p.getOriginalName().equals(processName)).findFirst().orElse(null);
-
-          if (processItem != null) {
-            ProcessRanking ranking = dataService.getRankingForProcess(processName);
-
-            Platform.runLater(() -> {
-              long liveUptime = dataService.getLiveUptime(processName);
-              processDetailsView.updateMetrics(processItem, ranking, liveUptime);
-            });
-          }
-        }
-      }
-
-      // Update Category Details View
-      if (categoryDetailsView != null) {
-        String category = categoryDetailsView.getCategoryName();
-        List<ProcessItem> processItems = dataService.getProcessesByCategoryName(category);
-
-        Platform.runLater(() -> categoryDetailsView.updateData(processItems));
-      }
+      checkAndSubmitFixedSnapshot();
+      updateViews();
     } catch (Exception e) {
       System.err.println("[AnalyticsService] failed: " + e.getMessage());
       e.printStackTrace();
+    }
+  }
+
+  private void checkAndSubmitFixedSnapshot() {
+    AppConfig config = executorService.getConfig();
+
+    if (config == null || config.getFixedSnapshotTimes().isEmpty())
+      return;
+
+    LocalTime now = LocalTime.now(ZoneId.systemDefault())
+        .withNano(0); // truncate to second
+
+    // Reset fired set at midnight
+    int dayOfYear = LocalDate.now().getDayOfYear();
+    if (dayOfYear != lastDay) { //
+      firedToday.clear();
+      lastDay = dayOfYear;
+    }
+
+    String nowKey = now.toString(); // "HH:mm:ss"
+
+    for (LocalTime fixedTime : config.getFixedSnapshotTimes()) {
+      LocalTime truncated = fixedTime.withNano(0);
+      if (truncated.equals(now) && !firedToday.contains(nowKey)) {
+        firedToday.add(nowKey);
+        Instant snapshotTime = Instant.now();
+
+        System.out.println("[AnalyticsService] Fixed-time snapshot triggered at "
+            + nowKey);
+
+        // Submit to file executor
+        executorService.submitFixedTimeSnapshot(snapshotTime);
+      }
+    }
+  }
+
+  private void updateViews() {
+    final ProcessDetailsView processDetailsView = activeProcessDetails.get();
+    final CategoryDetailsView categoryDetailsView = activeCategoryDetails.get();
+
+    Platform.runLater(pieController::loadPieChartData);
+
+    // Update Process Details View
+    if (processDetailsView != null) {
+      String processName = processDetailsView.getProcessName();
+      if (processName != null) {
+        ProcessItem processItem = dataService.getCurrentProcceses().stream()
+            .filter(p -> p.getOriginalName().equals(processName)).findFirst().orElse(null);
+
+        if (processItem != null) {
+          ProcessRanking ranking = dataService.getRankingForProcess(processName);
+
+          Platform.runLater(() -> {
+            long liveUptime = dataService.getLiveUptime(processName);
+            processDetailsView.updateMetrics(processItem, ranking, liveUptime);
+          });
+        }
+      }
+    }
+
+    // Update Category Details View
+    if (categoryDetailsView != null) {
+      String category = categoryDetailsView.getCategoryName();
+      List<ProcessItem> processItems = dataService.getProcessesByCategoryName(category);
+
+      Platform.runLater(() -> categoryDetailsView.updateData(processItems));
     }
   }
 
