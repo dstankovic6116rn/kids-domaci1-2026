@@ -24,10 +24,6 @@ public class PieController {
     pieView.setOnDetailsRequested(this::onDetailsRequested);
   }
 
-  /**
-   * ProcessListController poziva loadPiewChartData() preko onChartRefreshNeeded
-   * kada se skeniranje procesa zavrsi i nakon svake promene kategorije
-   */
   public void loadPieChartData() {
     ObservableList<PieChart.Data> slices = dataService.buildProcessCategoryPieData();
 

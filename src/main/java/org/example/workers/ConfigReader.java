@@ -1,4 +1,4 @@
-package org.example.services;
+package org.example.workers;
 
 import java.io.File;
 import java.io.FileInputStream;

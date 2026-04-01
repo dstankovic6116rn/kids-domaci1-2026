@@ -51,8 +51,9 @@ public class App extends Application {
 	}
 
 	/**
-	 * Gasi tredove Fork/join pool-a u JVM nakon gasenja prozora aplikacije
-	 * dataService - processScanService - forkJoinPool
+	 * Zbog provere !shutdownInitiated && mainController != null i
+	 * initiateGreacefulShutdown() na onCloseRequest iz stage-a, ovaj stop() ce se
+	 * okinuti samo prilikom ne ocegkivanog prekida rada JVM
 	 */
 	@Override
 	public void stop() {
