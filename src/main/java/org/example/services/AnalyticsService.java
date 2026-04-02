@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 import org.example.controller.PieController;
 import org.example.model.AppConfig;
@@ -37,12 +38,13 @@ import javafx.application.Platform;
  */
 
 public class AnalyticsService {
-  private static final long DEFAULT_ANALYTICS_INTERVAL_MS = 2000L;
-  private static final long DEFAULT_FIXED_RUN = 1000L;
+  private static final long DEFAULT_INITIAL_DELAY_MS = 2000L;
+  private static final long DEFAULT_FIXED_RUN_INTERVAL_MS = 1000L;
 
   private final DataService dataService;
   private final PieController pieController;
-  private final ExecutorService executorService;
+  private final Supplier<AppConfig> configSupplier; // reads config lazily after startup
+  private final SnapshotSubmitter snapshotSubmitter;
 
   // Null kada view nije prikazan
   private final AtomicReference<ProcessDetailsView> activeProcessDetails = new AtomicReference<>(null);
@@ -59,10 +61,12 @@ public class AnalyticsService {
   private final Set<String> firedToday = new HashSet<>();
   private int lastDay = -1;
 
-  public AnalyticsService(DataService dataService, PieController pieController, ExecutorService executorService) {
+  public AnalyticsService(DataService dataService, PieController pieController, Supplier<AppConfig> configSupplier,
+      SnapshotSubmitter snapshotSubmitter) {
     this.dataService = dataService;
     this.pieController = pieController;
-    this.executorService = executorService;
+    this.configSupplier = configSupplier;
+    this.snapshotSubmitter = snapshotSubmitter;
   }
 
   /**
@@ -70,8 +74,9 @@ public class AnalyticsService {
    * intervalom za snapshot.
    */
   public void start() {
-    scheduler.scheduleWithFixedDelay(this::run, DEFAULT_ANALYTICS_INTERVAL_MS,
-        DEFAULT_FIXED_RUN,
+    scheduler.scheduleWithFixedDelay(this::run,
+        DEFAULT_INITIAL_DELAY_MS,
+        DEFAULT_FIXED_RUN_INTERVAL_MS,
         TimeUnit.MILLISECONDS);
   }
 
@@ -90,7 +95,7 @@ public class AnalyticsService {
   }
 
   private void checkAndSubmitFixedSnapshot() {
-    AppConfig config = executorService.getConfig();
+    AppConfig config = configSupplier.get();
 
     if (config == null || config.getFixedSnapshotTimes().isEmpty())
       return;
@@ -117,7 +122,7 @@ public class AnalyticsService {
             + nowKey);
 
         // Submit to file executor
-        executorService.submitFixedTimeSnapshot(snapshotTime);
+        snapshotSubmitter.submitFixedTimeSnapshot(snapshotTime);
       }
     }
   }

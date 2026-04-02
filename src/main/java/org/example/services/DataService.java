@@ -98,14 +98,14 @@ public class DataService {
 	}
 
 	public ObservableList<PieChart.Data> buildProcessCategoryPieData() {
-		Map<String, Long> counts = processData.getAll().stream()
+		Map<String, Long> uptimeByCategory = processData.getAll().stream()
 				.filter(p -> !p.getCategory().equals(ProcessItem.DEFAULT_CATEGORY))
 				.collect(Collectors.groupingBy(
 						ProcessItem::getCategory,
-						Collectors.counting()));
+						Collectors.summingLong(ProcessItem::getUptimeSeconds)));
 
 		ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
-		counts.forEach((category, count) -> slices.add(new PieChart.Data(category, count)));
+		uptimeByCategory.forEach((category, uptime) -> slices.add(new PieChart.Data(category, uptime)));
 
 		return slices;
 	}

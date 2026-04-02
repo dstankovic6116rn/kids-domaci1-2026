@@ -1,32 +1,14 @@
 package org.example.model;
 
 /**
- * Prosledjuje se ProcessDetailsView sa ProcessItem kako view ne bi morao da
- * zove DataService da racuna ranking
+ * Konvertuje int u ordinalni rank (1st, 2nd, 3rd, 4th, itd.) i sadrzi rankove
+ * za RAM i CPU metrike.
+ * Ovaj record se koristi u ProcessDetailsView da bi prikazao rank procesa u
+ * odnosu na ostale procese. Rankovi se racunaju u AnalyticsService.
  */
-public class ProcessRanking {
 
-  private final int ramRank;
-  private final int cpuRank;
+public record ProcessRanking(int ramRank, int cpuRank) {
 
-  public ProcessRanking(int ramRank, int cpuRank) {
-    this.ramRank = ramRank;
-    this.cpuRank = cpuRank;
-  }
-
-  public int getRamRank() {
-    return ramRank;
-  }
-
-  public int getCpuRank() {
-    return cpuRank;
-  }
-
-  /**
-   * Konvertuje int rank u string 1st, 2nd, 3rd itd..
-   * 
-   * @param rank
-   */
   public static String toOrdinalRank(int rank) {
     if (rank <= 0)
       return "—";
@@ -41,5 +23,4 @@ public class ProcessRanking {
       default -> rank + "th";
     };
   }
-
 }

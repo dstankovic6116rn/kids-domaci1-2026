@@ -56,7 +56,7 @@ public class ToolbarController {
     rootPane.getChildren().removeIf(n -> n instanceof ProcessDialog);
 
     toolbarView.setDisabled(true);
-    toolbarView.showSaveStatus(true);
+    toolbarView.showSavingStatus();
 
     onShutdown.run();
   }

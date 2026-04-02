@@ -55,8 +55,9 @@ public class ToolbarView {
     pause.play();
   }
 
-  public void setSaveLabel(String text) {
-    saveButton.setText(text);
+  public void showSavingStatus() {
+    statusLabel.setText("Saving...");
+    statusLabel.getStyleClass().removeAll("status-success", "status-error");
   }
 
   /** Disable sve button-e dok traje shutdown sekvenca */

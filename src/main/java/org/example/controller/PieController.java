@@ -24,6 +24,10 @@ public class PieController {
     pieView.setOnDetailsRequested(this::onDetailsRequested);
   }
 
+  /**
+   * Poziva se u AnalyticsService nakon svakog run-a da bi
+   * osvežio podatke na pie chart-u
+   */
   public void loadPieChartData() {
     ObservableList<PieChart.Data> slices = dataService.buildProcessCategoryPieData();
 
@@ -32,7 +36,7 @@ public class PieController {
     for (PieChart.Data slice : slices) {
       categoryUptimes.put(
           slice.getName(),
-          dataService.getCategoryUptimeSeconds(slice.getName()));
+          (long) slice.getPieValue());
     }
     pieView.bindPieData("Category Overview", slices, categoryUptimes);
   }

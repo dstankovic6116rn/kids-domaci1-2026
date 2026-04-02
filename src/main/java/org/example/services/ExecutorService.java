@@ -2,9 +2,7 @@ package org.example.services;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +60,7 @@ public class ExecutorService {
   private ScheduledFuture<?> scanJob;
 
   // Callback koji okida FX Thread kada se posao zavrsi
-  private Runnable onScanComplete = () -> {
+  private volatile Runnable onScanComplete = () -> {
   };
 
   private volatile AppConfig config;
@@ -205,13 +203,6 @@ public class ExecutorService {
 
   public void setOnScanComplete(Runnable handler) {
     this.onScanComplete = handler;
-  }
-
-  /**
-   * Genericni job submit za FileExecutor-a
-   */
-  public <T> Future<T> submitJob(Callable<T> job) {
-    return fileExecutor.submit(job);
   }
 
   public AppConfig getConfig() {

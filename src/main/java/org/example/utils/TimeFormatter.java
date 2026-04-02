@@ -8,9 +8,11 @@ public class TimeFormatter {
   }
 
   public static String formatTime(long totalSeconds) {
-    long hours = totalSeconds / 3600;
-    long minutes = (totalSeconds % 3600) / 60;
-    long seconds = totalSeconds % 60;
+    // Zastita od negativnog vremena — moze se desiti ako je store korumpiran
+    long safe = Math.max(0L, totalSeconds);
+    long hours = safe / 3600;
+    long minutes = (safe % 3600) / 60;
+    long seconds = safe % 60;
     return String.format("%02dh%02dm%02ds", hours, minutes, seconds);
   }
 

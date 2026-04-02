@@ -132,11 +132,11 @@ public class ProcessDetailsView extends VBox {
     ramMetricLabel.setText(
         String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
     ramRankLabel.setText(
-        ProcessRanking.toOrdinalRank(processRanking.getRamRank()) + " on RAM usage");
+        ProcessRanking.toOrdinalRank(processRanking.ramRank()) + " on RAM usage");
     cpuMetricLabel.setText(
         String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
     cpuRankLabel.setText(
-        ProcessRanking.toOrdinalRank(processRanking.getCpuRank()) + " on CPU usage");
+        ProcessRanking.toOrdinalRank(processRanking.cpuRank()) + " on CPU usage");
   }
 
   public void showDialog(ProcessDialog dialog) {

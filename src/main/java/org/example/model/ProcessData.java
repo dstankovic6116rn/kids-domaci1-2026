@@ -78,14 +78,17 @@ public class ProcessData {
       if (storedProcess == null) {
         // Nov ili ponovno pokrenut proces, proverava da li je prethodno ostao u freeze,
         // ako jeste upisi poslednju vrednost u processDataStore
-        long uptime = frozenProcesses.contains(key)
+        boolean frozen = frozenProcesses.contains(key);
+        long uptime = frozen
             ? uptimeStore.getOrDefault(key, 0L)
             : uptimeStore.merge(key, elapsedTime, Long::sum);
 
         incoming.setUptimeSeconds(uptime);
-        incoming.setTrackingFrozen(frozenProcesses.contains(key));
+        incoming.setTrackingFrozen(frozen);
 
-        ProcessItem historicPI = historicData.get(key);
+        // Ako postoji istorijski zapis, prenesi aliasName i category u novi proces i
+        // izbaci ga iz historicData mape (memoryLeak prevention)
+        ProcessItem historicPI = historicData.remove(key);
         if (historicPI != null) {
           incoming.setAliasName(historicPI.getAliasName());
           incoming.setCategory(historicPI.getCategory());
@@ -145,21 +148,12 @@ public class ProcessData {
     return frozenProcesses.contains(originalName);
   }
 
-  /** Vraca snapshot cele uptime banke. */
-  public ConcurrentHashMap<String, Long> getUptimeStore() {
-    return uptimeStore;
-  }
-
   public List<ProcessItem> getAll() {
     return new ArrayList<>(processDataStore.values());
   }
 
   public ProcessItem getByName(String name) {
     return processDataStore.get(name);
-  }
-
-  public int getSize() {
-    return processDataStore.size();
   }
 
   public void remove(String originalName) {

@@ -13,12 +13,11 @@ import org.example.view.MainView;
  */
 public class CategoryDetailsControler {
 
-  private final CategoryDetailsView categoryDetailsView;
-
   public CategoryDetailsControler(MainView mainView, DataService dataService, String categoryName) {
 
     List<ProcessItem> processes = dataService.getProcessesByCategoryName(categoryName);
-    categoryDetailsView = new CategoryDetailsView(categoryName, processes);
+
+    CategoryDetailsView categoryDetailsView = new CategoryDetailsView(categoryName, processes);
     categoryDetailsView.setOnBackRequested(mainView::showMain);
     mainView.showCategoryDetails(categoryDetailsView);
   }

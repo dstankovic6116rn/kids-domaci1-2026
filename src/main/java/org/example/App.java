@@ -39,11 +39,14 @@ public class App extends Application {
 		if (!shutdownInitiated) {
 			shutdownInitiated = true;
 
+			System.out.println("[App] Graceful shutdown initiated — saving...");
+
 			dataService.saveProcesses(success -> {
 				if (!success)
 					System.err.println("[App] Save failed — shutting down anyway.");
 
-				mainController.shutdown();
+				if (mainController != null)
+					mainController.shutdown();
 				Platform.exit();
 
 			});
