@@ -58,6 +58,10 @@ public class DataService {
 		return processData.getAll();
 	}
 
+	public ProcessItem getProcessByName(String name) {
+		return processData.getByName(name);
+	}
+
 	public void setProcessCategory(String name, String category) {
 		ProcessItem pi = processData.getByName(name);
 		if (pi != null) {
@@ -118,14 +122,19 @@ public class DataService {
 		List<ProcessItem> allProcessItems = processData.getAll();
 
 		List<ProcessItem> ramProcessItems = allProcessItems.stream()
-				.sorted((a, b) -> Double.compare(a.getRamUsageMb(), b.getRamUsageMb())).collect(Collectors.toList());
+				.sorted((a, b) -> Double.compare(b.getRamUsageMb(), a.getRamUsageMb())).collect(Collectors.toList());
 		List<ProcessItem> cpuProcessItems = allProcessItems.stream()
-				.sorted((a, b) -> Double.compare(a.getCpuUsage(), b.getCpuUsage())).collect(Collectors.toList());
+				.sorted((a, b) -> Double.compare(b.getCpuUsage(), a.getCpuUsage())).collect(Collectors.toList());
 
 		int ramRank = 0;
 		int cpuRank = 0;
 
-		// TODO: explain this
+		/**
+		 * index 0 → IntelliJ 1500 MB → rank 1 (highest)
+		 * index 1 → Chrome 800 MB → rank 2
+		 * index 2 → Discord 600 MB → rank 3
+		 * index 3 → Spotify 300 MB → rank 4 (lowest)
+		 */
 		for (int i = 0; i < ramProcessItems.size(); i++) {
 			if (ramProcessItems.get(i).getOriginalName().equals(originalName)) {
 				ramRank = i + 1;

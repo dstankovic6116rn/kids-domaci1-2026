@@ -7,6 +7,8 @@ import org.example.view.MainView;
 
 /**
  * Application level controller
+ * Konstruise sve kontrolere i AnalyticsService, povezuje ih i startuje proces
+ * skeniranja i analitike
  */
 public class MainController {
   private final ProcessListController processListController;
@@ -17,7 +19,6 @@ public class MainController {
 
   public MainController(MainView mainView, DataService dataService, Runnable onShutdown) {
     this.dataService = dataService;
-
     this.processListController = new ProcessListController(mainView.getProcessListView(), dataService, mainView);
     this.pieController = new PieController(mainView.getPieView(), dataService, mainView);
 
@@ -30,9 +31,7 @@ public class MainController {
 
     mainView.setAnalyticsService(analyticsService);
 
-    dataService.start(() -> {
-      processListController.onScanComplete();
-    });
+    dataService.start(processListController::onScanComplete);
 
     analyticsService.start();
   }

@@ -137,8 +137,7 @@ public class AnalyticsService {
     if (processDetailsView != null) {
       String processName = processDetailsView.getProcessName();
       if (processName != null) {
-        ProcessItem processItem = dataService.getCurrentProcceses().stream()
-            .filter(p -> p.getOriginalName().equals(processName)).findFirst().orElse(null);
+        ProcessItem processItem = dataService.getProcessByName(processName);
 
         if (processItem != null) {
           ProcessRanking ranking = dataService.getRankingForProcess(processName);
