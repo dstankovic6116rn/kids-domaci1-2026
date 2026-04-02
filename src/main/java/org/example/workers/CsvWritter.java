@@ -21,7 +21,7 @@ public class CsvWritter {
    * Sequence counter se dodaje na file name da bi garantovao unikatnost ukoliko
    * se na nivou milisekunde preklopi vise CSV write-a, sto ce verovatno biti ako
    * malo verovatno, kako bismo izbegli upisivanje iz dva thread-a u isti file,
-   * bez botrebe za lock-om
+   * bez potrebe za lock-om
    */
   private static final AtomicLong sequence = new AtomicLong(0);
 

@@ -25,7 +25,7 @@ public class ToolbarController {
   private void bindActions() {
     toolbarView.setOnSave(this::onSave);
     toolbarView.setOnLoad(this::onLoad);
-    toolbarView.setOnShutdown(this::onShutdown);
+    toolbarView.setOnShutdown(this::onShutdownClicked);
   }
 
   private void onSave() {
@@ -40,7 +40,7 @@ public class ToolbarController {
     System.out.println("Load clicked");
   }
 
-  private void onShutdown() {
+  private void onShutdownClicked() {
     System.out.println("Shutdown clicked");
 
     ProcessDialog dialog = ProcessDialog.confirmDialog(
@@ -48,7 +48,9 @@ public class ToolbarController {
         "Current process data will be saved before the application exits.",
         "Shutdown",
         this::confirmShutdown);
+
     dialog.setOnDismiss(() -> rootPane.getChildren().removeIf(n -> n instanceof ProcessDialog));
+
     rootPane.getChildren().add(dialog);
   }
 
