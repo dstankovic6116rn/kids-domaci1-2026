@@ -16,6 +16,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * 
  * UptimeStore ce cuvati vrednost nakon sto se neki proces ugasi i azurirati se
  * kada se isti proces ponovo pokrene bez obzira da li ima novi PID
+ * 
+ * Historic Data mapa se puni iz JSON-a na startu aplikacije i koristi se za
+ * merge-ovanje sa novim skenovima i za odrzavanje kontinuiteta u pracenju
+ * procesa prilikom ponovnog pokretanja.
+ * 
+ * 
  */
 public class ProcessData {
 
@@ -25,6 +31,13 @@ public class ProcessData {
   private final ConcurrentHashMap<String, ProcessItem> historicData = new ConcurrentHashMap<>();
 
   private volatile long lastMergeTimeMs = System.currentTimeMillis();
+
+  /**
+   * Cuva tacno uptime vreme prilikom prvog ucitavanja procesa iz JSON-a da bi se
+   * uptime mogao tacno agregirati sa uptime-om iz trenutne sesije u slucaju da se
+   * proces ponovo pokrene a pocetna vrenost je rucno promenjena u jsonu.
+   */
+  private final ConcurrentHashMap<String, Long> sessionStartStore = new ConcurrentHashMap<>();
 
   /**
    * Ucitava istorijske podatke iz JSON-a u historicData mapu i uptimeStore, kao i
@@ -42,9 +55,13 @@ public class ProcessData {
       uptimeStore.put(name, item.getUptimeSeconds());
 
       historicData.put(name, item);
+
+      // Popuni sessionStartStore tako da se uptime iz JSON-a moze tacno agregirati sa
+      // uptime-om iz trenutne sesije u slucaju da se proces ponovo pokrene
+      sessionStartStore.put(name, item.getUptimeSeconds());
     }
     System.out.println("[ProcessStore] Loaded " + records.size()
-        + " historic records into bank.");
+        + " historic records into store.");
   }
 
   /**
@@ -93,6 +110,7 @@ public class ProcessData {
           incoming.setCategory(historyProcess.getCategory());
         }
 
+        sessionStartStore.putIfAbsent(key, uptime);
         processDataStore.put(key, incoming);
 
       } else if (storedProcess.isTrackingFrozen()) {
@@ -137,6 +155,7 @@ public class ProcessData {
     return raw;
   }
 
+  // Freeze/Unfreeze processes
   public void freezeUptime(String originalName) {
     ProcessItem process = processDataStore.get(originalName);
     if (process != null)
@@ -175,6 +194,42 @@ public class ProcessData {
       result.add(historicProcess);
     }
     return result;
+  }
+
+  public void updateFromWatcher(List<ProcessItem> reloaded) {
+
+    Set<String> reloadedNames = new HashSet<>();
+
+    for (ProcessItem incoming : reloaded) {
+      String name = incoming.getOriginalName();
+      reloadedNames.add(name);
+
+      ProcessItem live = processDataStore.get(name);
+
+      if (live != null) {
+        live.setAliasName(incoming.getAliasName());
+        live.setCategory(incoming.getCategory());
+        live.setTrackingFrozen(incoming.isTrackingFrozen());
+
+        long currentBank = uptimeStore.getOrDefault(name, 0L);
+        long sessionStart = sessionStartStore.getOrDefault(name, currentBank);
+        long sessionContribution = Math.max(0L, currentBank - sessionStart);
+        long newBank = incoming.getUptimeSeconds() + sessionContribution;
+
+        uptimeStore.put(name, newBank);
+        sessionStartStore.put(name, incoming.getUptimeSeconds());
+        live.setUptimeSeconds(newBank);
+
+      } else {
+        uptimeStore.put(name, incoming.getUptimeSeconds());
+        historicData.put(name, incoming);
+      }
+    }
+
+    // Izbrisi iz istorije procese koji se ne nalaze u reloaded listi — ovi procesi
+    // su verovatno obrisani ili preimenovani od strane korisnika
+    historicData.keySet().removeIf(name -> !reloadedNames.contains(name));
+
   }
 
   public List<ProcessItem> getAll() {

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.example.model.ProcessData;
 import org.example.model.ProcessItem;
 import org.example.model.ProcessRanking;
+import org.example.workers.JsonReader;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,8 @@ import javafx.scene.chart.PieChart;
 
 /**
  * Centralni koordinator podataka izmedju
- * ProcessScanService, ProcessStore, Executor Service, AnalyticsService i
+ * ProcessScanService, ProcessStore, Executor Service, AnalyticsService,
+ * WatcherService i
  * kontrolera, kao i izvodjenje podataka za PieChart
  */
 
@@ -23,10 +25,23 @@ public class DataService {
 	private final ProcessScanService processScanService = new ProcessScanService();
 	private final ProcessData processData = new ProcessData();
 	private final ExecutorService executorService = new ExecutorService(this);
+	private final JsonReader jsonReader = new JsonReader();
+	private WatcherService watcherService;
 
 	public void start(Runnable onScanComplete) {
 		executorService.setOnScanComplete(onScanComplete);
+		executorService.setOnConfigLoaded(this::startWatcherService);
+
 		executorService.start();
+	}
+
+	// mapping file dolazi iz onConfigLoaded iz ExecutorService nakon ucitavanja
+	// config-a accept metodom
+	private void startWatcherService(String mappingFile) {
+		watcherService = new WatcherService(processData, jsonReader, executorService::isWriteSuppressed,
+				executorService::acquireJsonReadLock, executorService::releaseJsonReadLock, mappingFile,
+				executorService::clearSuppression);
+		watcherService.start();
 	}
 
 	/**

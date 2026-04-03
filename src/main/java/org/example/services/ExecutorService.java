@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
@@ -89,6 +90,16 @@ public class ExecutorService {
    */
   private final ReentrantLock reentrantLock = new ReentrantLock();
 
+  /**
+   * Zaustavlja WatcherService da reaguje na promene fajla koje je prouzrokovao
+   * save action ili shutdown action, sto bi dovelo do nepotrebnih reload-ova i
+   * merge-ovanja u store. Ovaj flag se postavlja na true pre nego sto
+   * FileExecutor pokrene save job, a resetuje na false nakon sto se job zavrsi.
+   * WatcherService proverava ovaj flag pre nego sto reaguje na promene fajla i
+   * ignorise ih ako je flag true.
+   */
+  private final AtomicBoolean writeSuppressed = new AtomicBoolean(false);
+
   private final DataService dataService;
   private final ConfigReader configReader = new ConfigReader();
   private final JsonWritter jsonWritter = new JsonWritter();
@@ -99,6 +110,11 @@ public class ExecutorService {
 
   // volatile — written on FX thread before start(), read on scan executor thread
   private volatile Runnable onScanComplete = () -> {
+  };
+
+  // Poziva se jednom nakon ucitavanja configa-a, DataService koristi ovaj handler
+  // da startuje WatcherService
+  private volatile Consumer<String> onConfigLoaded = path -> {
   };
 
   private volatile AppConfig config;
@@ -112,6 +128,8 @@ public class ExecutorService {
       // Read Config
       try {
         config = configReader.readConfig();
+
+        onConfigLoaded.accept(config.getMappingFile());
 
         // Prepusti file executor-u da procita istoriju i zakaze CSV snapshot,
         // scanExecutor je slobodan nakon submit-a
@@ -200,6 +218,7 @@ public class ExecutorService {
       AppConfig cfg = config;
       if (cfg == null) {
         System.err.println("[FileExecutor] Save skipped — config not loaded.");
+
         Platform.runLater(() -> onComplete.accept(false));
         return;
       }
@@ -208,8 +227,10 @@ public class ExecutorService {
       // isti fajl
       reentrantLock.lock();
       try {
+        writeSuppressed.set(true);
         jsonWritter.write(processes, cfg.getMappingFile());
         Platform.runLater(() -> onComplete.accept(true));
+
       } catch (Exception e) {
         System.err.println("[FileExecutor] Save failed: " + e.getMessage());
         e.printStackTrace();
@@ -219,6 +240,10 @@ public class ExecutorService {
       }
 
     });
+  }
+
+  public void clearSuppression() {
+    writeSuppressed.set(false);
   }
 
   private void scheduleCSVSnapshot(long intervalSEC) {
@@ -252,6 +277,30 @@ public class ExecutorService {
 
   public void setOnScanComplete(Runnable handler) {
     this.onScanComplete = handler;
+  }
+
+  /**
+   * True while the app is writing process_info.json — WatcherService ignores
+   * events.
+   */
+  public boolean isWriteSuppressed() {
+    return writeSuppressed.get();
+  }
+
+  /**
+   * Acquires the JSON read lock — WatcherService calls before reading the file.
+   */
+  public void acquireJsonReadLock() {
+    reentrantLock.lock();
+  }
+
+  /** Releases the JSON read lock. */
+  public void releaseJsonReadLock() {
+    reentrantLock.unlock();
+  }
+
+  public void setOnConfigLoaded(Consumer<String> handler) {
+    this.onConfigLoaded = handler;
   }
 
   public AppConfig getConfig() {
