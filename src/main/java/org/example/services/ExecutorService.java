@@ -1,6 +1,5 @@
 package org.example.services;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -175,26 +174,25 @@ public class ExecutorService {
     System.out.println("[FileExecutor] Scheduling CSV snapshot every "
         + intervalSEC + "s");
 
-    fileExecutor.scheduleWithFixedDelay(() -> runCsvSnapshot(Instant.now()), intervalSEC, intervalSEC,
+    fileExecutor.scheduleWithFixedDelay(this::runCsvSnapshot, intervalSEC, intervalSEC,
         TimeUnit.SECONDS);
   }
 
   /**
    * Analytics Service submit-uje ovaj CSV Write job
    * 
-   * @param snapshotTime
    */
-  public void submitFixedTimeSnapshot(Instant snapshotTime) {
-    fileExecutor.submit(() -> runCsvSnapshot(snapshotTime));
+  public void submitFixedTimeSnapshot() {
+    fileExecutor.submit(this::runCsvSnapshot);
   }
 
   /**
    * Pokupi sveze procese iz store-a i upisuje CSV snapshot
    */
-  private void runCsvSnapshot(Instant snapshotTime) {
+  private void runCsvSnapshot() {
     try {
       List<ProcessItem> snapshot = dataService.getCurrentProcceses();
-      csvWritter.write(snapshot, snapshotTime);
+      csvWritter.write(snapshot);
     } catch (Exception e) {
       System.err.println("[FileExecutor] CSV snapshot failed: " + e.getMessage());
       e.printStackTrace();

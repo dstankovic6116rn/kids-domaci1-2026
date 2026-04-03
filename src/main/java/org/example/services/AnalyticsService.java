@@ -1,6 +1,5 @@
 package org.example.services;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -116,13 +115,12 @@ public class AnalyticsService {
       LocalTime truncated = fixedTime.withNano(0);
       if (truncated.equals(now) && !firedToday.contains(nowKey)) {
         firedToday.add(nowKey);
-        Instant snapshotTime = Instant.now();
 
         System.out.println("[AnalyticsService] Fixed-time snapshot triggered at "
             + nowKey);
 
         // Submit to file executor
-        snapshotSubmitter.submitFixedTimeSnapshot(snapshotTime);
+        snapshotSubmitter.submitFixedTimeSnapshot();
       }
     }
   }

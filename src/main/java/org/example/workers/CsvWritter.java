@@ -31,10 +31,10 @@ public class CsvWritter {
 
   private static final String HEADER = "timestamp,pid,process_name,cpu_usage,ram_usage,category,alias_name";
 
-  public void write(List<ProcessItem> processes, Instant snapshotTime) {
+  public void write(List<ProcessItem> processes) {
     // Vreme se belezi u trenutku poziva funkcije a ne u trenutku pokretanja od
     // strane executor-a
-    ZonedDateTime zdt = snapshotTime.atZone(ZoneOffset.UTC);
+    ZonedDateTime zdt = Instant.now().atZone(ZoneOffset.UTC);
 
     long seq = sequence.incrementAndGet();
 

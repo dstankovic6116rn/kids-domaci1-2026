@@ -34,6 +34,10 @@ public class ConfigReader {
 
   private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+  /**
+   * 
+   * @return AppConfig sa vrednostima iz config.properties
+   */
   public AppConfig readConfig() {
     Properties properties = new Properties();
     File configFile = new File(CONFIG_PATH);

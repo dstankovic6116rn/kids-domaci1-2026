@@ -1,7 +1,5 @@
 package org.example.services;
 
-import java.time.Instant;
-
 /**
  * Ovo je posebno korisno zbog circular dependency-ja između AnalyticsService i
  * FileExecutorService
@@ -10,5 +8,5 @@ import java.time.Instant;
  * izvršavanje.
  */
 public interface SnapshotSubmitter {
-  void submitFixedTimeSnapshot(Instant snapshotTime);
+  void submitFixedTimeSnapshot();
 }
