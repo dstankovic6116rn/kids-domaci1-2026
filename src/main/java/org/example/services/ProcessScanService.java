@@ -1,5 +1,6 @@
 package org.example.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
@@ -37,7 +38,26 @@ public class ProcessScanService {
   public List<ProcessItem> scan() {
 
     List<OSProcess> rawProcesses = os.getProcesses();
-    List<OSProcess> active = rawProcesses.stream().filter(p -> isActiveProcess(p)).collect(Collectors.toList());
+    if (rawProcesses == null) {
+      System.err.println("[ProcessScanService] os.getProcesses() returned null — skipping scan");
+      return new ArrayList<>();
+    }
+
+    List<OSProcess> active;
+
+    try {
+      active = rawProcesses.stream().filter(p -> {
+        try {
+          return isActiveProcess(p);
+        } catch (Exception e) {
+          return false;
+        }
+      }).collect(Collectors.toList());
+    } catch (Exception e) {
+      System.err.println("[ProcessScanService] Failed to filter process list: "
+          + e.getMessage());
+      return new ArrayList<>();
+    }
 
     /**
      * invoke() submit-uje task i blokira pozivajuci thread dok se ne zavrsi i vraca
@@ -46,7 +66,14 @@ public class ProcessScanService {
      * FxThread ne blokira
      * Zato nam nije potreban Future kao povratni tip
      */
-    return forkJoinPool.invoke(new ScanWorker(active, 0, active.size(), SPLIT_THRESHOLD));
+    try {
+      return forkJoinPool.invoke(new ScanWorker(active, 0, active.size(), SPLIT_THRESHOLD));
+    } catch (Exception e) {
+      // ForkJoinPool re-throws exceptions from tasks via join()
+      System.err.println("[ProcessScanService] ForkJoin scan failed: " + e.getMessage());
+      e.printStackTrace();
+      return new ArrayList<>();
+    }
 
   }
 

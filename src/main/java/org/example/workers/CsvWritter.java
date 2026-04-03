@@ -61,12 +61,20 @@ public class CsvWritter {
   }
 
   private String buildRow(ProcessItem p, String timestamp) {
+    String cpu = Double.isNaN(p.getCpuUsage())
+        ? "N/A"
+        : String.format("%.2f", p.getCpuUsage());
+
+    String ram = p.getRamUsageMb() == 0.0
+        ? "0"
+        : String.format("%.2f", p.getRamUsageMb());
+
     return String.join(",",
         timestamp,
         String.valueOf(p.getPid()),
         escapeCsv(p.getOriginalName()),
-        String.format("%.2f", p.getCpuUsage()),
-        String.format("%.2f", p.getRamUsageMb()),
+        cpu,
+        ram,
         escapeCsv(p.getCategory()),
         escapeCsv(p.getAliasName()));
   }

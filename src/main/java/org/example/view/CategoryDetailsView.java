@@ -103,7 +103,11 @@ public class CategoryDetailsView extends VBox {
       @Override
       protected void updateItem(Double value, boolean empty) {
         super.updateItem(value, empty);
-        setText(empty || value == null ? null : String.format("%.1f%%", value));
+        if (empty || value == null) {
+          setText(null);
+          return;
+        }
+        setText(Double.isNaN(value) ? "N/A" : String.format("%.1f%%", value));
       }
     });
 

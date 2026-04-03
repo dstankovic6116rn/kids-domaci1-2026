@@ -56,19 +56,39 @@ public class ScanWorker extends RecursiveTask<List<ProcessItem>> {
     List<ProcessItem> result = new ArrayList<>(to - from);
 
     for (int i = from; i < to; i++) {
-      OSProcess rawProcess = processes.get(i);
+      try {
+        OSProcess rawProcess = processes.get(i);
 
-      ProcessItem processItem = new ProcessItem(rawProcess.getProcessID(), rawProcess.getStartTime(),
-          rawProcess.getName());
+        // getName() can return null if the process terminated before
+        // the name was readable — skip rather than propagating a null
+        String name = rawProcess.getName();
+        if (name == null || name.isBlank())
+          continue;
 
-      // https://www.oshi.ooo/oshi-core-java11/apidocs/com.github.oshi/oshi/software/os/OSProcess.html#getProcessCpuLoadCumulative()
-      processItem.setCpuUsage(rawProcess.getProcessCpuLoadCumulative() * 100.0);
-      // https://www.oshi.ooo/oshi-core-java11/apidocs/com.github.oshi/oshi/software/os/OSProcess.html#getResidentSetSize()
-      processItem.setRamUsageMb(rawProcess.getResidentSetSize() / (1024.0 * 1024.0));
-      // https://www.oshi.ooo/oshi-core-java11/apidocs/com.github.oshi/oshi/software/os/OSProcess.html#getUpTime()
-      processItem.setUptimeSeconds(rawProcess.getUpTime() / 1000L);
+        // getProcessID() returns -1 if the PID is unavailable —
+        // skip rather than storing a meaningless entry
+        int pid = rawProcess.getProcessID();
+        if (pid < 0)
+          continue;
 
-      result.add(processItem);
+        ProcessItem processItem = new ProcessItem(
+            pid,
+            rawProcess.getStartTime(), // 0 if unavailable - ok
+            name);
+
+        // Can return Double.NaN if CPU data is unavailable
+        double cpu = rawProcess.getProcessCpuLoadCumulative();
+        processItem.setCpuUsage(Double.isNaN(cpu) ? Double.NaN : cpu * 100.0);
+
+        processItem.setRamUsageMb(rawProcess.getResidentSetSize() / (1024.0 * 1024.0));
+
+        result.add(processItem);
+
+      } catch (Exception e) {
+        // Process terminated or OS denied access mid-scan — skip silently.
+        System.out.println("[ProcessScanService] Skipped process at index " + i
+            + ": " + e.getClass().getSimpleName() + " — " + e.getMessage());
+      }
     }
 
     return result;

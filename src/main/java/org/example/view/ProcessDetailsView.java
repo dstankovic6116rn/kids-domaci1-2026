@@ -129,12 +129,15 @@ public class ProcessDetailsView extends VBox {
    */
   public void updateMetrics(ProcessItem processItem, ProcessRanking processRanking, long liveUptime) {
     uptimeLabel.setText("Total time — " + TimeFormatter.formatTime(liveUptime));
+
     ramMetricLabel.setText(
         String.format("RAM usage   %.1f MB", processItem.getRamUsageMb()));
     ramRankLabel.setText(
         ProcessRanking.toOrdinalRank(processRanking.ramRank()) + " on RAM usage");
-    cpuMetricLabel.setText(
-        String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
+
+    cpuMetricLabel.setText(Double.isNaN(processItem.getCpuUsage())
+        ? "CPU usage   N/A"
+        : String.format("CPU usage   %.1f%%", processItem.getCpuUsage()));
     cpuRankLabel.setText(
         ProcessRanking.toOrdinalRank(processRanking.cpuRank()) + " on CPU usage");
   }
