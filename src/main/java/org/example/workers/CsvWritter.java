@@ -3,15 +3,16 @@ package org.example.workers;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.example.model.ProcessItem;
 
@@ -23,27 +24,47 @@ public class CsvWritter {
 
   private static final String HEADER = "timestamp,pid,process_name,cpu_usage,ram_usage,category,alias_name";
 
-  public void write(List<ProcessItem> processes) {
+  public void write(List<ProcessItem> processes) throws IOException {
     // Vreme se belezi u trenutku poziva funkcije a ne u trenutku pokretanja od
     // strane executor-a
-    ZonedDateTime zdt = Instant.now().atZone(ZoneOffset.UTC);
+    ZonedDateTime zdt;
+    Path target;
 
-    String filename = "snapshot_" + FILE_TIMESTAMP_FORMAT.format(zdt) + ".csv";
-    String rowTime = ROW_TIMESTAMP_FORMAT.format(zdt);
+    while (true) {
+      zdt = Instant.now().atZone(ZoneOffset.UTC);
+      target = Paths.get("snapshot_" + FILE_TIMESTAMP_FORMAT.format(zdt) + ".csv");
 
-    Path target = Paths.get(filename);
-
-    try (BufferedWriter writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8)) {
-      writer.write(HEADER);
-      writer.newLine();
-
-      for (ProcessItem p : processes) {
-        writer.write(buildRow(p, rowTime));
-        writer.newLine();
+      // CREATE_NEW fails atomically if the file already exists, pa je ovo thread-safe
+      // nacin da se izbegne kolizija imena fajlova i gubitak podataka
+      try {
+        Files.newBufferedWriter(target, StandardCharsets.UTF_8,
+            StandardOpenOption.CREATE_NEW).close();
+        break; // uspesno kreiran fajl, mozemo nastaviti sa pisanjem
+      } catch (FileAlreadyExistsException e) {
+        try {
+          Thread.sleep(1);
+        } catch (InterruptedException ie) {
+          Thread.currentThread().interrupt();
+          throw new IOException("Interrupted while resolving snapshot filename", ie);
+        }
       }
-    } catch (IOException e) {
-      System.err.println("[ProcessCsvWriter] Error writting CSV: " + e.getMessage());
-      e.printStackTrace();
+
+      String rowTime = ROW_TIMESTAMP_FORMAT.format(zdt);
+
+      // File je kreiran, sada mozemo bezbedno pisati u njega
+      try (BufferedWriter writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8)) {
+        writer.write(HEADER);
+        writer.newLine();
+
+        for (ProcessItem p : processes) {
+          writer.write(buildRow(p, rowTime));
+          writer.newLine();
+        }
+      } catch (IOException e) {
+        System.err.println("[ProcessCsvWriter] Error writting CSV: " + e.getMessage());
+        e.printStackTrace();
+      }
+
     }
 
     System.out.println("[ProcessCsvWriter] Wrote to: " + target.toAbsolutePath());

@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 import org.example.model.AppConfig;
@@ -18,39 +21,75 @@ import javafx.application.Platform;
 
 /**
  * DataService startuje Executor Service Thread-ove
+ * Upravlja dva executor-a sa jasno odvojenim odgovornostima
+ * 
  * 1. Read config (scanExecutor)
  * 2. Load JSON history (fileExecutor)
  * 3. Zakazi periodicni CSV snapshot (fileExecutor)
  * 4. Zakazi periodicni scan (scanExecutor)
  * 
- * ScanExecutor:
- * 1. Zakazuje periodicna skeniranja sa fiksnim delay-om. Koristi se fixed delay
- * umesto fixed rate zbog slucaja da se zapoceti sken ne zavrsi u roku od tri
- * sekunde. U tom slucaju sledeci ceka a ne pokrece se preko prethodnog.
+ * ScanExecutor - single thread:
+ * 1. Zakazuje periodicna skeniranja sa fiksnim delay-om i merge-uje u store.
+ * Koristi se fixed delay umesto fixed rate zbog slucaja da se zapoceti sken ne
+ * zavrsi u roku od tri sekunde. U tom slucaju sledeci ceka a ne pokrece se
+ * preko prethodnog.
+ * 2. Kada stigne novi scan interval, cancel-uje prethodni posao i zakazuje novi
+ * sa novim intervalom. Cancel-ovanje je sa false parametrom sto znaci da ne
+ * prekida trenutno izvrsavanje skena, vec dozvoljava da se zavrsi pre nego sto
+ * se zakaze novi.
  * 
- * FileExecutor (File I/O):
- * 1. Koristi Config Reader da procita config.properties
- * 2. Pokrece cuvanje in-memory procesa u zadati fajl
- * 3. Na startu ucitava istorijske podatke iz fajla i puni
+ * FileExecutor (File I/O) - 2 thread pool:
+ * 1. Na startu ucitava istorijske podatke iz fajla i puni
  * ProcessData.historicData koji se koristi za merge-ovanje sa novim skenovima
+ * 2. Zakazuje periodicno cuvanje CSV snapshot-a svakih N sekundi
+ * 3. Prima hitne zahteve za cuvanje CSV snapshot-a od strane AnalyticsService
+ * 4. Prima zahteve za cuvanje JSON istorije od onSave akcije na FX Thread-u
+ * 
+ * Upravljanje kolizijama:
+ * 1. ScanExecutor i FileExecutor su odvojeni da bi se izbeglo da I/O operacije
+ * usporavaju skeniranje
+ * 2. FileExecutor ima lock oko JSON upisa da bi se izbeglo da dva thread-a
+ * istovremeno upisuju u isti fajl
+ * 3. CSV snapshot fajlovi imaju executionTime timestamp u nazivu da bi se
+ * izbeglo da dva thread-a upisuju u isti fajl, sto eliminiše potrebu za lock-om
+ * 4. CSV Writter koristi CREATE_NEW + 1ms timestamp da bi se eliminisala
+ * kolizija imena fajla u slucaju da se dva snapshot-a pokrenu u istoj
+ * milisekundi, sto je malo verovatno ali nije nemoguce, a eliminiše potrebu za
+ * lock-om
+ *
  */
 
 public class ExecutorService {
 
+  /**
+   * Scan Executor je single-threaded jer ima jednu funkciju — skeniranje procesa
+   * i merge-ovanje u store, sto je posao koji nema potrebe da se mesa sa I/O
+   * operacijama. Samim tim nikada nece kasniti skeniranje zbog I/O operacija, sto
+   * je bitno za odrzavanje stabilnog intervala izmedju skenova.
+   */
   private final ScheduledExecutorService scanExecutor = Executors.newSingleThreadScheduledExecutor(r -> {
     Thread t = new Thread(r, "Scan Executor Thread");
     t.setDaemon(true);
     return t;
   });
 
-  private final ScheduledExecutorService fileExecutor = Executors.newSingleThreadScheduledExecutor(r -> {
-    Thread t = new Thread(r, "File Executor Thread");
-    t.setDaemon(true);
-    return t;
+  private final ScheduledExecutorService fileExecutor = Executors.newScheduledThreadPool(2, new ThreadFactory() {
+    private final AtomicInteger count = new AtomicInteger(0);
+
+    @Override
+    public Thread newThread(Runnable r) {
+      Thread t = new Thread(r, "File Executor Thread-" + count.getAndIncrement());
+      t.setDaemon(true);
+      return t;
+    }
   });
 
-  private final DataService dataService;
+  /**
+   * Stiti json fajl od istovremenog upisa iz dva thread-a
+   */
+  private final ReentrantLock reentrantLock = new ReentrantLock();
 
+  private final DataService dataService;
   private final ConfigReader configReader = new ConfigReader();
   private final JsonWritter jsonWritter = new JsonWritter();
   private final JsonReader jsonReader = new JsonReader();
@@ -74,16 +113,20 @@ public class ExecutorService {
       try {
         config = configReader.readConfig();
 
-        // Prepusti file executor-u da procita, scanExecutor je slobodan nakon submit-a
+        // Prepusti file executor-u da procita istoriju i zakaze CSV snapshot,
+        // scanExecutor je slobodan nakon submit-a
         fileExecutor.submit(() -> {
 
           try {
             List<ProcessItem> historic = jsonReader.read(config.getMappingFile());
             dataService.loadHistory(historic);
 
+            scheduleCSVSnapshot(config.getSnapshotIntervalSec());
+
+            // vraca scanExecutor-u da zakaze periodicni scan nakon sto se istorija ucita i
+            // merge-uje u store
             scanExecutor.submit(() -> {
               try {
-                scheduleCSVSnapshot(config.getSnapshotIntervalSec());
                 scheduleScan(config.getScanIntervalMS());
               } catch (Exception e) {
                 System.err.println("[ScanExecutor] Scan scheduling failed: "
@@ -136,7 +179,6 @@ public class ExecutorService {
   }
 
   private void runScan() {
-
     try {
       dataService.scanAndUpdate();
       Platform.runLater(onScanComplete);
@@ -148,25 +190,34 @@ public class ExecutorService {
 
   /**
    * Submit-uje JSON save posao FileExecutor-u
+   * Ceka da se zavrsi csv posao ako postoji
    * 
    * @param processes
    * @param onComplete
    */
   public void submitSave(List<ProcessItem> processes, Consumer<Boolean> onComplete) {
     fileExecutor.submit(() -> {
-      if (config == null) {
-        System.err.println("[FileExecutor] Save skipped — config not yet loaded.");
+      AppConfig cfg = config;
+      if (cfg == null) {
+        System.err.println("[FileExecutor] Save skipped — config not loaded.");
         Platform.runLater(() -> onComplete.accept(false));
         return;
       }
+
+      // Lock oko JSON upisa da bi se izbeglo da dva thread-a istovremeno upisuju u
+      // isti fajl
+      reentrantLock.lock();
       try {
-        jsonWritter.write(processes, config.getMappingFile());
+        jsonWritter.write(processes, cfg.getMappingFile());
         Platform.runLater(() -> onComplete.accept(true));
       } catch (Exception e) {
         System.err.println("[FileExecutor] Save failed: " + e.getMessage());
         e.printStackTrace();
         Platform.runLater(() -> onComplete.accept(false));
+      } finally {
+        reentrantLock.unlock();
       }
+
     });
   }
 
