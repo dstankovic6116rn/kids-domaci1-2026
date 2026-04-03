@@ -21,13 +21,10 @@ public class ProcessData {
 
   private final ConcurrentHashMap<String, ProcessItem> processDataStore = new ConcurrentHashMap<>();
   private final ConcurrentHashMap<String, Long> uptimeStore = new ConcurrentHashMap<>();
-  private volatile long lastMergeTimeMs = System.currentTimeMillis();
-
-  // ConcurrentHashMap.newKeySet() — thread-safe, lock-free reads/writes.
-  private final Set<String> frozenProcesses = ConcurrentHashMap.newKeySet();
-
   // Popunjava se iz JSON-a na startu aplikacije
   private final ConcurrentHashMap<String, ProcessItem> historicData = new ConcurrentHashMap<>();
+
+  private volatile long lastMergeTimeMs = System.currentTimeMillis();
 
   /**
    * Ucitava istorijske podatke iz JSON-a u historicData mapu i uptimeStore, kao i
@@ -41,10 +38,8 @@ public class ProcessData {
   public void loadFromHistory(List<ProcessItem> records) {
     for (ProcessItem item : records) {
       String name = item.getOriginalName();
-      uptimeStore.put(name, item.getUptimeSeconds());
 
-      if (item.isTrackingFrozen())
-        frozenProcesses.add(name);
+      uptimeStore.put(name, item.getUptimeSeconds());
 
       historicData.put(name, item);
     }
@@ -76,9 +71,15 @@ public class ProcessData {
       ProcessItem storedProcess = processDataStore.get(key);
 
       if (storedProcess == null) {
+        /**
+         * returns the previous value associated with key, or null if there was no
+         * mapping for key and removes the key from the map. This is atomic.
+         */
+        ProcessItem historyProcess = historicData.remove(key);
+
         // Nov ili ponovno pokrenut proces, proverava da li je prethodno ostao u freeze,
         // ako jeste upisi poslednju vrednost u processDataStore
-        boolean frozen = frozenProcesses.contains(key);
+        boolean frozen = historyProcess != null && historyProcess.isTrackingFrozen();
         long uptime = frozen
             ? uptimeStore.getOrDefault(key, 0L)
             : uptimeStore.merge(key, elapsedTime, Long::sum);
@@ -86,18 +87,16 @@ public class ProcessData {
         incoming.setUptimeSeconds(uptime);
         incoming.setTrackingFrozen(frozen);
 
-        // Ako postoji istorijski zapis, prenesi aliasName i category u novi proces i
-        // izbaci ga iz historicData mape (memoryLeak prevention)
-        ProcessItem historicPI = historicData.remove(key);
-        if (historicPI != null) {
-          incoming.setAliasName(historicPI.getAliasName());
-          incoming.setCategory(historicPI.getCategory());
+        // Ako postoji istorijski zapis, prenesi aliasName i category u novi proces
+        if (historyProcess != null) {
+          incoming.setAliasName(historyProcess.getAliasName());
+          incoming.setCategory(historyProcess.getCategory());
         }
 
         processDataStore.put(key, incoming);
 
-      } else if (frozenProcesses.contains(key)) {
-        // Postojeci proces u novom scan-u, zanemari uptime azuriranje
+      } else if (storedProcess.isTrackingFrozen()) {
+        // Postojeci proces u novom scan-u je frozen, zanemari uptime azuriranje
         storedProcess.setPid(incoming.getPid());
         storedProcess.setStartTime(incoming.getStartTime());
         storedProcess.setCpuUsage(incoming.getCpuUsage());
@@ -121,16 +120,24 @@ public class ProcessData {
 
   public long getLiveUptime(String originalName) {
     long banked = uptimeStore.getOrDefault(originalName, 0L);
-    if (frozenProcesses.contains(originalName)) {
+    ProcessItem liveProcess = processDataStore.get(originalName);
+    if (liveProcess != null && liveProcess.isTrackingFrozen()) {
       return banked; // frozen — don't add elapsed
     }
+
+    // Fall back to historicData for processes not running this session
+    ProcessItem historicProcess = historicData.get(originalName);
+    if (historicProcess != null && historicProcess.isTrackingFrozen()) {
+      return banked; // frozen — don't add elapsed
+    }
+
     long elapsed = (System.currentTimeMillis() - lastMergeTimeMs) / 1000L;
     long raw = banked + elapsed;
+
     return raw;
   }
 
   public void freezeUptime(String originalName) {
-    frozenProcesses.add(originalName);
     ProcessItem process = processDataStore.get(originalName);
     if (process != null)
       process.setTrackingFrozen(true);
@@ -138,14 +145,36 @@ public class ProcessData {
   }
 
   public void unfreezeUptime(String originalName) {
-    frozenProcesses.remove(originalName);
     ProcessItem process = processDataStore.get(originalName);
     if (process != null)
       process.setTrackingFrozen(false);
   }
 
   public boolean isFrozen(String originalName) {
-    return frozenProcesses.contains(originalName);
+    ProcessItem process = processDataStore.get(originalName);
+    if (process != null)
+      return process.isTrackingFrozen();
+
+    ProcessItem historicProcess = historicData.get(originalName);
+    return historicProcess != null && historicProcess.isTrackingFrozen();
+  }
+
+  /**
+   * Merge-uje trenutne podatke o procesima sa onima iz istorije koji se nisu
+   * pokretali u trenutnoj sesiji kako bi se svi upisali u json i istorijski
+   * podaci sacuvali
+   */
+  public List<ProcessItem> getAllWithHistory() {
+    List<ProcessItem> result = new ArrayList<>(processDataStore.values());
+
+    for (ProcessItem historicProcess : historicData.values()) {
+      String name = historicProcess.getOriginalName();
+      long storedUptime = uptimeStore.getOrDefault(name, historicProcess.getUptimeSeconds());
+
+      historicProcess.setUptimeSeconds(storedUptime);
+      result.add(historicProcess);
+    }
+    return result;
   }
 
   public List<ProcessItem> getAll() {

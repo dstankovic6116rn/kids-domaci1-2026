@@ -159,7 +159,7 @@ public class DataService {
 	 * @param onComplete
 	 */
 	public void saveProcesses(Consumer<Boolean> onComplete) {
-		List<ProcessItem> snapshot = processData.getAll();
+		List<ProcessItem> snapshot = processData.getAllWithHistory();
 		executorService.submitSave(snapshot, onComplete);
 	}
 
