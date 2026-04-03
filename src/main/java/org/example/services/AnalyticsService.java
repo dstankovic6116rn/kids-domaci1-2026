@@ -109,15 +109,20 @@ public class AnalyticsService {
       lastDay = dayOfYear;
     }
 
-    String nowKey = now.toString(); // "HH:mm:ss"
+    List<LocalTime> fixedTimes = config.getFixedSnapshotTimes();
 
-    for (LocalTime fixedTime : config.getFixedSnapshotTimes()) {
-      LocalTime truncated = fixedTime.withNano(0);
-      if (truncated.equals(now) && !firedToday.contains(nowKey)) {
-        firedToday.add(nowKey);
+    for (int i = 0; i < fixedTimes.size(); i++) {
+
+      LocalTime truncated = fixedTimes.get(i).withNano(0);
+      // Key by index — prevents same-second deduplication across distinct
+      // configured times. Two entries at 21:08:55 each fire exactly once.
+      String fireKey = i + "@" + now;
+
+      if (truncated.equals(now) && !firedToday.contains(fireKey)) {
+        firedToday.add(fireKey);
 
         System.out.println("[AnalyticsService] Fixed-time snapshot triggered at "
-            + nowKey);
+            + now + " (entry " + (i + 1) + ")");
 
         // Submit to file executor
         snapshotSubmitter.submitFixedTimeSnapshot();

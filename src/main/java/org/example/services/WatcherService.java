@@ -1,5 +1,7 @@
 package org.example.services;
 
+import java.io.IOException;
+import java.nio.file.ClosedWatchServiceException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +29,8 @@ public class WatcherService {
   private volatile boolean running = true;
   private Thread watcherThread;
 
+  private WatchService watchService;
+
   public WatcherService(ProcessData processData, JsonReader jsonReader, BooleanSupplier isSuppressed,
       Runnable acquireLock, Runnable releaseLock, String filePath, Runnable clearSuppression) {
     this.processData = processData;
@@ -46,8 +50,16 @@ public class WatcherService {
 
   public void shutdown() {
     running = false;
-    if (watcherThread != null) {
-      watcherThread.interrupt();
+    // Close the WatchService — this causes watcher.take() to throw
+    // ClosedWatchServiceException, unblocking the watcher thread cleanly.
+    // More graceful than interrupt() which is a general-purpose mechanism.
+    if (watchService != null) {
+      try {
+        watchService.close();
+      } catch (IOException e) {
+        System.err.println("[WatcherService] Error closing watch service: "
+            + e.getMessage());
+      }
     }
   }
 
@@ -61,21 +73,27 @@ public class WatcherService {
       return;
     }
 
-    try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
+    try {
 
-      parentDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
+      watchService = FileSystems.getDefault().newWatchService();
+      parentDir.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
       System.out.println("[WatcherService] Watching: " + target);
 
       while (running) {
         WatchKey key;
         try {
-          key = watcher.take();
+          key = watchService.take();
         } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
+          break;
+        } catch (ClosedWatchServiceException e) {
+          System.err.println("[WatcherService] Watch service error: " + e.getMessage());
           break;
         }
 
         for (WatchEvent<?> event : key.pollEvents()) {
+          if (!running)
+            break; // shutdown called while processing events
           if (event.kind() == StandardWatchEventKinds.OVERFLOW)
             continue;
 
@@ -100,6 +118,13 @@ public class WatcherService {
     } catch (Exception e) {
       System.err.println("[WatcherService] Failed to start watch: " + e.getMessage());
       e.printStackTrace();
+    } finally {
+      if (watchService != null) {
+        try {
+          watchService.close();
+        } catch (IOException ignored) {
+        }
+      }
     }
   };
 

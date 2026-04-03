@@ -26,7 +26,7 @@ public class DataService {
 	private final ProcessData processData = new ProcessData();
 	private final ExecutorService executorService = new ExecutorService(this);
 	private final JsonReader jsonReader = new JsonReader();
-	private WatcherService watcherService;
+	private volatile WatcherService watcherService;
 
 	public void start(Runnable onScanComplete) {
 		executorService.setOnScanComplete(onScanComplete);
@@ -109,13 +109,6 @@ public class DataService {
 		return processData.getLiveUptime(originalName);
 	}
 
-	public long getCategoryUptimeSeconds(String category) {
-		return processData.getAll().stream()
-				.filter(p -> p.getCategory().equals(category))
-				.mapToLong(ProcessItem::getUptimeSeconds)
-				.sum();
-	}
-
 	public ObservableList<PieChart.Data> buildProcessCategoryPieData() {
 		Map<String, Long> uptimeByCategory = processData.getAll().stream()
 				.filter(p -> !p.getCategory().equals(ProcessItem.DEFAULT_CATEGORY))
@@ -183,6 +176,9 @@ public class DataService {
 	}
 
 	public void shutdown() {
+		if (watcherService != null) {
+			watcherService.shutdown();
+		}
 		executorService.shutdown();
 		processScanService.shutdown();
 	}
