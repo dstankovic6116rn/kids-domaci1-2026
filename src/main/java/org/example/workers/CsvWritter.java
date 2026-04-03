@@ -17,14 +17,6 @@ import org.example.model.ProcessItem;
 
 public class CsvWritter {
 
-  /**
-   * Sequence counter se dodaje na file name da bi garantovao unikatnost ukoliko
-   * se na nivou milisekunde preklopi vise CSV write-a, sto ce verovatno biti ako
-   * malo verovatno, kako bismo izbegli upisivanje iz dva thread-a u isti file,
-   * bez potrebe za lock-om
-   */
-  private static final AtomicLong sequence = new AtomicLong(0);
-
   private static final DateTimeFormatter FILE_TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss_SSS");
 
   private static final DateTimeFormatter ROW_TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -36,10 +28,7 @@ public class CsvWritter {
     // strane executor-a
     ZonedDateTime zdt = Instant.now().atZone(ZoneOffset.UTC);
 
-    long seq = sequence.incrementAndGet();
-
-    String filename = "snapshot_" + FILE_TIMESTAMP_FORMAT.format(zdt)
-        + "_" + seq + ".csv";
+    String filename = "snapshot_" + FILE_TIMESTAMP_FORMAT.format(zdt) + ".csv";
     String rowTime = ROW_TIMESTAMP_FORMAT.format(zdt);
 
     Path target = Paths.get(filename);

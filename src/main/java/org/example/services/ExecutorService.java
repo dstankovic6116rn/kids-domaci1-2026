@@ -58,7 +58,7 @@ public class ExecutorService {
 
   private ScheduledFuture<?> scanJob;
 
-  // Callback koji okida FX Thread kada se posao zavrsi
+  // volatile — written on FX thread before start(), read on scan executor thread
   private volatile Runnable onScanComplete = () -> {
   };
 
