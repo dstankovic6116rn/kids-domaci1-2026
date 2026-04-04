@@ -28,9 +28,10 @@ public class DataService {
 	private final JsonReader jsonReader = new JsonReader();
 	private volatile WatcherService watcherService;
 
-	public void start(Runnable onScanComplete) {
+	public void start(Runnable onScanComplete, Runnable onSnapshotComplete) {
 		executorService.setOnScanComplete(onScanComplete);
 		executorService.setOnConfigLoaded(this::startWatcherService);
+		executorService.setOnSnapshotComplete(onSnapshotComplete);
 
 		executorService.start();
 	}

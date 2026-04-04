@@ -117,6 +117,10 @@ public class ExecutorService {
   private volatile Consumer<String> onConfigLoaded = path -> {
   };
 
+  // Called on FX thread nakon sto se JSON save zavrsi
+  private volatile Runnable onSnapshotComplete = () -> {
+  };
+
   private volatile AppConfig config;
 
   public ExecutorService(DataService dataService) {
@@ -269,6 +273,8 @@ public class ExecutorService {
     try {
       List<ProcessItem> snapshot = dataService.getCurrentProcceses();
       csvWritter.write(snapshot);
+
+      Platform.runLater(onSnapshotComplete);
     } catch (Exception e) {
       System.err.println("[FileExecutor] CSV snapshot failed: " + e.getMessage());
       e.printStackTrace();
@@ -277,6 +283,10 @@ public class ExecutorService {
 
   public void setOnScanComplete(Runnable handler) {
     this.onScanComplete = handler;
+  }
+
+  public void setOnSnapshotComplete(Runnable handler) {
+    this.onSnapshotComplete = handler;
   }
 
   /**

@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 public class ToolbarView {
@@ -25,6 +27,11 @@ public class ToolbarView {
     loadButton.getStyleClass().add("toolbar-button");
     shutdownButton = new Button("Shutdown");
     shutdownButton.getStyleClass().add("toolbar-button");
+
+    statusLabel.getStyleClass().add("toolbar-status-label");
+
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
 
     root = new HBox(saveButton, loadButton, shutdownButton, statusLabel);
     root.getStyleClass().add("toolbar");
@@ -48,6 +55,17 @@ public class ToolbarView {
     statusLabel.setText(success ? "Saved" : "Save failed");
     statusLabel.getStyleClass().removeAll("status-success", "status-error");
     statusLabel.getStyleClass().add(success ? "status-success" : "status-error");
+
+    // PauseTransition runs entirely on the FX thread — no background thread needed.
+    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+    pause.setOnFinished(e -> statusLabel.setText(""));
+    pause.play();
+  }
+
+  public void showSnapshotStatus() {
+    statusLabel.setText("Snapshot saved");
+    statusLabel.getStyleClass().removeAll("status-success", "status-error");
+    statusLabel.getStyleClass().add("status-success");
 
     // PauseTransition runs entirely on the FX thread — no background thread needed.
     PauseTransition pause = new PauseTransition(Duration.seconds(3));

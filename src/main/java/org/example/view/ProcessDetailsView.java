@@ -84,11 +84,20 @@ public class ProcessDetailsView extends VBox {
     freezeTrackingBtn.setOnAction(e -> onFreezeTracking.run());
     changeCategoryBtn.setOnAction(e -> onChangeProcessCategory.run());
 
-    VBox buttonGroup = new VBox(10, killBtn, changeNameBtn, freezeTrackingBtn, changeCategoryBtn);
-    buttonGroup.setAlignment(Pos.CENTER);
-    buttonGroup.getStyleClass().add("process-detail-btn-group");
+    GridPane buttonGridPane = new GridPane();
+    buttonGridPane.setHgap(10);
+    buttonGridPane.setVgap(10);
+    buttonGridPane.add(killBtn, 0, 0);
+    buttonGridPane.add(changeNameBtn, 1, 0);
+    buttonGridPane.add(freezeTrackingBtn, 0, 1);
+    buttonGridPane.add(changeCategoryBtn, 1, 1);
+    ColumnConstraints col1 = new ColumnConstraints();
+    col1.setHgrow(Priority.ALWAYS);
+    ColumnConstraints col2 = new ColumnConstraints();
+    col2.setHgrow(Priority.ALWAYS);
+    buttonGridPane.getColumnConstraints().addAll(col1, col2);
 
-    VBox content = new VBox(12, nameLabel, uptimeLabel, buildMetricsGrid(), buttonGroup);
+    VBox content = new VBox(12, nameLabel, uptimeLabel, buildMetricsGrid(), buttonGridPane);
     content.setPadding(new Insets(24));
 
     VBox page = new VBox(topBar, content);

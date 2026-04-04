@@ -218,3 +218,18 @@
     -fx-background-color: #EBF8F5;
     -fx-text-fill: #1ABC9C;
 }
+
+/* ── Toolbar status label ──────────────────────────────────── */
+.toolbar-status-label {
+    -fx-font-size: 14px;
+    -fx-padding: 0 8 0 8;
+    -fx-font-weight: bold;
+}
+ 
+.status-success {
+    -fx-text-fill: #000;
+}
+ 
+.status-error {
+    -fx-text-fill: #E74C3C;
+}

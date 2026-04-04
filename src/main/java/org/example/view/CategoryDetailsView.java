@@ -13,10 +13,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -71,8 +73,10 @@ public class CategoryDetailsView extends VBox {
     rightPanel.setAlignment(Pos.TOP_LEFT);
     HBox.setHgrow(rightPanel, Priority.ALWAYS);
 
-    HBox body = new HBox(16, table, rightPanel);
-    body.setPadding(new Insets(16));
+    SplitPane body = new SplitPane(table, rightPanel);
+    body.setOrientation(Orientation.HORIZONTAL);
+    body.setDividerPositions(0.5);
+
     VBox.setVgrow(body, Priority.ALWAYS);
 
     getChildren().addAll(topBar, body);

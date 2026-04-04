@@ -31,7 +31,7 @@ public class MainController {
 
     mainView.setAnalyticsService(analyticsService);
 
-    dataService.start(processListController::onScanComplete);
+    dataService.start(processListController::onScanComplete, mainView.getToolbarView()::showSnapshotStatus);
 
     analyticsService.start();
   }

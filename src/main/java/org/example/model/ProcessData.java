@@ -133,7 +133,16 @@ public class ProcessData {
     }
 
     // Izbaci procese koji vise ne postoje
-    processDataStore.keySet().removeIf(k -> !scannedKeys.contains(k));
+    processDataStore.entrySet().removeIf(k -> {
+      if (scannedKeys.contains(k.getKey())) {
+        return false;
+      } else {
+        // Ovi procesi su verovatno obrisani ili ugaseni od strane korisnika,
+        // prebaci ih u historicData mapu
+        historicData.put(k.getKey(), k.getValue());
+        return true;
+      }
+    });
   }
 
   public long getLiveUptime(String originalName) {
